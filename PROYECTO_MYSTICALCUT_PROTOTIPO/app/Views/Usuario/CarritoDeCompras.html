@@ -14,8 +14,8 @@
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous"></script>
         <title>Carrito de Compras</title>
-        <link rel="stylesheet" href="../../../public/assets/css/index.css">
-        <link rel="stylesheet" href="../../../public/assets/css/stylescarritodecompras.css">
+        <link rel="stylesheet" href="../../../public/assets/css/Usuario/index.css">
+        <link rel="stylesheet" href="../../../public/assets/css/Usuario/stylescarritodecompras.css">
     </head>
     <body>
         <div class="container">
@@ -40,60 +40,55 @@
                         <div class="category">
                             <div class="category-content">
                                 <div class="product">
-                                    <img src="../../../public/assets/img/minoxidilpelo.jpg"
-                                        alt="Minoxidil pelo">
-                                        <h2>Minoxidil</h2>
-                                        <p>Caida Cabello </p>
-                                        <p>$30.000</p>
-                                        <button class="add-to-cart" data-name="Minoxidil" data-price="30000">+</button>
+                                    <img src="../../../public/assets/img/minoxidilpelo.jpg" alt="Minoxidil pelo"
+                                        onclick="window.location.href='DetalleProductos.html';">
+                                    <h2>Minoxidil</h2>
+                                    <p>Caida Cabello</p>
+                                    <p>$30.000</p>
+                                    <button class="add-to-cart" data-name="Minoxidil" data-price="30000">+</button>
                                 </div>
                                 <div class="product">
-                                    <img src="../../../public/assets/img/tratamiento.jpg"
-                                        alt="Tratamiento">
-                                        <h2>Tratamiento</h2>
-                                        <p>Capilar</p>
-                                        <p>$25.000</p>
-                                        <button class="add-to-cart" data-name="Tratamiento" data-price="25000">+</button>
+                                    <img src="../../../public/assets/img/tratamiento.jpg" alt="Tratamiento">
+                                    <h2>Tratamiento</h2>
+                                    <p>Capilar</p>
+                                    <p>$25.000</p>
+                                    <button class="add-to-cart" data-name="Tratamiento" data-price="25000">+</button>
                                 </div>
                             </div>
                         </div>
                         <div class="category">
                             <div class="category-content">
                                 <div class="product">
-                                    <img src="../../../public/assets/img/shaver.jpg"
-                                        alt="Cera mate">
-                                    <h2>shaver</h2>
-                                    <p>Patillera</p>
-                                    <p>$80.000</p>
-                                    <button class="add-to-cart" data-name="Shaver" data-price="80000">+</button>
+                                    <img src="../../../public/assets/img/minoxidilbarba.jpg" alt="Minoxidil barba">
+                                    <h2>Minoxidil</h2>
+                                    <p>Caida de Barba</p>
+                                    <p>$30.000</p>
+                                    <button class="add-to-cart" data-name="Minoxidil barba" data-price="30000">+</button>
                                 </div>
                                 <div class="product">
-                                    <img src="../../../public/assets/img/shampoocaida.jpg"
-                                        alt="Caída cabello">
-                                    <h2>Shampoo</h2>
-                                    <p>Caída cabello</p>
+                                    <img src="../../../public/assets/img/cremabarba.jpg" alt="Crema">
+                                    <h2>Crema</h2>
+                                    <p>Crema facial</p>
                                     <p>$15.000</p>
-                                    <button class="add-to-cart" data-name="Shampoo" data-price="15000">+</button>
+                                    <button class="add-to-cart" data-name="Crema" data-price="15000">+</button>
                                 </div>
                             </div>
                         </div>
                         <div class="category">
                             <div class="category-content">
                                 <div class="product">
-                                    <img src="../../../public/assets/img/cepillobarba.jpg"
-                                        alt="Cepillo barba">
-                                    <h2>Cepillo</h2>
-                                    <p>Barba</p>
-                                    <p>$12.000</p>
-                                    <button class="add-to-cart" data-name="Cepillo" data-price="12000">+</button>
-                                </div>
-                                <div class="product">
-                                    <img src="../../../public/assets/img/cerabrillante.jpg"
-                                        alt="Cera brillante">
+                                    <img src="../../../public/assets/img/cerabrillante.jpg" alt="Cera brillante">
                                     <h2>Cera</h2>
                                     <p>Cera brillante</p>
                                     <p>$25.000</p>
-                                    <button class="add-to-cart" data-name="Cera" data-price="25000">+</button>
+                                    <button class="add-to-cart" data-name="Cera brillante" data-price="25000">+</button>
+                                </div>
+                                <div class="product">
+                                    <img src="../../../public/assets/img/cerabrillante.jpg" alt="Cera brillante">
+                                    <h2>Cera</h2>
+                                    <p>Cera Mate</p>
+                                    <p>$20.000</p>
+                                    <button class="add-to-cart" data-name="Cera Mate" data-price="20000">+</button>
                                 </div>
                             </div>
                         </div>
@@ -102,9 +97,18 @@
                                 <h3>Productos</h3>
                                 <ul id="product-list"></ul>
                                 <div class="cost-summary">
-                                    <p>Subtotal: <span id="subtotal">0</span> COP</p>
-                                    <p>Descuentos: <span id="discount">0</span> COP</p>
-                                    <p>Total: <strong><span id="total">0</span> COP</strong></p>
+                                    <div class="price-summary">
+                                        <p class="label">Subtotal:</p>
+                                        <p class="price" id="subtotal">0 COP</p>
+                                    </div>
+                                    <div class="price-summary">
+                                        <p class="label">Descuentos:</p>
+                                        <p class="price" id="discount">0 COP</p>
+                                    </div>
+                                    <div class="price-summary">
+                                        <p class="label">Total:</p>
+                                        <p class="price"><strong id="total">0 COP</strong></p>
+                                    </div>
                                 </div>
                                 <button class="confirm-button" onclick="window.location.href='ProcesarPago.html';">Pagar</button>
                                 <button class="back-button1" onclick="window.location.href='Productos.html';">Regresar</button>
@@ -115,28 +119,11 @@
             </div>
 
         </div>
-        <script>
-            let subtotal = 0;
-    
-            document.querySelectorAll('.add-to-cart').forEach(button => {
-                button.addEventListener('click', () => {
-                    const name = button.getAttribute('data-name');
-                    const price = parseInt(button.getAttribute('data-price'));
-    
-                    const productList = document.getElementById('product-list');
-                    const productItem = document.createElement('li');
-                    productItem.textContent = `${name} - ${price} COP`;
-                    productList.appendChild(productItem);
-    
-                    subtotal += price;
-                    const discount = 10000; // Ejemplo de descuento
-                    const total = subtotal - discount;
-    
-                    document.getElementById('subtotal').textContent = subtotal;
-                    document.getElementById('discount').textContent = discount;
-                    document.getElementById('total').textContent = total;
-                });
-            });
-        </script>
+        <script src="../../../public/assets/js/Usuario/carritoCompras.js"></script>
     </body>
+    <footer class="py-3 my-4">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+        </ul>
+        <p class="text-center text-white"></p>
+    </footer>
 </html>

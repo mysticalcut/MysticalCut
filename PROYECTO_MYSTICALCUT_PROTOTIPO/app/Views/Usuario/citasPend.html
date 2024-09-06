@@ -10,9 +10,11 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.all.min.js"></script>
     <title>Citas Pendientes</title>
-    <link rel="stylesheet" href="../../../public/assets/css/index.css">
-    <link rel="stylesheet" href="../../../public/assets/css/citasPend.css">
+    <link rel="stylesheet" href="../../../public/assets/css/Usuario/index.css">
+    <link rel="stylesheet" href="../../../public/assets/css/Usuario/citasPend.css">
 </head>
 
 <body>
@@ -44,29 +46,29 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <tr data-id="1">
                             <td>1</td>
                             <td>28/08/2024</td>
                             <td>Corte + Cejas</td>
                             <td>$16.000</td>
                             <td>Pendiente</td>
-                            <td><div class="btn-cancelar"><a onclick="window.location.href='MensajeEliminarCita.html';"><img src="../../../public/assets/img/icons/x-square-fill.svg"></div></a></td>
+                            <td><div class="btn-cancelar"><a onclick="confirmDeleteCita(1)"><img src="../../../public/assets/img/Signodecancelacion.png"></div></a></td>
                         </tr>
-                        <tr>
+                        <tr data-id="1">
                             <td>2</td>
                             <td>22/08/2024</td>
                             <td>Barba</td>
                             <td>$4.000</td>
                             <td>Terminado</td>
-                            <td><div class="btn-chulo"><img src="../../../public/assets/img/icons/check-circle-fill.svg"></div></td>
+                            <td><div class="btn-chulo"><img src="../../../public/assets/img/verificado.png"></div></td>
                         </tr>
-                        <tr>
+                        <tr data-id="1">
                             <td>3</td>
                             <td>6/08/2024</td>
                             <td>Corte</td>
                             <td>$14.000</td>
                             <td>Terminado</td>
-                            <td><div class="btn-chulo"><img src="../../../public/assets/img/icons/check-circle-fill.svg"></div></td>
+                            <td><div class="btn-chulo"><img src="../../../public/assets/img/verificado.png"></div></td>
                         </tr>
                     </tbody>
                 </table>
@@ -74,13 +76,15 @@
         </div>
     </div>
 
-    <div class="login-container mt-3">
-        <button class="back-button btn btn-secondary" onclick="window.location.href='PaginaPrincipal.html';">Regresar</button>
+    <div class="back-button0">
+        <button class="back-button" onclick="window.location.href='PaginaPrincipal.html';">Regresar</button>
     </div>
 
     <footer class="py-3 my-4">
-        <ul class="nav justify-content-center border-bottom pb-3 mb-3"></ul>
-    </footer>
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+        </ul>
+        <p class="text-center text-white"></p>
+      </footer>
 </body>
-
+<script src="../../../public/assets/js/Usuario/eliminarCita.js"></script>
 </html>
