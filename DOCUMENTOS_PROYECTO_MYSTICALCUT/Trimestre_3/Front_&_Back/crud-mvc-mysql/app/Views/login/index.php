@@ -4,8 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="<?= FOLDER_PUBLIC_ASSETS ?>/img/background/LOGOHEADERTRANS.png">
     <?php include_once FOLDER_VIEWS_CSS . 'style.php'; ?>
-    <title><?= $title ?></title>
+    <title>Login</title>
 </head>
 
 <body>
@@ -42,12 +43,11 @@
             <!-- Additional Links -->
             <div class="links text-center mt-3">
                 <a href="<?= URL_CONTROLLER ?>/login/viewLostPassword">Recuperar Contraseña</a>
-                <a href="Registro.html">¿No tienes Usuario? Regístrate aquí</a>
-                <a href="#" id="helpLink">Ayuda</a>
+                <a href="<?=URL_CONTROLLER_REGISTER?>">¿No tienes Usuario? Regístrate aquí</a>
             </div>
         </form>
     </div>
-    <?php include_once FOLDER_VIEWS_ASSETS . 'footer/footerLogin.php'; ?>
+
     <?php include_once FOLDER_VIEWS_JS . 'js.php'; ?>
 </body>
 

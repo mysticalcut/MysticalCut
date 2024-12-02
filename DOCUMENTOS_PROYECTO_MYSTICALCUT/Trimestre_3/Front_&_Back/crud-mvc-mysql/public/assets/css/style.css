@@ -1,6 +1,6 @@
 @font-face {
   font-family: Amasis_MT_Std_Black;
-  src: url('../../../assets/fonts/Amasis_MT_Std_Black/Amasis_MT_Std_Black.ttf');
+  src: url('../fonts/Amasis_MT_Std_Black/Amasis_MT_Std_Black.ttf');
 }
 
 /* Cudra el carrusel y que la pagina principal el titulo quede centrado */
@@ -16,7 +16,6 @@
   transform: translateY(-30%);
 }
 
-/*Cuadra placticamente todo el formulario de login */
 body {
   background-color: #000000;
   color: #ffffff;
@@ -128,27 +127,15 @@ h2 {
   margin-top: 15px;
 }
 
-
-/* Global Styles */
-body {
-  background-color: #000;
-  color: #fff;
+.back-button:hover {
+  background-color: #ccc;
 }
 
 /* Footer */
 footer {
-  background-color: #00000000;
-  /* Fondo negro */
-  color: #D4AF37;
-  /* Texto dorado */
-  padding: 20px 0;
-  /* Espaciado arriba y abajo */
-  text-align: center;
-  /* Centramos el texto */
-  position: relative;
-  /* Para permitir ajustes de posición si es necesario */
   margin-top: auto;
-  /* Asegura que el pie de página se mantenga al final de la página */
+  background-color: #22222200;
+  padding: 10px 0;
 }
 
 footer h5 {
@@ -195,6 +182,17 @@ footer .nav-link:hover {
   /* Color de los iconos al pasar el ratón */
 }
 
+.icon {
+  width: 50px;
+  height: 50px;
+  margin-right: 25px;
+  cursor: pointer;
+}
+
+.icon:hover {
+  opacity: 0.8;
+  /* Opcional: agregue un efecto de desplazamiento */
+}
 
 .btn-custom {
   background-color: #CCAF54;
@@ -292,20 +290,6 @@ footer .nav-link:hover {
   border-radius: 5px;
   margin-top: 10px;
 
-}
-
-
-
-
-
-
-
-
-
-/* Global Styles */
-body {
-  background-color: #000;
-  color: #fff;
 }
 
 /* Navbar */

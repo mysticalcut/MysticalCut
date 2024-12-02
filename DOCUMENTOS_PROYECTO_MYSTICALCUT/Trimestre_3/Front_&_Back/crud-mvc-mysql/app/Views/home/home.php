@@ -4,9 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="<?= FOLDER_PUBLIC_ASSETS ?>/img/background/LOGOHEADERTRANS.png">
     <?php include_once FOLDER_VIEWS_CSS . 'style.php'; ?>
-    <?php include_once FOLDER_VIEWS_CSS . 'home.php'; ?>
-    <title><?= $title ?></title>
+
+    <title>Home</title>
 </head>
 
 <body>
@@ -41,7 +42,7 @@
                         <hr class="dropdown-divider">
                     </li>
                     <li>
-                        <a class="dropdown-item" href="<?=URL_CONTROLLER_LOGIN?>">
+                        <a class="dropdown-item" href="<?= URL_CONTROLLER ?>/login/logOut">
                             <i class="fas fa-sign-out-alt me-2"></i> Cerrar sesión
                         </a>
                     </li>

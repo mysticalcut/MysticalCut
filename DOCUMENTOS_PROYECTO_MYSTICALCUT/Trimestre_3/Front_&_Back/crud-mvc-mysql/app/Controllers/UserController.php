@@ -1,10 +1,6 @@
 <?php
 
-/**
- * Author:DIEGO CASALLAS
- * Date:13/11/2024
- * Descriptions: This is the user class controller data model
- */
+
 namespace App\Controllers;
 
 use App\Models\UserModel;
@@ -148,6 +144,7 @@ class UserController
    * The create function attempts to create a new entry using model data and handles exceptions by
    * setting appropriate response data.
    */
+
   public function create()
   {
     try {
@@ -302,4 +299,5 @@ class UserController
 
     return $getModel;
   }
+  
 }

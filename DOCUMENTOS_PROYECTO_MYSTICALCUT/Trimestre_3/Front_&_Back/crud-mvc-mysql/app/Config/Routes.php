@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Author:DIEGO CASALLAS
- * Date:13/11/2024
- * Descriptions: This is the class for managing allowed routes.
- */
 
 namespace App\Config;
 
@@ -124,11 +119,14 @@ class Routes
       ["method" => "index", "REQUEST" => 'GET', "controller" => "LoginController"],
       ["method" => "viewLostPassword", "REQUEST" => 'GET', "controller" => "LoginController"],
       ["method" => "viewPasswordChange", "REQUEST" => 'GET', "controller" => "LoginController"],
+ 
     ];
     $homeRoutes = [
-      ["method" => "dashboard", "REQUEST" => "GET", "controller" => "HomeController", "filter" => "logIn"],
+      ["method" => "perfil", "REQUEST" => "GET", "controller" => "HomeController", "filter" => "logIn"],
       ["method" => "home", "REQUEST" => "GET", "controller" => "HomeController", "filter" => "logIn"],
       ["method" => "logOut", "REQUEST" => "GET", "controller" => "LoginController"],
+      ["method" => "index", "REQUEST" => 'GET', "controller" => "HomeController"],
+      ["method" => "register", "REQUEST" => 'GET', "controller" => "HomeController"],
     ];
     $factureRoutes = [
       ["method" => "index", "REQUEST" => "GET", "controller" => "FactureController", "filter" => "logIn"],

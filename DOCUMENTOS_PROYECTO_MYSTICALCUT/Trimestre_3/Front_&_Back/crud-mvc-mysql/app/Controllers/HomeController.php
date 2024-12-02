@@ -1,11 +1,5 @@
 <?php
 
-/**
- * Author:DIEGO CASALLAS
- * Date:13/11/2024
- * Descriptions: This is the home class controller data model
- */
-
 namespace App\Controllers;
 
 
@@ -43,15 +37,15 @@ class HomeController
     $this->roleModules = $this->roleModuleModel->roleModules($userRole);
   }
 
-  public function dashboard()
+  public function perfil()
   {
     try {
 
-      $view = new View('home/index');
-      $view->set('title', 'Home Dashboard');
+      $view = new View('home/perfil');
+      $view->set('title', 'Home Index');
       $view->set('getUser',  $this->userApp);
       $view->set('roleModules',  $this->roleModules);
-      $view->set('title', 'Home Dashboard');
+      $view->set('title', 'Home Index');
       $view->render();
     } catch (Exception $e) {
       $this->data['data'] = [];
@@ -68,6 +62,39 @@ class HomeController
     try {
 
       $view = new View('home/home');
+      $view->set('title', 'Home index');
+      $view->set('getUser',  $this->userApp);
+      $view->set('roleModules',  $this->roleModules);
+      $view->render();
+    } catch (Exception $e) {
+      $this->data['data'] = [];
+      $this->data['status'] = 404;
+      $this->data['message'] = "Error: " . $e->getMessage();
+    }
+    //echo json_encode($this->data);
+  }
+public function index()
+  {
+    try {
+
+      $view = new View('home/index');
+      $view->set('title', 'Home index');
+      $view->set('getUser',  $this->userApp);
+      $view->set('roleModules',  $this->roleModules);
+      $view->render();
+    } catch (Exception $e) {
+      $this->data['data'] = [];
+      $this->data['status'] = 404;
+      $this->data['message'] = "Error: " . $e->getMessage();
+    }
+    //echo json_encode($this->data);
+  }
+
+  public function register()
+  {
+    try {
+
+      $view = new View('home/register');
       $view->set('title', 'Home index');
       $view->set('getUser',  $this->userApp);
       $view->set('roleModules',  $this->roleModules);

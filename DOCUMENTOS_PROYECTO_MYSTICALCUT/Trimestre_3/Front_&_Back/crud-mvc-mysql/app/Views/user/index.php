@@ -7,21 +7,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="<?= FOLDER_PUBLIC_ASSETS ?>/img/background/LOGOHEADERTRANS.png">
     <?php include_once FOLDER_VIEWS_CSS . 'style.php'; ?>
     <?php include_once FOLDER_VIEWS_CSS . 'verycrearusuario.php'; ?>
-    <title><?= $title ?></title>
+
+    <title>User</title>
 </head>
 
 <body>
-    <?php include_once FOLDER_VIEWS_ASSETS . 'nav/navBar.php'; ?>
 
     <div class="container">
         <header
             class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-            <ul class="nav col-12 justify-content-center mx-auto">
-                <h1>Usuarios</h1>
-            </ul>
+            <div class="col-md-3 mb-2 mb-md-0">
+                <img src="<?= FOLDER_PUBLIC_ASSETS ?>/img/background/LOGO.png" alt="Logo" width="125" height="125"
+                    class="d-inline-block align-text-top">
+            </div>
+
+            <div class="col-md-3 text-end">
+                <div class="dropdown d-inline">
+                    <a href="#" class="textnav dropdown-toggle" id="profileDropdown" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        <img src="<?= FOLDER_PUBLIC_ASSETS ?>/img/background/Icono usuario.png" alt="Profile"
+                            class="icon">
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                        <li>
+                            <a class="dropdown-item" href="<?= URL_CONTROLLER_HOME ?>">
+                                <i class="fas fa-cog me-2"></i>Perfil
+                            </a>
+                        </li>
+
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="<?= URL_CONTROLLER_INDEX ?>">
+                                <i class="fas fa-sign-out-alt me-2"></i> Cerrar sesión
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </header>
+    </div>
+
+    <div class="container">
+
 
         <div class="d-flex align-items-center justify-content-between w-100 mb-3">
             <div>
@@ -70,11 +102,15 @@
 
         <div class="btn-regresar mt-3">
             <button class="back-button btn btn-secondary"
-                onclick="window.location.href='verPerfilADM.html';">Regresar</button>
+                onclick="window.location.href='../home/perfil';">Regresar</button>
         </div>
     </div>
 
-    <?php include_once FOLDER_VIEWS_ASSETS . 'footer/footer.php'; ?>
+    <footer class="py-3 my-4">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+        </ul>
+        <p class="text-center text-white"></p>
+    </footer>
     <?php include_once FOLDER_VIEWS_JS . 'js.php'; ?>
 </body>
 

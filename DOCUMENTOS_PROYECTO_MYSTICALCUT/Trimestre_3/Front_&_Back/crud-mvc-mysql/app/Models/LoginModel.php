@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Author:DIEGO CASALLAS
- * Date:22/11/2024
- * Descriptions: This is the class for the data model login functionality manager.
- */
 
 namespace App\Models;
 
