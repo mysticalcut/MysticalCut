@@ -114,3 +114,13 @@ CREATE TABLE IF NOT EXISTS `role_module` (
   KEY `role_module_role` (`role_fk`),
   KEY `role_module_module` (`module_fk`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Volcado de datos para la tabla `role_module`
+--
+
+INSERT INTO `role_module` (`roleModule_id`, `role_fk`, `module_fk`) VALUES
+(1, 1, 1),
+(2, 1, 2),
+(3, 2, 1),
+(4, 3, 1);
+
