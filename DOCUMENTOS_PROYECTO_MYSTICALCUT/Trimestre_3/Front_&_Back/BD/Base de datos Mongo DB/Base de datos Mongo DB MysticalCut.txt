@@ -3,11 +3,11 @@ Se crea base de datos MistycalCut:
 Colección Categoria_Productos
 
 [
-  { "id_categoria": 1, "nombre": "Cuidado del cabello" },
-  { "id_categoria": 2, "nombre": "Cuidado de la barba" },
-  { "id_categoria": 3, "nombre": "Cuidado facial" },
-  { "id_categoria": 4, "nombre": "Herramientas de peluquería" },
-  { "id_categoria": 5, "nombre": "Accesorios de estilismo" }
+  { "id_categoria": 1, "nombre": "Cortes de Cabello" },
+  { "id_categoria": 2, "nombre": "Afeitado" },
+  { "id_categoria": 3, "nombre": "Tintes y Coloracion" },
+  { "id_categoria": 4, "nombre": "Tratamientos Capilares" },
+  { "id_categoria": 5, "nombre": "Productos de Estilo" }
 ]
 
 
