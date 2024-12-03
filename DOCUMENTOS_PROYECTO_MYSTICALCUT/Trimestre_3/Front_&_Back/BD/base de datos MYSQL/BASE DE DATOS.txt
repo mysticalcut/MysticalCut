@@ -194,6 +194,15 @@ ADD CONSTRAINT fk_factura_usuario
 FOREIGN KEY (`user_fk`) REFERENCES user (`user_id`);
 
 
+--
+-- Volcado de datos para la tabla `userstatus`
+--
+
+INSERT INTO Facture (`id_facture`,`date`, `total_value`, `user_fk`) 
+VALUES 
+('1','2024-12-03', 150.75, 1), 
+('2','2024-12-04', 250.00, 2);
+
 
 --
 -- Restricciones para tablas volcadas
