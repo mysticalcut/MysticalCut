@@ -51,3 +51,19 @@ WHERE ROL.role_name=dataSearch OR UST.userStatus_name=dataSearch OR US.user_user
 END$$
 
 DELIMITER ;
+
+--
+-- Estructura de tabla para la tabla `module`
+--
+
+DROP TABLE IF EXISTS `module`;
+CREATE TABLE IF NOT EXISTS `module` (
+  `module_id` int(11) NOT NULL AUTO_INCREMENT,
+  `module_name` varchar(20) NOT NULL,
+  `module_route` varchar(20) NOT NULL,
+  `module_icon` varchar(40) NOT NULL,
+  `module_description` varchar(200) NOT NULL,
+  PRIMARY KEY (`module_id`),
+  UNIQUE KEY `module_name` (`module_name`),
+  UNIQUE KEY `module_route` (`module_route`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
