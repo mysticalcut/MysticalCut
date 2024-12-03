@@ -90,3 +90,12 @@ CREATE TABLE IF NOT EXISTS `role` (
   UNIQUE KEY `role_name` (`role_name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+
+-- Volcado de datos para la tabla `role`
+--
+
+INSERT INTO `role` (`role_id`, `role_name`) VALUES
+(1, 'Admin'),
+(2, 'Employee'),
+(3, 'Client');
+
