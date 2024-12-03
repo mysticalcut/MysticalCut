@@ -179,3 +179,14 @@ INSERT INTO `userstatus` (`userStatus_id`, `userStatus_name`) VALUES
 (2, 'Inactive'),
 (3, 'Blocked');
 
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `role_module`
+--
+ALTER TABLE `role_module`
+  ADD CONSTRAINT `role_module_module` FOREIGN KEY (`module_fk`) REFERENCES `module` (`module_id`),
+  ADD CONSTRAINT `role_module_role` FOREIGN KEY (`role_fk`) REFERENCES `role` (`role_id`);
+
