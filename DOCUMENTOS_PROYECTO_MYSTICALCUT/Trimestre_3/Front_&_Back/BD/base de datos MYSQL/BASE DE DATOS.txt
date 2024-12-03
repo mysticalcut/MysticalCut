@@ -155,3 +155,17 @@ CREATE TABLE IF NOT EXISTS `user` (
 INSERT INTO `user` (`user_id`,`user_user`, `user_password`, `document_type`, `document_number`, `full_name`, `address`, `phone`, `userStatus_fk`, `role_fk`
 ) VALUES 
 ('1','johndoe', SHA2('securePassword123', 256),'Cédula de Ciudadanía','1234567890','John Doe','Calle Principal #123','3001234567', 1, 2);
+
+
+--
+-- Estructura de tabla para la tabla `userstatus`
+--
+
+DROP TABLE IF EXISTS `userstatus`;
+CREATE TABLE IF NOT EXISTS `userstatus` (
+  `userStatus_id` int(11) NOT NULL AUTO_INCREMENT,
+  `userStatus_name` varchar(20) NOT NULL,
+  PRIMARY KEY (`userStatus_id`),
+  UNIQUE KEY `userStatus_name` (`userStatus_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
