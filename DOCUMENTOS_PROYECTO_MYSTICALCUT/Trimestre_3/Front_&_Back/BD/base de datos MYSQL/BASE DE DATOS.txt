@@ -195,7 +195,7 @@ FOREIGN KEY (`user_fk`) REFERENCES user (`user_id`);
 
 
 --
--- Volcado de datos para la tabla `userstatus`
+-- Volcado de datos para la tabla `facture`
 --
 
 INSERT INTO Facture (`id_facture`,`date`, `total_value`, `user_fk`) 
