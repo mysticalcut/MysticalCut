@@ -31,12 +31,12 @@
         </div>
         <form class="login-form">
             <label for="username">Correo Electrónico</label>
-            <input type="text" id="RecuperarPassword" name="RecuperarPassword">
+            <input type="text" required id="RecuperarPassword" name="RecuperarPassword">
 
 
         </form>
         <div class="d-flex flex-column align-items-center mt-3">
-            <a class="btn back-button mb-2" onclick="recuperarContraseña()">Enviar Correo</a>
+            <a class="btn back-button mb-2" onclick="recuperarContraseña()">Enviar Correo</a> 
             <button class="back-button" onclick="window.location.href='index';">Regresar</button>
         </div>
     </div>
