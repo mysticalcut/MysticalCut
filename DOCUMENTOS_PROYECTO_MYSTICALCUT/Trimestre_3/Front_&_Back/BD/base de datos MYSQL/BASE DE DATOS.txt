@@ -216,6 +216,17 @@ CREATE TABLE `category_product` (
     `name` VARCHAR(100)
 );
 
+--
+-- Volcado de datos para la tabla `facture`
+--
+
+INSERT INTO `category_product` (`id_category`, `name`)
+VALUES 
+(1, 'Cortes de Cabello'),
+(2, 'Afeitado'),
+(3, 'Tintes y Coloración'),
+(4, 'Tratamientos Capilares'),
+(5, 'Productos de Estilo');
 
 
 
