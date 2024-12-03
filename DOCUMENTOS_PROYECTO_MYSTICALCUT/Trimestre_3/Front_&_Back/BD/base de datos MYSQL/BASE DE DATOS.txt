@@ -149,7 +149,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 
 --
--- Volcado de datos para la tabla `userstatus`
+-- Volcado de datos para la tabla `user`
 --
 INSERT INTO `user` (`user_id`,`user_email`, `user_password`, `document_type`, `document_number`, `full_name`, `address`, `phone`, `userStatus_fk`, `role_fk`
 ) VALUES 
@@ -207,8 +207,18 @@ VALUES
 ('3','2024-12-03', 160.75, 1), 
 ('4','2024-12-04', 250.00, 1);
 
-
 --
+-- Estructura de tabla para la tabla `category_product`
+--
+
+CREATE TABLE `category_product` (
+    `id_category` INT NOT NULL PRIMARY KEY,
+    `name` VARCHAR(100)
+);
+
+
+
+
 -- Restricciones para tablas volcadas
 --
 
