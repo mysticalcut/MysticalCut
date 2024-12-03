@@ -157,6 +157,7 @@ INSERT INTO `user` (`user_id`,`user_email`, `user_password`, `document_type`, `d
 ('2','andresecasvar05@gmail.com','123456','Cédula de Ciudadanía','1011200996','Andres Esteban Castañeda','Calle Principal #1235','3175248114', 1, 2),
 ('3','leonoscarandres04@gmail.com','1234567','Cédula de Ciudadanía','1022933160','Oscar Andres Leon','Calle Principal #1236','3209241730', 1, 2),
 ('4','hharold855@gmail.com', '12345678','Cédula de Ciudadanía','1022938044','Harold David Hernandez','Calle Principal #1237','3212709274', 1, 2);
+('5','prueba@gmail.com', '123456789','Cédula de Ciudadanía','1237856337','trabajo de prueba','Calle Principal #12378','323456789', 1, 2);
 
 
 --
@@ -206,6 +207,7 @@ VALUES
 ('2','2024-12-03', 180.75, 1), 
 ('3','2024-12-03', 160.75, 1), 
 ('4','2024-12-04', 250.00, 1);
+('5','2024-12-04', 350.00, 1);
 
 --
 -- Estructura de tabla para la tabla `category_product`
@@ -217,7 +219,7 @@ CREATE TABLE `category_product` (
 );
 
 --
--- Volcado de datos para la tabla `facture`
+-- Volcado de datos para la tabla category_product`
 --
 
 INSERT INTO `category_product` (`id_category`, `name`)
