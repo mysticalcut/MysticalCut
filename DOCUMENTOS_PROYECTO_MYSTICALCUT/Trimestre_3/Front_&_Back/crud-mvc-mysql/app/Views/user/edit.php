@@ -13,7 +13,6 @@
 </head>
 
 <body>
-  <?php include_once FOLDER_VIEWS_ASSETS . 'nav/navBar.php'; ?>
   <div class="container">
     <h3><?= $title ?></h3>
 
