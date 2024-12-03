@@ -41,3 +41,13 @@ SELECT `user_id`,`user_user`,`user_password`, UST.userStatus_name AS `userStatus
 INNER JOIN role AS ROL ON US.role_fk=ROL.role_id
 INNER JOIN userstatus AS UST  ON US.userStatus_fk=UST.userStatus_id;
 END$$
+
+DROP PROCEDURE IF EXISTS `sp_user_search`$$
+CREATE PROCEDURE `sp_user_search` (IN `dataSearch` VARCHAR(60))   BEGIN
+SELECT `user_id`,`user_user`,`user_password`, UST.userStatus_name AS `userStatus_fk`, ROL.role_name AS `role_fk` FROM `user` AS US  
+INNER JOIN role AS ROL ON US.role_fk=ROL.role_id
+INNER JOIN userstatus AS UST  ON US.userStatus_fk=UST.userStatus_id 
+WHERE ROL.role_name=dataSearch OR UST.userStatus_name=dataSearch OR US.user_user=dataSearch;
+END$$
+
+DELIMITER ;
