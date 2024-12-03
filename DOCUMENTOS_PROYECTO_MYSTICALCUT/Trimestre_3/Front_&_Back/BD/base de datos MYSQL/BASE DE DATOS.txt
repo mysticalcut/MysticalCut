@@ -131,7 +131,7 @@ INSERT INTO `role_module` (`roleModule_id`, `role_fk`, `module_fk`) VALUES
 
 CREATE TABLE IF NOT EXISTS `user` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_user` varchar(30) NOT NULL,
+  `user_email` varchar(30) NOT NULL,
   `user_password` varchar(256) NOT NULL,
   `document_type` enum('Cédula de Ciudadanía', 'Tarjeta de Identidad', 'Cédula de Extranjería') NOT NULL,
   `document_number` varchar(20) NOT NULL,
