@@ -74,3 +74,19 @@ CREATE TABLE IF NOT EXISTS `module` (
 INSERT INTO `module` (`module_id`, `module_name`, `module_route`, `module_icon`, `module_description`) VALUES
 (1, 'Home', 'home/dashboard', '<i class=\"bi bi-house-fill\"></i>', 'This is module home'),
 (2, 'User', 'user/index', '<i class=\"bi bi-person-badge-fill\"></i>', 'This is module user');
+
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `role`
+--
+
+DROP TABLE IF EXISTS `role`;
+CREATE TABLE IF NOT EXISTS `role` (
+  `role_id` int(11) NOT NULL AUTO_INCREMENT,
+  `role_name` varchar(20) NOT NULL,
+  PRIMARY KEY (`role_id`),
+  UNIQUE KEY `role_name` (`role_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
