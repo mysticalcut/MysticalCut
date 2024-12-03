@@ -27,7 +27,7 @@ class HomeController
     $this->result = "";
     $this->userApp = [];
     $this->roleModules = [];
-    $this->getModulesRoles();
+ 
   }
   public function getModulesRoles()
   {
@@ -40,7 +40,7 @@ class HomeController
   public function perfil()
   {
     try {
-
+      $this->getModulesRoles();
       $view = new View('home/perfil');
       $view->set('title', 'Home Index');
       $view->set('getUser',  $this->userApp);
@@ -60,7 +60,7 @@ class HomeController
   public function home()
   {
     try {
-
+      $this->getModulesRoles();
       $view = new View('home/home');
       $view->set('title', 'Home index');
       $view->set('getUser',  $this->userApp);
@@ -79,8 +79,6 @@ public function index()
 
       $view = new View('home/index');
       $view->set('title', 'Home index');
-      $view->set('getUser',  $this->userApp);
-      $view->set('roleModules',  $this->roleModules);
       $view->render();
     } catch (Exception $e) {
       $this->data['data'] = [];
@@ -96,8 +94,7 @@ public function index()
 
       $view = new View('home/register');
       $view->set('title', 'Home index');
-      $view->set('getUser',  $this->userApp);
-      $view->set('roleModules',  $this->roleModules);
+
       $view->render();
     } catch (Exception $e) {
       $this->data['data'] = [];

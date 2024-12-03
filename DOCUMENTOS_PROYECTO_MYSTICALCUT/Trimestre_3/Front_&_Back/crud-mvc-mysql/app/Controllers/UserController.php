@@ -34,7 +34,7 @@ class UserController
     $this->statusModel = new UserStatusModel();
     $this->roleModel = new RoleModel();
     $this->result = "";
-    $this->getModulesRoles();
+    //$this->getModulesRoles();
   }
 
  /**
@@ -152,7 +152,7 @@ class UserController
       $this->data['data'] = $this->result;
       $this->data['status'] = 200;
       $this->data['message'] = "ok";
-      header("Location: index/");
+      header("Location: ".URL_CONTROLLER_INDEX);
     } catch (Exception $e) {
       $this->data['data'] = [];
       $this->data['status'] = 404;
@@ -171,10 +171,9 @@ class UserController
 
       $view = new View('user/create');
       $view->set('title', 'User Create');
-      $view->set('roles', $this->roleModel->findAll());
-      $view->set('status', $this->statusModel->findAll());
-      $view->set('roleModules',  $this->roleModules);
-      $view->set('getUser',  $this->userApp);
+
+      //$view->set('roleModules',  $this->roleModules);
+      //$view->set('getUser',  $this->userApp);
       $view->render();
     } catch (Exception $e) {
       $this->data['data'] = [];
@@ -293,8 +292,8 @@ class UserController
     } else {
       $getModel['user_user'] = empty($_REQUEST['user']) ? '' : $_REQUEST['user'];
       $getModel['user_password'] = empty($_REQUEST['password']) ? '' : $_REQUEST['password'];
-      $getModel['userStatus_fk'] = $_REQUEST['status'];
-      $getModel['role_fk'] = $_REQUEST['role'];
+      $getModel['userStatus_fk'] =empty($_REQUEST['status']) ? '' : $_REQUEST['status'];
+      $getModel['role_fk'] = empty($_REQUEST['role']) ? '' : $_REQUEST['role'];
     }
 
     return $getModel;

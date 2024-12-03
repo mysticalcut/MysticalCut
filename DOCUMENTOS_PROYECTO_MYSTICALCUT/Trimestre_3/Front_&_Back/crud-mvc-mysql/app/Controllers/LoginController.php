@@ -96,7 +96,7 @@ class LoginController
       $this->data['status'] = 404;
       $this->data['message'] = "Error: " . $e->getMessage();
     }
-    header('Location: '   . URL_CONTROLLER . '/home/index');
+    header('Location: '   . URL_CONTROLLER_INDEX);
     echo json_encode($this->data);
   }
   public function viewLostPassword()

@@ -109,7 +109,7 @@ class Routes
       ["method" => "edit", "REQUEST" => "GET", "controller" => "UserController"],
       ["method" => "delete", "REQUEST" => 'POST', "controller" => "UserController"],
       ["method" => "index", "REQUEST" => "GET", "controller" => "UserController", "filter" => "logIn"],
-      ["method" => "viewCreate", "REQUEST" => 'GET', "controller" => "UserController", "filter" => "logIn"],
+      ["method" => "viewCreate", "REQUEST" => 'GET', "controller" => "UserController"],
       ["method" => "viewDelete", "REQUEST" => 'GET', "controller" => "UserController", "filter" => "logIn"],
     ];
     $loginRoutes = [
