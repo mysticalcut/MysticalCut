@@ -67,3 +67,10 @@ CREATE TABLE IF NOT EXISTS `module` (
   UNIQUE KEY `module_name` (`module_name`),
   UNIQUE KEY `module_route` (`module_route`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Volcado de datos para la tabla `module`
+--
+
+INSERT INTO `module` (`module_id`, `module_name`, `module_route`, `module_icon`, `module_description`) VALUES
+(1, 'Home', 'home/dashboard', '<i class=\"bi bi-house-fill\"></i>', 'This is module home'),
+(2, 'User', 'user/index', '<i class=\"bi bi-person-badge-fill\"></i>', 'This is module user');
