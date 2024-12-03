@@ -1,3 +1,7 @@
-CREATE DATABASE IF NOT EXISTS `crud-php-app` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `crud-php-app`;
-
+DROP PROCEDURE IF EXISTS `sp_role_module`$$
+CREATE PROCEDURE `sp_role_module` (IN `idRole` INT)   BEGIN
+SELECT ROL.role_name AS `role_fk`,MD.module_name AS `role_module`,MD.module_icon,MD.module_description, MD.module_route FROM role_module AS RM 
+INNER JOIN role AS ROL ON RM.role_fk=ROL.role_id
+INNER JOIN module AS MD ON RM.module_fk=MD.module_id
+WHERE ROL.role_id=idRole;
+END$$
