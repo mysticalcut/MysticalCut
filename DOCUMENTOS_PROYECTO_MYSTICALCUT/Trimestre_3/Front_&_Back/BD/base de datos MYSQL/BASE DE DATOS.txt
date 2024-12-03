@@ -141,7 +141,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `userStatus_fk` int(11) NOT NULL,
   `role_fk` int(11) NOT NULL,
   PRIMARY KEY (`user_id`),
-  UNIQUE KEY `user_user` (`user_user`),
+  UNIQUE KEY `user_email` (`user_email`),
   UNIQUE KEY `document_number` (`document_number`),
   KEY `user_role` (`role_fk`),
   KEY `user_status` (`userStatus_fk`)
