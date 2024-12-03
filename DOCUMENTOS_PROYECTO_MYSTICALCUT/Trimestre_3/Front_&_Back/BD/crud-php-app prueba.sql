@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-11-2024 a las 00:48:59
+-- Tiempo de generación: 03-12-2024 a las 04:50:40
 -- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.0.30
+-- Versión de PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -27,15 +27,20 @@ DELIMITER $$
 --
 -- Procedimientos
 --
-DROP PROCEDURE IF EXISTS `sp_user_all`$$
-CREATE PROCEDURE `sp_user_all` ()   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_role_module` (IN `idRole` INT)   BEGIN
+SELECT ROL.role_name AS `role_fk`,MD.module_name AS `role_module`,MD.module_icon,MD.module_description, MD.module_route FROM role_module AS RM 
+INNER JOIN role AS ROL ON RM.role_fk=ROL.role_id
+INNER JOIN module AS MD ON RM.module_fk=MD.module_id
+WHERE ROL.role_id=idRole;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_user_all` ()   BEGIN
 SELECT `user_id`,`user_user`,`user_password`, UST.userStatus_name AS `userStatus_fk`, ROL.role_name AS `role_fk` FROM `user` AS US  
 INNER JOIN role AS ROL ON US.role_fk=ROL.role_id
 INNER JOIN userstatus AS UST  ON US.userStatus_fk=UST.userStatus_id;
 END$$
 
-DROP PROCEDURE IF EXISTS `sp_user_search`$$
-CREATE PROCEDURE `sp_user_search` (IN `dataSearch` VARCHAR(60))   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_user_search` (IN `dataSearch` VARCHAR(60))   BEGIN
 SELECT `user_id`,`user_user`,`user_password`, UST.userStatus_name AS `userStatus_fk`, ROL.role_name AS `role_fk` FROM `user` AS US  
 INNER JOIN role AS ROL ON US.role_fk=ROL.role_id
 INNER JOIN userstatus AS UST  ON US.userStatus_fk=UST.userStatus_id 
@@ -47,14 +52,48 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `facture`
+--
+
+CREATE TABLE IF NOT EXISTS `facture` (
+  `id_factura` int(11) NOT NULL AUTO_INCREMENT,
+  `fecha` date NOT NULL,
+  `valor_total` float NOT NULL,
+  `user_fk` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_factura`),
+  KEY `fk_factura_usuario` (`user_fk`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- RELACIONES PARA LA TABLA `facture`:
+--   `user_fk`
+--       `user` -> `user_id`
+--
+
+--
+-- Truncar tablas antes de insertar `facture`
+--
+
+TRUNCATE TABLE `facture`;
+--
+-- Volcado de datos para la tabla `facture`
+--
+
+INSERT INTO `facture` (`id_factura`, `fecha`, `valor_total`, `user_fk`) VALUES
+(1, '2024-11-29', 100000, 3),
+(2, '2024-11-27', 500000, 3);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `module`
 --
 
-DROP TABLE IF EXISTS `module`;
 CREATE TABLE IF NOT EXISTS `module` (
   `module_id` int(11) NOT NULL AUTO_INCREMENT,
   `module_name` varchar(20) NOT NULL,
   `module_route` varchar(20) NOT NULL,
+  `module_icon` varchar(40) NOT NULL,
   `module_description` varchar(200) NOT NULL,
   PRIMARY KEY (`module_id`),
   UNIQUE KEY `module_name` (`module_name`),
@@ -62,12 +101,22 @@ CREATE TABLE IF NOT EXISTS `module` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- RELACIONES PARA LA TABLA `module`:
+--
+
+--
+-- Truncar tablas antes de insertar `module`
+--
+
+TRUNCATE TABLE `module`;
+--
 -- Volcado de datos para la tabla `module`
 --
 
-INSERT INTO `module` (`module_id`, `module_name`, `module_route`, `module_description`) VALUES
-(1, 'Home', 'home', 'This is module home'),
-(2, 'User', 'User', 'This is module user');
+INSERT INTO `module` (`module_id`, `module_name`, `module_route`, `module_icon`, `module_description`) VALUES
+(1, 'Home', 'home/home', '<i class=\"bi bi-house-fill\"></i>', 'This is module home'),
+(2, 'User', 'user/index', '<i class=\"bi bi-person-badge-fill\"></i>', 'This is module user'),
+(3, 'Facture', 'facture/index', '<i class=\"bi bi-clipboard-check\"></i>', 'This is module facture');
 
 -- --------------------------------------------------------
 
@@ -75,7 +124,6 @@ INSERT INTO `module` (`module_id`, `module_name`, `module_route`, `module_descri
 -- Estructura de tabla para la tabla `role`
 --
 
-DROP TABLE IF EXISTS `role`;
 CREATE TABLE IF NOT EXISTS `role` (
   `role_id` int(11) NOT NULL AUTO_INCREMENT,
   `role_name` varchar(20) NOT NULL,
@@ -83,6 +131,15 @@ CREATE TABLE IF NOT EXISTS `role` (
   UNIQUE KEY `role_name` (`role_name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- RELACIONES PARA LA TABLA `role`:
+--
+
+--
+-- Truncar tablas antes de insertar `role`
+--
+
+TRUNCATE TABLE `role`;
 --
 -- Volcado de datos para la tabla `role`
 --
@@ -98,7 +155,6 @@ INSERT INTO `role` (`role_id`, `role_name`) VALUES
 -- Estructura de tabla para la tabla `role_module`
 --
 
-DROP TABLE IF EXISTS `role_module`;
 CREATE TABLE IF NOT EXISTS `role_module` (
   `roleModule_id` int(11) NOT NULL AUTO_INCREMENT,
   `role_fk` int(11) NOT NULL,
@@ -106,8 +162,21 @@ CREATE TABLE IF NOT EXISTS `role_module` (
   PRIMARY KEY (`roleModule_id`),
   KEY `role_module_role` (`role_fk`),
   KEY `role_module_module` (`module_fk`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- RELACIONES PARA LA TABLA `role_module`:
+--   `module_fk`
+--       `module` -> `module_id`
+--   `role_fk`
+--       `role` -> `role_id`
+--
+
+--
+-- Truncar tablas antes de insertar `role_module`
+--
+
+TRUNCATE TABLE `role_module`;
 --
 -- Volcado de datos para la tabla `role_module`
 --
@@ -115,8 +184,9 @@ CREATE TABLE IF NOT EXISTS `role_module` (
 INSERT INTO `role_module` (`roleModule_id`, `role_fk`, `module_fk`) VALUES
 (1, 1, 1),
 (2, 1, 2),
-(3, 3, 1),
-(4, 3, 2);
+(3, 2, 1),
+(4, 3, 1),
+(5, 1, 3);
 
 -- --------------------------------------------------------
 
@@ -124,22 +194,38 @@ INSERT INTO `role_module` (`roleModule_id`, `role_fk`, `module_fk`) VALUES
 -- Estructura de tabla para la tabla `user`
 --
 
-DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
-  `user_id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `user_user` varchar(30) NOT NULL UNIQUE,
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_user` varchar(30) NOT NULL,
   `user_password` varchar(256) NOT NULL,
   `userStatus_fk` int(11) NOT NULL,
-  `role_fk` int(11) NOT NULL
+  `role_fk` int(11) NOT NULL,
+  PRIMARY KEY (`user_id`),
+  UNIQUE KEY `user_user` (`user_user`),
+  KEY `user_role` (`role_fk`),
+  KEY `user_status` (`userStatus_fk`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- RELACIONES PARA LA TABLA `user`:
+--   `role_fk`
+--       `role` -> `role_id`
+--   `userStatus_fk`
+--       `userstatus` -> `userStatus_id`
+--
+
+--
+-- Truncar tablas antes de insertar `user`
+--
+
+TRUNCATE TABLE `user`;
 --
 -- Volcado de datos para la tabla `user`
 --
 
 INSERT INTO `user` (`user_id`, `user_user`, `user_password`, `userStatus_fk`, `role_fk`) VALUES
 (1, 'user@email.com', '$2y$10$zNXemXVFPEbCd7yFTM.rMe3FO2sTze.cW/cOrGTps0dOi1YyFO7nW', 1, 1),
-(2, 'user1@email.com', '$2y$10$zNXemXVFPEbCd7yFTM.rMe3FO2sTze.cW/cOrGTps0dOi1YyFO7nW', 3, 1),
+(2, 'user1@email.com', '$2y$10$zNXemXVFPEbCd7yFTM.rMe3FO2sTze.cW/cOrGTps0dOi1YyFO7nW', 3, 2),
 (3, 'user2@email.com', '$2y$10$zNXemXVFPEbCd7yFTM.rMe3FO2sTze.cW/cOrGTps0dOi1YyFO7nW', 1, 3);
 
 -- --------------------------------------------------------
@@ -148,7 +234,6 @@ INSERT INTO `user` (`user_id`, `user_user`, `user_password`, `userStatus_fk`, `r
 -- Estructura de tabla para la tabla `userstatus`
 --
 
-DROP TABLE IF EXISTS `userstatus`;
 CREATE TABLE IF NOT EXISTS `userstatus` (
   `userStatus_id` int(11) NOT NULL AUTO_INCREMENT,
   `userStatus_name` varchar(20) NOT NULL,
@@ -156,6 +241,15 @@ CREATE TABLE IF NOT EXISTS `userstatus` (
   UNIQUE KEY `userStatus_name` (`userStatus_name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- RELACIONES PARA LA TABLA `userstatus`:
+--
+
+--
+-- Truncar tablas antes de insertar `userstatus`
+--
+
+TRUNCATE TABLE `userstatus`;
 --
 -- Volcado de datos para la tabla `userstatus`
 --
@@ -168,6 +262,12 @@ INSERT INTO `userstatus` (`userStatus_id`, `userStatus_name`) VALUES
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `facture`
+--
+ALTER TABLE `facture`
+  ADD CONSTRAINT `fk_factura_usuario` FOREIGN KEY (`user_fk`) REFERENCES `user` (`user_id`);
 
 --
 -- Filtros para la tabla `role_module`

@@ -29,11 +29,11 @@
           <label for="password">Password</label>
         </div>
         <div class="form-floating">
-          <input type="hidden" class="form-control form-control-sm" id="role" value="3" name="role" placeholder="Cliente" required >
+          <input type="hidden" class="form-control form-control-sm" id="role" value="3" name="role" placeholder="Cliente" required>
 
         </div>
         <div class="form-floating">
-        <input type="hidden" class="form-control form-control-sm" id="role" value="1" name="status" placeholder="Activo" required>
+        <input type="hidden" class="form-control form-control-sm" id="status" value="1" name="status" placeholder="Activo" required>
 
         </div>
   
