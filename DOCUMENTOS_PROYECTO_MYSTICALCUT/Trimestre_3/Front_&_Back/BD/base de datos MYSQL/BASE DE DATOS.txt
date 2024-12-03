@@ -99,3 +99,18 @@ INSERT INTO `role` (`role_id`, `role_name`) VALUES
 (2, 'Employee'),
 (3, 'Client');
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `role_module`
+--
+
+DROP TABLE IF EXISTS `role_module`;
+CREATE TABLE IF NOT EXISTS `role_module` (
+  `roleModule_id` int(11) NOT NULL AUTO_INCREMENT,
+  `role_fk` int(11) NOT NULL,
+  `module_fk` int(11) NOT NULL,
+  PRIMARY KEY (`roleModule_id`),
+  KEY `role_module_role` (`role_fk`),
+  KEY `role_module_module` (`module_fk`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
