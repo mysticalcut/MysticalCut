@@ -180,6 +180,22 @@ INSERT INTO `userstatus` (`userStatus_id`, `userStatus_name`) VALUES
 (3, 'Blocked');
 
 --
+-- Estructura de tabla para la tabla `Facture`
+--
+
+CREATE TABLE Facture (
+    `id_facture` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `date` DATE NOT NULL,
+    `total_value` FLOAT NOT NULL,
+    `user_fk` INT
+);
+ALTER TABLE Facture
+ADD CONSTRAINT fk_factura_usuario 
+FOREIGN KEY (`user_fk`) REFERENCES user (`user_id`);
+
+
+
+--
 -- Restricciones para tablas volcadas
 --
 
