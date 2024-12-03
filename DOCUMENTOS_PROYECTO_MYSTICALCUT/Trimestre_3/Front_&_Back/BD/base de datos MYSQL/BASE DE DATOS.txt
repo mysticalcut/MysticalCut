@@ -153,7 +153,10 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 INSERT INTO `user` (`user_id`,`user_email`, `user_password`, `document_type`, `document_number`, `full_name`, `address`, `phone`, `userStatus_fk`, `role_fk`
 ) VALUES 
-('1','kevinsabogal24@gmail.com', '12345','Cédula de Ciudadanía','1000619691','Kevin David Sabogal','Calle Principal #1234','3003113203', 1, 2);
+('1','kevinsabogal24@gmail.com', '12345','Cédula de Ciudadanía','1000619691','Kevin David Sabogal','Calle Principal #1234','3003113203', 1, 2),
+('2','andresecasvar05@gmail.com','123456','Cédula de Ciudadanía','1011200996','Andres Esteban Castañeda','Calle Principal #1235','3175248114', 1, 2),
+('3','leonoscarandres04@gmail.com','1234567','Cédula de Ciudadanía','1022933160','Oscar Andres Leon','Calle Principal #1236','3209241730', 1, 2),
+('4','hharold855@gmail.com', '12345678','Cédula de Ciudadanía','1022938044','Harold David Hernandez','Calle Principal #1237','3212709274', 1, 2);
 
 
 --
