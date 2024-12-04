@@ -1,13 +1,13 @@
 Se crea base de datos MistycalCut:
 
-Colección Categoria_Productos
+Colección category_product
 
 [
-  { "id_categoria": 1, "nombre": "Cortes de Cabello" },
-  { "id_categoria": 2, "nombre": "Afeitado" },
-  { "id_categoria": 3, "nombre": "Tintes y Coloracion" },
-  { "id_categoria": 4, "nombre": "Tratamientos Capilares" },
-  { "id_categoria": 5, "nombre": "Productos de Estilo" }
+  { "id_category": 1, "name": "Cortes de Cabello" },
+  { "id_category": 2, "name": "Afeitado" },
+  { "id_category": 3, "name": "Tintes y Coloracion" },
+  { "id_category": 4, "name": "Tratamientos Capilares" },
+  { "id_category": 5, "name": "Productos de Estilo" }
 ]
 
 
