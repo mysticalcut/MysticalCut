@@ -21,8 +21,8 @@ class LoginModel
   public function __construct()
   {
     $this->data = [];
-    $this->modelData = ['user_user', 'user_password'];
-    $this->userKey = 'user_user';
+    $this->modelData = ['user_email', 'user_password'];
+    $this->userKey = 'user_email';
   }
 
 

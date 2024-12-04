@@ -285,13 +285,23 @@ class UserController
     $data_request = json_decode(file_get_contents('php://input'), true);
   
     if ($data_request != NULL) {
-      $getModel['user_user'] = empty($data_request['user']) ? '' : $data_request['user'];
+      $getModel['user_email'] = empty($data_request['user']) ? '' : $data_request['user'];
       $getModel['user_password'] = empty($data_request['password']) ? '' : $data_request['password'];
+      $getModel['document_type'] = empty($data_request['document_type']) ? '' : $data_request['document_type'];
+      $getModel['document_number'] = empty($data_request['document_number']) ? '' : $data_request['document_number'];
+      $getModel['full_name'] = empty($data_request['full_name']) ? '' : $data_request['full_name'];
+      $getModel['address'] = empty($data_request['address']) ? '' : $data_request['address'];
+      $getModel['phone'] = empty($data_request['phone']) ? '' : $data_request['phone'];
       $getModel['userStatus_fk'] = $data_request['status'];
       $getModel['role_fk'] = $data_request['role'];
     } else {
-      $getModel['user_user'] = empty($_REQUEST['user']) ? '' : $_REQUEST['user'];
+      $getModel['user_email'] = empty($_REQUEST['user']) ? '' : $_REQUEST['user'];
       $getModel['user_password'] = empty($_REQUEST['password']) ? '' : $_REQUEST['password'];
+      $getModel['document_type'] = empty($_REQUEST['document_type']) ? '' : $_REQUEST['document_type'];
+      $getModel['document_number'] = empty($_REQUEST['document_number']) ? '' : $_REQUEST['document_number'];
+      $getModel['full_name'] = empty($_REQUEST['full_name']) ? '' : $_REQUEST['full_name'];
+      $getModel['address'] = empty($_REQUEST['address']) ? '' : $_REQUEST['address'];
+      $getModel['phone'] = empty($_REQUEST['phone']) ? '' : $_REQUEST['phone'];
       $getModel['userStatus_fk'] =empty($_REQUEST['status']) ? '' : $_REQUEST['status'];
       $getModel['role_fk'] = empty($_REQUEST['role']) ? '' : $_REQUEST['role'];
     }

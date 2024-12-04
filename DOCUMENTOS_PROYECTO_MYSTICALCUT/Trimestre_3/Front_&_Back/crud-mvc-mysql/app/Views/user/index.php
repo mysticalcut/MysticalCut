@@ -82,7 +82,7 @@
                     <div class="icon-usuario-container">
                         <img src="../../public/assets/img/logos/person-circle.svg" class="btn icon-usuario">
                     </div>
-                    <h5><?= htmlspecialchars($user['user_user']) ?></h5>
+                    <h5><?= htmlspecialchars($user['full_name']) ?></h5>
 
                     <div class="icon-container">
                         <a href="<?= URL_CONTROLLER ?>/user/edit/<?= $user['user_id'] ?>" class="btn btn-icon">

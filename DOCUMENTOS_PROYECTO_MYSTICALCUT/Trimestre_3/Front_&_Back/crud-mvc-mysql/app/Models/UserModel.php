@@ -32,7 +32,7 @@ class UserModel
   public function __construct()
   {
     $this->data = [];
-    $this->modelData = ['user_user', 'user_password', 'userStatus_fk', 'role_fk'];
+    $this->modelData = ['user_email', 'user_password', 'document_type', 'document_number', 'full_name', 'address', 'phone', 'userStatus_fk', 'role_fk'];
     $this->primaryKey = 'user_id';
   }
 
@@ -155,6 +155,11 @@ class UserModel
         $stmt->bindParam(2, $passwordHast);
         $stmt->bindParam(3, $user[$this->modelData[2]]);
         $stmt->bindParam(4, $user[$this->modelData[3]]);
+        $stmt->bindParam(5, $user[$this->modelData[4]]);
+        $stmt->bindParam(6, $user[$this->modelData[5]]);
+        $stmt->bindParam(7, $user[$this->modelData[6]]);
+        $stmt->bindParam(8, $user[$this->modelData[7]]);
+        $stmt->bindParam(9, $user[$this->modelData[8]]);
         $stmt->execute();
         $last_id = $this->pdo->lastInsertId();
         $this->data['newId'] =  $last_id;
