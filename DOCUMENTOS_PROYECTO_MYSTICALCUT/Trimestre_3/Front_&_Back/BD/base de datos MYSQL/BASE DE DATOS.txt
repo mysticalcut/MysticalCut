@@ -354,6 +354,17 @@ ADD CONSTRAINT fk_appointment_user
 FOREIGN KEY (user_id) REFERENCES user(user_id);
 
 
+--
+-- Volcado de datos para la tabla `quotes`
+--
+
+INSERT INTO `quotes` (`id_quotes`, `date_time`, `end_time`, `state_quotes`, `user_id`)
+VALUES 
+(1, '2024-12-03 10:00:00', '2024-12-03 10:30:00', 'Confirmada', 1),
+(2, '2024-12-03 11:00:00', '2024-12-03 11:45:00', 'Pendiente', 2),
+(3, '2024-12-03 14:00:00', '2024-12-03 14:30:00', 'Cancelada', 3),
+(4, '2024-12-04 09:30:00', '2024-12-04 10:00:00', 'Confirmada', 4),
+(5, '2024-12-04 15:00:00', '2024-12-04 15:30:00', 'Confirmada', 5);
 
 
 
