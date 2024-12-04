@@ -35,3 +35,13 @@ Colección role
     "role_name": "Client"
   }
 ]
+
+Colección role_module
+
+[
+  { "roleModule_id": 1, "role_fk": 1, "module_fk": 1 },
+  { "roleModule_id": 2, "role_fk": 1, "module_fk": 2 },
+  { "roleModule_id": 3, "role_fk": 2, "module_fk": 1 },
+  { "roleModule_id": 4, "role_fk": 3, "module_fk": 1 }
+]
+
