@@ -45,3 +45,70 @@ Colección role_module
   { "roleModule_id": 4, "role_fk": 3, "module_fk": 1 }
 ]
 
+Colección user
+
+[
+  {
+    "user_id": 1,
+    "user_email": "kevinsabogal24@gmail.com",
+    "user_password": "12345",
+    "document_type": "Cédula de Ciudadanía",
+    "document_number": "1000619691",
+    "full_name": "Kevin David Sabogal",
+    "address": "Calle Principal #1234",
+    "phone": "3003113203",
+    "userStatus_fk": 1,
+    "role_fk": 2
+  },
+  {
+    "user_id": 2,
+    "user_email": "andresecasvar05@gmail.com",
+    "user_password": "123456",
+    "document_type": "Cédula de Ciudadanía",
+    "document_number": "1011200996",
+    "full_name": "Andres Esteban Castañeda",
+    "address": "Calle Principal #1235",
+    "phone": "3175248114",
+    "userStatus_fk": 1,
+    "role_fk": 2
+  },
+  {
+    "user_id": 3,
+    "user_email": "leonoscarandres04@gmail.com",
+    "user_password": "1234567",
+    "document_type": "Cédula de Ciudadanía",
+    "document_number": "1022933160",
+    "full_name": "Oscar Andres Leon",
+    "address": "Calle Principal #1236",
+    "phone": "3209241730",
+    "userStatus_fk": 1,
+    "role_fk": 2
+  },
+  {
+    "user_id": 4,
+    "user_email": "hharold855@gmail.com",
+    "user_password": "12345678",
+    "document_type": "Cédula de Ciudadanía",
+    "document_number": "1022938044",
+    "full_name": "Harold David Hernandez",
+    "address": "Calle Principal #1237",
+    "phone": "3212709274",
+    "userStatus_fk": 1,
+    "role_fk": 2
+  },
+  {
+    "user_id": 5,
+    "user_email": "prueba@gmail.com",
+    "user_password": "123456789",
+    "document_type": "Cédula de Ciudadanía",
+    "document_number": "1237856337",
+    "full_name": "trabajo de prueba",
+    "address": "Calle Principal #12378",
+    "phone": "323456789",
+    "userStatus_fk": 1,
+    "role_fk": 2
+  }
+]
+
+
+
