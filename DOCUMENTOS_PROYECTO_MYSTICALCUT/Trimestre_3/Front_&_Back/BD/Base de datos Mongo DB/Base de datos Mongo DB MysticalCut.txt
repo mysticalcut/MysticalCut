@@ -162,5 +162,16 @@ Colección facture
   }
 ]
 
+Colección category_product
+
+[
+  { "id_category": 1, "name": "Cortes de Cabello" },
+  { "id_category": 2, "name": "Afeitado" },
+  { "id_category": 3, "name": "Tintes y Coloracion" },
+  { "id_category": 4, "name": "Tratamientos Capilares" },
+  { "id_category": 5, "name": "Productos de Estilo" }
+]
+
+
 
 
