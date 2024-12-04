@@ -337,6 +337,32 @@ VALUES
 (4, 'Tratamiento Hidratante', '00:45:00', 25.00, 4),
 (5, 'Corte Infantil', '00:25:00', 12.00, 5); 
 
+
+--
+-- Estructura de tabla para la tabla `quotes`
+--
+
+CREATE TABLE `quotes` (
+    `id_quotes` INT NOT NULL PRIMARY KEY,
+    `date_time` TIMESTAMP NOT NULL,
+    `end_time` TIMESTAMP NOT NULL DEFAULT  CURRENT_TIMESTAMP,
+    `state_quotes` VARCHAR(50),
+    `user_id` INT
+);
+ALTER TABLE quotes
+ADD CONSTRAINT fk_appointment_user
+FOREIGN KEY (user_id) REFERENCES user(user_id);
+
+
+
+
+
+
+
+
+
+
+
 -- Restricciones para tablas volcadas
 --
 
