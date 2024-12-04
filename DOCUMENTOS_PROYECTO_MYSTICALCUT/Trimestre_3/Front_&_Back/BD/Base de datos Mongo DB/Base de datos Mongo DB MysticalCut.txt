@@ -110,5 +110,22 @@ Colección user
   }
 ]
 
+Colección userstatus
+
+[
+  {
+    "userStatus_id": 1,
+    "userStatus_name": "Active"
+  },
+  {
+    "userStatus_id": 2,
+    "userStatus_name": "Inactive"
+  },
+  {
+    "userStatus_id": 3,
+    "userStatus_name": "Blocked"
+  }
+]
+
 
 
