@@ -217,6 +217,40 @@ Colección product
   }
 ]
 
+Colección Product_invoice_detail
+
+[
+  {
+    "amount": 2,
+    "price": 30.00,
+    "id_facture": 1,
+    "id_product": 1
+  },
+  {
+    "amount": 1,
+    "price": 20.00,
+    "id_facture": 2,
+    "id_product": 2
+  },
+  {
+    "amount": 3,
+    "price": 36.00,
+    "id_facture": 3,
+    "id_product": 3
+  },
+  {
+    "amount": 1,
+    "price": 18.00,
+    "id_facture": 4,
+    "id_product": 4
+  },
+  {
+    "amount": 2,
+    "price": 100.00,
+    "id_facture": 5,
+    "id_product": 5
+  }
+]
 
 
 
