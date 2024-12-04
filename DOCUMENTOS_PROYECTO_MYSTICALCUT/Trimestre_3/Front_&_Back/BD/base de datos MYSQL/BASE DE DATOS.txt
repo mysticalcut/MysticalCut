@@ -257,6 +257,22 @@ VALUES
 (4, 'Tratamiento de Keratina', 50.00, 'Hidratación profunda con keratina', 3, 4);
 (5, 'Pomada para el Cabello', 12.00, 'Pomada con fijación media para peinado', 20, 5),
 
+--
+-- Estructura de tabla para la tabla `Product_invoice_detail`
+--
+
+CREATE TABLE Product_invoice_detail (
+    amount INT NOT NULL,
+    price FLOAT,
+    id_facture INT NOT NULL,
+    id_product INT NOT NULL
+);
+ALTER TABLE Product_invoice_detail
+ADD CONSTRAINT fk_product_invoice_detail
+FOREIGN KEY (id_facture) REFERENCES facture(id_facture),
+ADD CONSTRAINT fk_detail_invoice_product_product
+FOREIGN KEY (id_product) REFERENCES product(id_product);
+
 
 -- Restricciones para tablas volcadas
 --
