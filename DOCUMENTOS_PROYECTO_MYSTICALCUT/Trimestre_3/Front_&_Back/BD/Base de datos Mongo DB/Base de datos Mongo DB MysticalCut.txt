@@ -357,5 +357,35 @@ Colección quotes
   }
 ]
 
+Colección type_of_quotes
+
+[
+  {
+    "id_quotes": 1,
+    "id_services": 1,
+    "barber": 101
+  },
+  {
+    "id_quotes": 2,
+    "id_services": 2,
+    "barber": 102
+  },
+  {
+    "id_quotes": 3,
+    "id_services": 3,
+    "barber": 103
+  },
+  {
+    "id_quotes": 4,
+    "id_services": 4,
+    "barber": 104
+  },
+  {
+    "id_quotes": 5,
+    "id_services": 5,
+    "barber": 105
+  }
+]
+
 
 
