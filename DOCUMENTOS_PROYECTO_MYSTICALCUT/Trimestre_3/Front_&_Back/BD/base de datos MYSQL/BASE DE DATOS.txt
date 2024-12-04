@@ -414,6 +414,17 @@ FOREIGN KEY (id_facture) REFERENCES facture(id_facture),
 ADD CONSTRAINT fk_detail_invoice_service_service
 FOREIGN KEY (id_services) REFERENCES services(id_services);
 
+--
+-- Volcado de datos para la tabla `Service_invoice_detail`
+--
+
+INSERT INTO `Service_invoice_detail` (`amount`, `price`, `id_facture`, `id_services`)
+VALUES
+(1, 15.00, 1, 1), 
+(1, 10.00, 2, 2), 
+(2, 80.00, 3, 3), 
+(1, 25.00, 4, 4), 
+(3, 36.00, 5, 5); 
 
 -- Restricciones para tablas volcadas
 --
