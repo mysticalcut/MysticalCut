@@ -296,6 +296,18 @@ CREATE TABLE Category_Services (
 );
 
 
+--
+-- Volcado de datos para la tabla `Category_Services`
+--
+
+INSERT INTO `Category_Services` (`id_category_services`, `name`)
+VALUES 
+(1, 'Cortes de Cabello'),
+(2, 'Afeitado y Barba'),
+(3, 'Coloración y Tintes'),
+(4, 'Tratamientos Capilares'),
+(5, 'Servicios para Niños');
+
 
 -- Restricciones para tablas volcadas
 --
