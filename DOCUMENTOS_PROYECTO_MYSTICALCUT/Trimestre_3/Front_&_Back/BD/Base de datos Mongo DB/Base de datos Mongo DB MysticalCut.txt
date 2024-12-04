@@ -172,6 +172,51 @@ Colección category_product
   { "id_category": 5, "name": "Productos de Estilo" }
 ]
 
+Colección product
+
+[
+  {
+    "id_product": 1,
+    "name": "Corte Clásico",
+    "price": 15.00,
+    "description": "Corte de cabello tradicional",
+    "amount": 10,
+    "id_category": 1
+  },
+  {
+    "id_product": 2,
+    "name": "Afeitado Tradicional",
+    "price": 10.00,
+    "description": "Afeitado con navaja y toalla caliente",
+    "amount": 15,
+    "id_category": 2
+  },
+  {
+    "id_product": 3,
+    "name": "Tinte para Cabello",
+    "price": 30.00,
+    "description": "Tinte permanente para cabello",
+    "amount": 5,
+    "id_category": 3
+  },
+  {
+    "id_product": 4,
+    "name": "Tratamiento de Keratina",
+    "price": 50.00,
+    "description": "Hidratación profunda con keratina",
+    "amount": 3,
+    "id_category": 4
+  },
+  {
+    "id_product": 5,
+    "name": "Pomada para el Cabello",
+    "price": 12.00,
+    "description": "Pomada con fijación media para peinado",
+    "amount": 20,
+    "id_category": 5
+  }
+]
+
 
 
 
