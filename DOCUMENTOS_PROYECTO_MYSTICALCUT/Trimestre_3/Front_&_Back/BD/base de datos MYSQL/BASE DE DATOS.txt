@@ -367,7 +367,21 @@ VALUES
 (5, '2024-12-04 15:00:00', '2024-12-04 15:30:00', 'Confirmada', 5);
 
 
+--
+-- Estructura de tabla para la tabla `type_of_quotes`
+--
 
+CREATE TABLE type_of_quotes (
+    id_quotes INT NOT NULL,
+    id_services INT NOT NULL,
+    barber INT
+);
+ALTER TABLE type_of_quotes
+ADD CONSTRAINT 
+fk_type_citation_citation
+FOREIGN KEY (id_quotes) REFERENCES quotes (id_quotes),
+ADD CONSTRAINT fk_type_appointment_service
+FOREIGN KEY (id_services) REFERENCES services (id_services);
 
 
 
