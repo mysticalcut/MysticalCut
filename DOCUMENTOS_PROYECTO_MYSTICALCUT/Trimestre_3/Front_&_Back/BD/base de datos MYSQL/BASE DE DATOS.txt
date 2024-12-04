@@ -230,6 +230,21 @@ VALUES
 (4, 'Tratamientos Capilares'),
 (5, 'Productos de Estilo');
 
+--
+-- Estructura de tabla para la tabla `product`
+--
+
+CREATE TABLE product (
+    id_product INT NOT NULL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    price FLOAT NOT NULL,
+    description VARCHAR(255),
+    amount INT NOT NULL,
+    id_category INT
+);
+ALTER TABLE Product
+ADD CONSTRAINT fk_categoria 
+FOREIGN KEY (id_category) REFERENCES category_product(id_category);
 
 
 -- Restricciones para tablas volcadas
