@@ -325,7 +325,17 @@ ADD CONSTRAINT fk_categoria_Servicios
 FOREIGN KEY (id_category_services) REFERENCES Category_Services(id_category_services);
 
 
+--
+-- Volcado de datos para la tabla `services`
+--
 
+INSERT INTO `services` (`id_services`, `name`, `estimated_time`, `price`, `id_category_services`)
+VALUES 
+(1, 'Corte Clásico', '00:30:00', 15.00, 1), 
+(2, 'Afeitado Tradicional', '00:20:00', 10.00, 2), 
+(3, 'Tinte Capilar', '01:00:00', 40.00, 3), 
+(4, 'Tratamiento Hidratante', '00:45:00', 25.00, 4),
+(5, 'Corte Infantil', '00:25:00', 12.00, 5); 
 
 -- Restricciones para tablas volcadas
 --
