@@ -277,5 +277,45 @@ Colección Category_Services
   }
 ]
 
+Colección services
+
+[
+  {
+    "id_services": 1,
+    "name": "Corte Clásico",
+    "estimated_time": "00:30:00",
+    "price": 15.00,
+    "id_category_services": 1
+  },
+  {
+    "id_services": 2,
+    "name": "Afeitado Tradicional",
+    "estimated_time": "00:20:00",
+    "price": 10.00,
+    "id_category_services": 2
+  },
+  {
+    "id_services": 3,
+    "name": "Tinte Capilar",
+    "estimated_time": "01:00:00",
+    "price": 40.00,
+    "id_category_services": 3
+  },
+  {
+    "id_services": 4,
+    "name": "Tratamiento Hidratante",
+    "estimated_time": "00:45:00",
+    "price": 25.00,
+    "id_category_services": 4
+  },
+  {
+    "id_services": 5,
+    "name": "Corte Infantil",
+    "estimated_time": "00:25:00",
+    "price": 12.00,
+    "id_category_services": 5
+  }
+]
+
 
 
