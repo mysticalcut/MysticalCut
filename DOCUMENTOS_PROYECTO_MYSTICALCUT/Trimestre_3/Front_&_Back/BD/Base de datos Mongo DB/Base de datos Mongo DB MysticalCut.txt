@@ -252,5 +252,30 @@ Colección Product_invoice_detail
   }
 ]
 
+Colección Category_Services
+
+[
+  {
+    "id_category_services": 1,
+    "name": "Cortes de Cabello"
+  },
+  {
+    "id_category_services": 2,
+    "name": "Afeitado y Barba"
+  },
+  {
+    "id_category_services": 3,
+    "name": "Coloración y Tintes"
+  },
+  {
+    "id_category_services": 4,
+    "name": "Tratamientos Capilares"
+  },
+  {
+    "id_category_services": 5,
+    "name": "Servicios para Niños"
+  }
+]
+
 
 
