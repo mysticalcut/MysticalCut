@@ -246,6 +246,17 @@ ALTER TABLE Product
 ADD CONSTRAINT fk_categoria 
 FOREIGN KEY (id_category) REFERENCES category_product(id_category);
 
+--
+-- Volcado de datos para la tabla product`
+--
+INSERT INTO `product` (`id_product`, `name`, `price`, `description`, `amount`, `id_category`)
+VALUES 
+(1, 'Corte Clásico', 15.00, 'Corte de cabello tradicional', 10, 1),
+(2, 'Afeitado Tradicional', 10.00, 'Afeitado con navaja y toalla caliente', 15, 2),
+(3, 'Tinte para Cabello', 30.00, 'Tinte permanente para cabello', 5, 3),
+(4, 'Tratamiento de Keratina', 50.00, 'Hidratación profunda con keratina', 3, 4);
+(5, 'Pomada para el Cabello', 12.00, 'Pomada con fijación media para peinado', 20, 5),
+
 
 -- Restricciones para tablas volcadas
 --
