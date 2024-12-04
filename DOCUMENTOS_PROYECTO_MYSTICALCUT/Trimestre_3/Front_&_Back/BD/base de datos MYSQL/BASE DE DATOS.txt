@@ -309,6 +309,24 @@ VALUES
 (5, 'Servicios para Niños');
 
 
+--
+-- Estructura de tabla para la tabla `services`
+--
+
+CREATE TABLE services(
+    id_services INT NOT NULL PRIMARY KEY,
+    name VARCHAR(100),
+    estimated_time TIME,
+    price FLOAT,
+    id_category_services INT NOT NULL 
+);
+ALTER TABLE services
+ADD CONSTRAINT fk_categoria_Servicios
+FOREIGN KEY (id_category_services) REFERENCES Category_Services(id_category_services);
+
+
+
+
 -- Restricciones para tablas volcadas
 --
 
