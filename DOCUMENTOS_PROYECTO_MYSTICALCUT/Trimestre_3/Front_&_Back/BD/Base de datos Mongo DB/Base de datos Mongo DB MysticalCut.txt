@@ -127,5 +127,40 @@ Colección userstatus
   }
 ]
 
+Colección facture
+
+[
+  {
+    "id_facture": 1,
+    "date": "2024-12-03",
+    "total_value": 150.75,
+    "user_fk": 1
+  },
+  {
+    "id_facture": 2,
+    "date": "2024-12-03",
+    "total_value": 180.75,
+    "user_fk": 1
+  },
+  {
+    "id_facture": 3,
+    "date": "2024-12-03",
+    "total_value": 160.75,
+    "user_fk": 1
+  },
+  {
+    "id_facture": 4,
+    "date": "2024-12-04",
+    "total_value": 250.00,
+    "user_fk": 1
+  },
+  {
+    "id_facture": 5,
+    "date": "2024-12-04",
+    "total_value": 350.00,
+    "user_fk": 1
+  }
+]
+
 
 
