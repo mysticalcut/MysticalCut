@@ -1,4 +1,22 @@
 Se crea base de datos MistycalCut:
 
-Colección 
+Colección Module
+
+[
+  {
+    "module_id": 1,
+    "module_name": "Home",
+    "module_route": "home/dashboard",
+    "module_icon": "<i class=\"bi bi-house-fill\"></i>",
+    "module_description": "This is module home"
+  },
+  {
+    "module_id": 2,
+    "module_name": "User",
+    "module_route": "user/index",
+    "module_icon": "<i class=\"bi bi-person-badge-fill\"></i>",
+    "module_description": "This is module user"
+  }
+]
+
 
