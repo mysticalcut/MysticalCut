@@ -384,6 +384,17 @@ ADD CONSTRAINT fk_type_appointment_service
 FOREIGN KEY (id_services) REFERENCES services (id_services);
 
 
+--
+-- Volcado de datos para la tabla `type_of_quotes`
+--
+
+INSERT INTO `type_of_quotes` (`id_quotes`, `id_services`, `barber`)
+VALUES
+(1, 1, 101),
+(2, 2, 102), 
+(3, 3, 103), 
+(4, 4, 104), 
+(5, 5, 105); 
 
 
 
