@@ -132,6 +132,17 @@ class Routes
       ["method" => "index", "REQUEST" => "GET", "controller" => "FactureController", "filter" => "logIn"],
 
     ];
+    $ServiceRoutes = [
+      ["method" => "create", "REQUEST" => "POST", "controller" => "ServiceController"],
+      ["method" => "show", "REQUEST" => "GET", "controller" => "ServiceController"],
+      ["method" => "showId", "REQUEST" => "GET", "controller" => "ServiceController"],
+      ["method" => "update", "REQUEST" => "POST", "controller" => "ServiceController"],
+      ["method" => "edit", "REQUEST" => "GET", "controller" => "ServiceController"],
+      ["method" => "delete", "REQUEST" => 'POST', "controller" => "ServiceController"],
+      ["method" => "index", "REQUEST" => "GET", "controller" => "ServiceController", "filter" => "logIn"],
+      ["method" => "viewCreate", "REQUEST" => 'GET', "controller" => "ServiceController"],
+      ["method" => "viewDelete", "REQUEST" => 'GET', "controller" => "ServiceController", "filter" => "logIn"],
+    ];
     $roleRoutes = [
       ["method" => "create", "REQUEST" => "POST", "controller" => "RoleController"],
       ["method" => "show", "REQUEST" => "GET", "controller" => "RoleController"],

@@ -24,6 +24,7 @@
     define("URL_CONTROLLER_HOME",$controller_url."/home/perfil");
     define("URL_CONTROLLER_INDEX",$controller_url."/home/index");
     define("URL_CONTROLLER_REGISTER",$controller_url."/home/register");
+    define("URL_CONTROLLER_SERVICE",$controller_url."/service/index");
     define("SESSION_APP","user");
  
 
