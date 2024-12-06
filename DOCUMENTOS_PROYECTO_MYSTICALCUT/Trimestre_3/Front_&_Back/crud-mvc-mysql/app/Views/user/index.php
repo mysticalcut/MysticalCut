@@ -16,41 +16,38 @@
 
 <body>
 
-    <div class="container">
-        <header
-            class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-            <div class="col-md-3 mb-2 mb-md-0">
-                <img src="<?= FOLDER_PUBLIC_ASSETS ?>/img/background/LOGO.png" alt="Logo" width="125" height="125"
-                    class="d-inline-block align-text-top">
-            </div>
+<div class="container">
+    <header
+      class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+      <div class="col-md-3 mb-2 mb-md-0">
+        <img src="<?= FOLDER_PUBLIC_ASSETS ?>/img/background/LOGO.png" alt="Logo" width="125" height="125"
+          class="d-inline-block align-text-top">
+      </div>
 
-            <div class="col-md-3 text-end">
-                <div class="dropdown d-inline">
-                    <a href="#" class="textnav dropdown-toggle" id="profileDropdown" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        <img src="<?= FOLDER_PUBLIC_ASSETS ?>/img/background/Icono usuario.png" alt="Profile"
-                            class="icon">
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-                        <li>
-                            <a class="dropdown-item" href="<?= URL_CONTROLLER_HOME ?>">
-                                <i class="fas fa-cog me-2"></i>Perfil
-                            </a>
-                        </li>
+      <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
 
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="<?= URL_CONTROLLER_INDEX ?>">
-                                <i class="fas fa-sign-out-alt me-2"></i> Cerrar sesión
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </header>
-    </div>
+        
+      </ul>
+
+      <div class="col-md-3 text-end">
+        <div class="dropdown d-inline">
+          <a href="#" class="textnav dropdown-toggle" id="profileDropdown" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            <img src="<?= FOLDER_PUBLIC_ASSETS ?>/img/background/Icono usuario.png" alt="Profile" class="icon"
+              >Perfil
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="<?= URL_CONTROLLER_HOME?>"><?= ($getUser[0]['full_name']) ?></a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li style="background: red;"><a style="color:gray;" class="dropdown-item"
+                href="<?= URL_CONTROLLER ?>/login/logOut">Log Out</a></li>
+          </ul>
+        </div>
+      </div>
+    </header>
+  </div>
 
     <div class="container">
 

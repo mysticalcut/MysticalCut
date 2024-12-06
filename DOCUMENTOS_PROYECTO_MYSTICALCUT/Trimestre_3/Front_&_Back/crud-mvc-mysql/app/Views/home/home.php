@@ -12,42 +12,43 @@
 
 <body>
 
-    <div class="container">
+<div class="container">
     <header
-        class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-        <div class="col-md-3 mb-2 mb-md-0">
+      class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+      <div class="col-md-3 mb-2 mb-md-0">
         <img src="<?= FOLDER_PUBLIC_ASSETS ?>/img/background/LOGO.png" alt="Logo" width="125" height="125"
-        class="d-inline-block align-text-top">
-        </div>
+          class="d-inline-block align-text-top">
+      </div>
 
-        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+      <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
 
         <?php foreach ($roleModules as $module): ?>
           <li class="nav-item">
-            <a class="nav-link" href="<?= URL_CONTROLLER ?>/<?= $module['module_route'] ?>"><?= $module['role_module'] ?></a>
+            <a class="nav-link"
+              href="<?= URL_CONTROLLER ?>/<?= $module['module_route'] ?>"><?= $module['role_module'] ?></a>
           </li>
-          
         <?php endforeach ?>
       </ul>
 
-        <div class="col-md-3 text-end">
-            <div class="dropdown d-inline">
-                <a href="#" class="textnav dropdown-toggle" id="profileDropdown" data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                    <img src="<?= FOLDER_PUBLIC_ASSETS ?>/img/background/Icono usuario.png" alt="Profile" class="icon">
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#"><?= ($getUser[0]['full_name']) ?></a></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li style="background: red;"><a style="color:gray;" class="dropdown-item"
-                  href="<?= URL_CONTROLLER ?>/login/logOut">Log Out</a></li>
-            </ul>
-            </div>
+      <div class="col-md-3 text-end">
+        <div class="dropdown d-inline">
+          <a href="#" class="textnav dropdown-toggle" id="profileDropdown" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            <img src="<?= FOLDER_PUBLIC_ASSETS ?>/img/background/Icono usuario.png" alt="Profile" class="icon"
+              >Perfil
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="<?= URL_CONTROLLER_HOME?>"><?= ($getUser[0]['full_name']) ?></a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li style="background: red;"><a style="color:gray;" class="dropdown-item"
+                href="<?= URL_CONTROLLER ?>/login/logOut">Log Out</a></li>
+          </ul>
         </div>
+      </div>
     </header>
-    </div>
+  </div>
 
 
     <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
@@ -61,7 +62,8 @@
         </div>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="<?= FOLDER_PUBLIC_ASSETS ?>/img/background/ImagenPrincipal.jpeg" class="d-block w-100" alt="...">
+                <img src="<?= FOLDER_PUBLIC_ASSETS ?>/img/background/ImagenPrincipal.jpeg" class="d-block w-100"
+                    alt="...">
                 <div class="carousel-caption d-none d-md-block titulo1">
                     <h1>Bienvenidos a MysticalCut</h1>
                 </div>
@@ -81,11 +83,13 @@
                 </div>
             </div>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+            data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
         </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+            data-bs-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
         </button>
@@ -102,12 +106,13 @@
             <div class="col">
                 <div class="card">
                     <a href="../Usuario/ElegirTipoCita.html">
-                        <img src="<?= FOLDER_PUBLIC_ASSETS ?>/img/background/BarbaCortaCuadrada.jpg" class="card-img-top"
-                            alt="Barba Corta Cuadrada">
+                        <img src="<?= FOLDER_PUBLIC_ASSETS ?>/img/background/BarbaCortaCuadrada.jpg"
+                            class="card-img-top" alt="Barba Corta Cuadrada">
                     </a>
                     <div class="card-body">
                         <h5 class="card-title">Barba Corta Cuadrada</h5>
-                        <p class="card-text">La barba corta cuadrada se parece a una barba completa, pero sus laterales son más
+                        <p class="card-text">La barba corta cuadrada se parece a una barba completa, pero sus laterales
+                            son más
                             finos y están recortados con precisión.</p>
                     </div>
                 </div>
@@ -120,7 +125,8 @@
                     </a>
                     <div class="card-body">
                         <h5 class="card-title">Mullet</h5>
-                        <p class="card-text">El corte mullet es un estilo que juega con dos extensiones: más corto en la parte
+                        <p class="card-text">El corte mullet es un estilo que juega con dos extensiones: más corto en la
+                            parte
                             superior de la cabeza y los lados, y más largo en la parte de atrás.</p>
                     </div>
                 </div>
@@ -128,7 +134,8 @@
             <div class="col">
                 <div class="card">
                     <a href="../Usuario/ElegirTipoCita.html">
-                        <img src="<?= FOLDER_PUBLIC_ASSETS ?>/img/background/cejasflat.jpg" class="card-img-top" alt="...">
+                        <img src="<?= FOLDER_PUBLIC_ASSETS ?>/img/background/cejasflat.jpg" class="card-img-top"
+                            alt="...">
                     </a>
                     <div class="card-body">
                         <h5 class="card-title">Cejas Flat</h5>
@@ -139,7 +146,8 @@
             <div class="col">
                 <div class="card">
                     <a href="../Usuario/ElegirTipoCita.html">
-                        <img src="<?= FOLDER_PUBLIC_ASSETS ?>/img/background/tintebicolor.jpg" class="card-img-top" alt="...">
+                        <img src="<?= FOLDER_PUBLIC_ASSETS ?>/img/background/tintebicolor.jpg" class="card-img-top"
+                            alt="...">
                     </a>
                     <div class="card-body">
                         <h5 class="card-title">Tinte bicolor</h5>
@@ -149,7 +157,8 @@
             </div>
         </div>
 
-        <button class="back-button btn-custom mx-auto" onclick="window.location.href='paginaPrincipalADM.html';">Elige tu
+        <button class="back-button btn-custom mx-auto" onclick="window.location.href='paginaPrincipalADM.html';">Elige
+            tu
             servicio</button>
 
 
@@ -161,7 +170,8 @@
             <div class="col">
                 <div class="card">
                     <a href="../Usuario/Productos.html">
-                        <img src="<?= FOLDER_PUBLIC_ASSETS ?>/img/background/ceramate.jpg" class="card-img-top" alt="...">
+                        <img src="<?= FOLDER_PUBLIC_ASSETS ?>/img/background/ceramate.jpg" class="card-img-top"
+                            alt="...">
                     </a>
                     <div class="card-body">
                         <h5 class="card-title">Cera</h5>
@@ -172,7 +182,8 @@
             <div class="col">
                 <div class="card">
                     <a href="../Usuario/Productos.html"></a>
-                    <img src="<?= FOLDER_PUBLIC_ASSETS ?>/img/background/shampoocaida.jpg" class="card-img-top" alt="...">
+                    <img src="<?= FOLDER_PUBLIC_ASSETS ?>/img/background/shampoocaida.jpg" class="card-img-top"
+                        alt="...">
                     </a>
                     <div class="card-body">
                         <h5 class="card-title">Shampoo</h5>
@@ -187,14 +198,16 @@
                     </a>
                     <div class="card-body">
                         <h5 class="card-title">Shaver</h5>
-                        <p class="card-text">Esta shaver esta bañada en oro para pulir tus bellos y que queden bellos</p>
+                        <p class="card-text">Esta shaver esta bañada en oro para pulir tus bellos y que queden bellos
+                        </p>
                     </div>
                 </div>
             </div>
             <div class="col">
                 <div class="card">
                     <a href="../Usuario/Productos.html">
-                        <img src="<?= FOLDER_PUBLIC_ASSETS ?>/img/background/cremabarba.jpg" class="card-img-top" alt="...">
+                        <img src="<?= FOLDER_PUBLIC_ASSETS ?>/img/background/cremabarba.jpg" class="card-img-top"
+                            alt="...">
                     </a>
                     <div class="card-body">
                         <h5 class="card-title">Crema</h5>
@@ -204,7 +217,8 @@
             </div>
         </div>
 
-        <button class="back-button btn-custom mx-auto" onclick="window.location.href='paginaPrincipalADM.html';">Elige el
+        <button class="back-button btn-custom mx-auto" onclick="window.location.href='paginaPrincipalADM.html';">Elige
+            el
             producto
             que más te guste </button>
     </div>
@@ -214,8 +228,8 @@
 
 </body>
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
 <footer class="py-3 my-4 bg-dark text-white">
     <div class="container">
@@ -231,22 +245,26 @@
                 <ul class="nav justify-content-center">
                     <li class="nav-item">
                         <a class="nav-link" href="https://facebook.com" target="_blank" aria-label="Facebook">
-                            <img src="<?= FOLDER_PUBLIC_ASSETS ?>/img/background/logo facebook.png" alt="Facebook" class="social-icon">
+                            <img src="<?= FOLDER_PUBLIC_ASSETS ?>/img/background/logo facebook.png" alt="Facebook"
+                                class="social-icon">
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="https://instagram.com" target="_blank" aria-label="Twitter">
-                            <img src="<?= FOLDER_PUBLIC_ASSETS ?>/img/background/instagram.png" alt="Twitter" class="social-icon">
+                            <img src="<?= FOLDER_PUBLIC_ASSETS ?>/img/background/instagram.png" alt="Twitter"
+                                class="social-icon">
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="https://tiktok.com" target="_blank" aria-label="Instagram">
-                            <img src="<?= FOLDER_PUBLIC_ASSETS ?>/img/background/tiktok.png" alt="Instagram" class="social-icon">
+                            <img src="<?= FOLDER_PUBLIC_ASSETS ?>/img/background/tiktok.png" alt="Instagram"
+                                class="social-icon">
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="https://wa.me/1234567890" target="_blank" aria-label="LinkedIn">
-                            <img src="<?= FOLDER_PUBLIC_ASSETS ?>/img/background/whatsapp.jpg" alt="LinkedIn" class="social-icon">
+                            <img src="<?= FOLDER_PUBLIC_ASSETS ?>/img/background/whatsapp.jpg" alt="LinkedIn"
+                                class="social-icon">
                         </a>
                     </li>
                 </ul>
