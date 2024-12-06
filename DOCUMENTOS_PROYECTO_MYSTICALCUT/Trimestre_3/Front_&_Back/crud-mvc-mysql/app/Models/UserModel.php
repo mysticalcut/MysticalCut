@@ -200,8 +200,8 @@ class UserModel
         $this->pdo = $this->conn->connect();
         $this->sql = "UPDATE user SET userStatus_fk=?,role_fk=? WHERE  $this->primaryKey=?";
         $stmt = $this->pdo->prepare($this->sql);
-        $stmt->bindParam(1, $user[$this->modelData[2]]);
-        $stmt->bindParam(2, $user[$this->modelData[3]]);
+        $stmt->bindParam(1, $user[$this->modelData[7]]);  
+        $stmt->bindParam(2, $user[$this->modelData[8]]);
         $stmt->bindParam(3, $id);
         $stmt->execute();
         $this->data['updateId'] = $id;
