@@ -153,7 +153,7 @@ class ServiceController
       $this->data['data'] = $this->result;
       $this->data['status'] = 200;
       $this->data['message'] = "ok";
-      header("Location: "URL_CONTROLLER_SERVICE;
+      header("Location: ".URL_CONTROLLER_SERVICE);
     } catch (Exception $e) {
       $this->data['data'] = [];
       $this->data['status'] = 404;
