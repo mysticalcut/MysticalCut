@@ -232,13 +232,13 @@ footer .nav-link:hover {
 }
 
 .nav-link {
-  padding: 0;
+  padding: 10;
   color: #D4AF37;
   /* Elimina el padding predeterminado */
 }
 
 .nav-link:hover {
-  padding: 0;
+  padding: 10;
   color: #7e6208;
   /* Elimina el padding predeterminado */
 }

@@ -11,6 +11,7 @@
 </head>
 
 <body>
+
     <div class="container">
     <header
         class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
@@ -20,10 +21,14 @@
         </div>
 
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-            <li><a href="#" class="nav-link px-2 textnav">Inicio</a></li>
-            <li><a href="#servicios" class="nav-link px-2 textnav">Servicios</a></li>
-            <li><a href="#productos" class="nav-link px-2 textnav">Productos</a></li>
-        </ul>
+
+        <?php foreach ($roleModules as $module): ?>
+          <li class="nav-item">
+            <a class="nav-link" href="<?= URL_CONTROLLER ?>/<?= $module['module_route'] ?>"><?= $module['role_module'] ?></a>
+          </li>
+          
+        <?php endforeach ?>
+      </ul>
 
         <div class="col-md-3 text-end">
             <div class="dropdown d-inline">
@@ -31,22 +36,14 @@
                     aria-expanded="false">
                     <img src="<?= FOLDER_PUBLIC_ASSETS ?>/img/background/Icono usuario.png" alt="Profile" class="icon">
                 </a>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-                    <li>
-                        <a class="dropdown-item" href="<?=URL_CONTROLLER_HOME?>">
-                            <i class="fas fa-cog me-2"></i>Perfil
-                        </a>
-                    </li>
-                    
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="<?= URL_CONTROLLER ?>/login/logOut">
-                            <i class="fas fa-sign-out-alt me-2"></i> Cerrar sesión
-                        </a>
-                    </li>
-                </ul>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="#"><?= ($getUser[0]['full_name']) ?></a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li style="background: red;"><a style="color:gray;" class="dropdown-item"
+                  href="<?= URL_CONTROLLER ?>/login/logOut">Log Out</a></li>
+            </ul>
             </div>
         </div>
     </header>
