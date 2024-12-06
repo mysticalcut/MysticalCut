@@ -21,7 +21,7 @@
               <i class="bi bi-person-circle"></i>
             </button>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#"><?= ($getUser[0]['user_user']) ?></a></li>
+              <li><a class="dropdown-item" href="#"><?= ($getUser[0]['user_email']) ?></a></li>
               <li>
                 <hr class="dropdown-divider">
               </li>
