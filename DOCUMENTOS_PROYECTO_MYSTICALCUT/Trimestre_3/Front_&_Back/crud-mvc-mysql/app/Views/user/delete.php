@@ -13,7 +13,7 @@
 </head>
 
 <body>
-  <?php include_once FOLDER_VIEWS_ASSETS . 'nav/navBar.php'; ?>
+
   <div class="container">
     <h3><?= $title ?></h3>
 
@@ -21,7 +21,7 @@
 
       <form action="<?= URL_CONTROLLER ?>/user/delete/<?=$user[0]['user_id']?>" method="POST">
         <div class="form-floating mb-3">
-          <input type="email" class="form-control form-control-sm" id="user" name="user" placeholder="name@example.com" value="<?= $user[0]['user_user'] ?>" required disabled>
+          <input type="email" class="form-control form-control-sm" id="user" name="user" placeholder="name@example.com" value="<?= $user[0]['user_email'] ?>" required disabled>
           <label for="user">Email address</label>
         </div>
         <div class="form-floating">
@@ -54,7 +54,7 @@
 
 
   </div>
-  <?php include_once FOLDER_VIEWS_ASSETS . 'footer/footer.php'; ?>
+
   <?php include_once FOLDER_VIEWS_JS . 'js.php'; ?>
 </body>
 

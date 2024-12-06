@@ -21,7 +21,7 @@
 
       <form action="" method="POST">
         <div class="form-floating mb-3">
-          <input type="email" class="form-control form-control-sm" id="user" name="user" placeholder="name@example.com" value="<?= $user[0]['user_user'] ?>" required disabled>
+          <input type="email" class="form-control form-control-sm" id="user" name="user" placeholder="name@example.com" value="<?= $user[0]['user_email'] ?>" required disabled>
           <label for="user">Email address</label>
         </div>
         <div class="form-floating">
