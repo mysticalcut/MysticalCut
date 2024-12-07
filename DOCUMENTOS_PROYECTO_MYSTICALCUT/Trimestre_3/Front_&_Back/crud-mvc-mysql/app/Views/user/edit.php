@@ -9,6 +9,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <?php include_once FOLDER_VIEWS_CSS . 'style.php'; ?>
+  <?php include_once FOLDER_VIEWS_CSS . 'editUser.php'; ?>
   <title><?= $title ?></title>
 </head>
 
@@ -22,29 +23,7 @@
             </div>
 
             <div class="col-md-3 text-end">
-                <div class="dropdown d-inline">
-                    <a href="#" class="textnav dropdown-toggle" id="profileDropdown" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        <img src="<?= FOLDER_PUBLIC_ASSETS ?>/img/background/Icono usuario.png" alt="Profile"
-                            class="icon">
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-                        <li>
-                            <a class="dropdown-item" href="<?= URL_CONTROLLER_HOME ?>">
-                                <i class="fas fa-cog me-2"></i>Perfil
-                            </a>
-                        </li>
-
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="<?= URL_CONTROLLER_INDEX ?>">
-                                <i class="fas fa-sign-out-alt me-2"></i> Cerrar sesión
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                
             </div>
         </header>
     </div>
@@ -82,7 +61,7 @@
             <?php endif ?>
           <?php endfor ?>
         </select>
-        <button type="submit" class="btn btn-primary mt-2 w-100" title="Update">Update</button>
+        <button type="submit" class="btn submit-button" title="Update">Update</button>
       </form>
     </div>
 
