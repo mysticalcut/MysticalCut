@@ -34,7 +34,7 @@ class UserController
     $this->statusModel = new UserStatusModel();
     $this->roleModel = new RoleModel();
     $this->result = "";
-    //$this->getModulesRoles();
+    $this->getModulesRoles();
   }
 
  /**
