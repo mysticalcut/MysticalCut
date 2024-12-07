@@ -32,8 +32,8 @@ class FactureModel
   public function __construct()
   {
     $this->data = [];
-    $this->modelData = ['date', 'total_value', 'user_fk'];
-    $this->primaryKey = 'id_facture';
+    $this->modelData = ['name_service', 'estimatded_time', 'price', 'id_category_services'];
+    $this->primaryKey = 'id_services';    
   }
 
 
@@ -51,7 +51,7 @@ class FactureModel
     try {
       $this->conn = new ConnectDB();
       $this->pdo = $this->conn->connect();
-      $this->sql = "SELECT * FROM facture";
+      $this->sql = "SELECT * FROM services";
       //$this->sql = "CALL sp_user_all()";
       $result = $this->pdo->prepare($this->sql);
       $result->execute();

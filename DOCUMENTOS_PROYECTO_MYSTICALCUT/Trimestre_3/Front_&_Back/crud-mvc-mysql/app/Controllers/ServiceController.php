@@ -3,10 +3,10 @@
 
 namespace App\Controllers;
 
-use App\Models\UserModel;
+use App\Models\ServiceModel;
 use App\Models\ServiceModel;
 use App\Models\RoleModuleModel;
-use App\Models\UserStatusModel;
+use App\Models\ServiceStatusModel;
 use App\Models\RoleModel;
 use App\Config\View;
 
@@ -32,10 +32,10 @@ class ServiceController
     $this->data = [];
     $this->userApp=[];
     $this->model = new ServiceModel();
-    $this->statusModel = new UserStatusModel();
+    $this->statusModel = new ServiceStatusModel();
     $this->roleModel = new RoleModel();
     $this->result = "";
-    //$this->getModulesRoles();
+    $this->getModulesRoles();
   }
 
  /**
@@ -48,7 +48,7 @@ class ServiceController
       $this->result = $this->model->findAll();
       $view = new View('service/index');
       $view->set('title', 'service Index');
-      $view->set('service', $this->result);
+      $view->set('services ', $this->result);
       $view->set('roleModules',  $this->roleModules);
       $view->set('getUser',  $this->userApp);
       $view->render();
@@ -286,12 +286,12 @@ class ServiceController
     $data_request = json_decode(file_get_contents('php://input'), true);
   
     if ($data_request != NULL) {
-      $getModel['name'] = empty($data_request['name']) ? '' : $data_request['name'];
-      $getModel['estimated_time'] = empty($data_request['estimated_time']) ? '' : $data_request['password'];
+      $getModel['name_services'] = empty($data_request['name_services']) ? '' : $data_request['name_services'];
+      $getModel['estimated_time'] = empty($data_request['estimated_time']) ? '' : $data_request['estimated_time'];
       $getModel['price'] = empty($data_request['price']) ? '' : $data_request['price'];
       $getModel['id_category_services'] = empty($data_request['id_category_services']) ? '' : $data_request['id_category_services'];
     } else {
-      $getModel['name'] = empty($_REQUEST['name']) ? '' : $_REQUEST['name'];
+      $getModel['name_services'] = empty($_REQUEST['name_services']) ? '' : $_REQUEST['name_services'];
       $getModel['estimated_time'] = empty($_REQUEST['estimated_time']) ? '' : $_REQUEST['estimated_time'];
       $getModel['price'] = empty($_REQUEST['price']) ? '' : $_REQUEST['price'];
       $getModel['id_category_services'] = empty($_REQUEST['id_category_services']) ? '' : $_REQUEST['id_category_services'];

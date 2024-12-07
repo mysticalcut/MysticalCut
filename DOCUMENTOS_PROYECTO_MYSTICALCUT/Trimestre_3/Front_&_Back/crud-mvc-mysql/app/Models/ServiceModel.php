@@ -1,11 +1,5 @@
 <?php
 
-/**
- * Author:DIEGO CASALLAS
- * Date:08/11/2024
- * Descriptions: This is the class for the data model user functionality manager.
- */
-
 namespace App\Models;
 
 use App\Config\ConnectDB;
@@ -14,10 +8,7 @@ use PDO;
 
 class ServiceModel
 {
-  /* These are private properties of the `UserModel` class in PHP. Here is a brief explanation of each
- property: */
-  /* These are private properties of the `UserModel` class in PHP. Here is a brief explanation of each
- property: */
+
   private $conn;
   private $data;
   private $sql;
@@ -32,7 +23,7 @@ class ServiceModel
   public function __construct()
   {
     $this->data = [];
-    $this->modelData = ['id_services', 'name', 'estimatded_time', 'price', 'id_category_services'];
+    $this->modelData = ['name_service', 'estimatded_time', 'price', 'id_category_services'];
     $this->primaryKey = 'id_services';
   }
 
@@ -51,8 +42,8 @@ class ServiceModel
     try {
       $this->conn = new ConnectDB();
       $this->pdo = $this->conn->connect();
-      $this->sql = "SELECT * FROM user";
-      $this->sql = "CALL sp_user_all()";
+      $this->sql = "SELECT * FROM services";
+      //$this->sql = "CALL sp_user_all()";
       $result = $this->pdo->prepare($this->sql);
       $result->execute();
       $results = $result->fetchAll(PDO::FETCH_ASSOC);
@@ -84,7 +75,7 @@ class ServiceModel
     try {
       $this->conn = new ConnectDB();
       $this->pdo = $this->conn->connect();
-      $this->sql = "SELECT * FROM user WHERE $this->primaryKey ={$id}";
+      $this->sql = "SELECT * FROM services WHERE $this->primaryKey ={$id}";
       $result = $this->pdo->prepare($this->sql);
       $result->execute();
       $results = $result->fetchAll(PDO::FETCH_ASSOC);
@@ -115,7 +106,7 @@ class ServiceModel
    
       $this->conn = new ConnectDB();
       $this->pdo = $this->conn->connect();
-      $this->sql = "CALL sp_user_search('".$data."');";
+      //$this->sql = "CALL sp_user_search('".$data."');";
 
       $result = $this->pdo->prepare($this->sql);
       $result->execute();
@@ -142,24 +133,18 @@ class ServiceModel
    * passed in the `` array passes validation, a successful insertion into the database is
    * performed, and the `data` key is an empty array, `status` is set to 200, and
    */
-  public function create(array $user): array
+  public function create(array $services): array
   {
     try {
-      if ($this->validateModel($user)) {
+      if ($this->validateModel($services)) {
         $this->conn = new ConnectDB();
         $this->pdo = $this->conn->connect();
-        $this->sql = "INSERT INTO user(user_email, user_password,userStatus_fk,role_fk) VALUES (?,?,?,?)";
+        $this->sql = "INSERT INTO services(name_service, estimated_time,price,id_category_services) VALUES (?,?,?,?)";
         $stmt = $this->pdo->prepare($this->sql);
-        $passwordHast = password_hash($user[$this->modelData[1]], PASSWORD_DEFAULT);
-        $stmt->bindParam(1, $user[$this->modelData[0]]);
-        $stmt->bindParam(2, $passwordHast);
-        $stmt->bindParam(3, $user[$this->modelData[2]]);
-        $stmt->bindParam(4, $user[$this->modelData[3]]);
-        $stmt->bindParam(5, $user[$this->modelData[4]]);
-        $stmt->bindParam(6, $user[$this->modelData[5]]);
-        $stmt->bindParam(7, $user[$this->modelData[6]]);
-        $stmt->bindParam(8, $user[$this->modelData[7]]);
-        $stmt->bindParam(9, $user[$this->modelData[8]]);
+        $stmt->bindParam(1, $services[$this->modelData[0]]);
+        $stmt->bindParam(2, $services[$this->modelData[1]]);
+        $stmt->bindParam(3, $services[$this->modelData[2]]);
+        $stmt->bindParam(4, $services[$this->modelData[3]]);
         $stmt->execute();
         $last_id = $this->pdo->lastInsertId();
         $this->data['newId'] =  $last_id;
@@ -192,17 +177,19 @@ class ServiceModel
    * is validated successfully, it updates the user record in the database and sets `status` to 200 with
    * a message of 'OK'. If validation fails, it sets `status` to 404 with
    */
-  public function update(array $user, int $id): array
+  public function update(array $services, int $id): array
   {
     try {
-      if ($this->validateModel($user)) {
+      if ($this->validateModel($services)) {
         $this->conn = new ConnectDB();
         $this->pdo = $this->conn->connect();
-        $this->sql = "UPDATE user SET userStatus_fk=?,role_fk=? WHERE  $this->primaryKey=?";
+        $this->sql = "UPDATE services SET name_service=?,estimated_time=?,price=?,id,category_service WHERE  $this->primaryKey=?";
         $stmt = $this->pdo->prepare($this->sql);
-        $stmt->bindParam(1, $user[$this->modelData[7]]);  
-        $stmt->bindParam(2, $user[$this->modelData[8]]);
-        $stmt->bindParam(3, $id);
+        $stmt->bindParam(1, $services[$this->modelData[0]]);
+        $stmt->bindParam(2, $services[$this->modelData[1]]);
+        $stmt->bindParam(3, $services[$this->modelData[2]]);
+        $stmt->bindParam(4, $services[$this->modelData[3]]);
+        $stmt->bindParam(6, $id);
         $stmt->execute();
         $this->data['updateId'] = $id;
       } else {
@@ -235,7 +222,7 @@ class ServiceModel
     try {
       $this->conn = new ConnectDB();
       $this->pdo = $this->conn->connect();
-      $this->sql = "DELETE FROM user WHERE  $this->primaryKey=?";
+      $this->sql = "DELETE FROM services WHERE  $this->primaryKey=?";
       $stmt = $this->pdo->prepare($this->sql);
       $stmt->bindParam(1, $id);
       $stmt->execute();

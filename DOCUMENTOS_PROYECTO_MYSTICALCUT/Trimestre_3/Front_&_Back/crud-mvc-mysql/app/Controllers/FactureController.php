@@ -3,7 +3,7 @@
 
 namespace App\Controllers;
 
-use App\Models\UserModel;
+use App\Models\serviceModel;
 
 use App\Models\FactureModel;
 use App\Models\RoleModuleModel;
@@ -43,9 +43,9 @@ class FactureController
   {
     try {
       $this->result = $this->model->findAll();
-      $view = new View('facture/index');
-      $view->set('title', 'Facture Index');
-      $view->set('factures', $this->result);
+      $view = new View('services/index');
+      $view->set('title', 'services Index');
+      $view->set('services', $this->result);
       $view->set('roleModules',  $this->roleModules);
       $view->set('getUser',  $this->userApp);
       $view->render();
