@@ -13,15 +13,20 @@
 </head>
 
 <body>
-    <?php include_once FOLDER_VIEWS_ASSETS . 'nav/navBar.php'; ?>
+<header
+      class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+      <div class="col-md-3 mb-2 mb-md-0">
+        <img src="<?= FOLDER_PUBLIC_ASSETS ?>/img/background/LOGO.png" alt="Logo" width="125" height="125"
+          class="d-inline-block align-text-top">
+      </div>
+
+      <ul class="nav col-12 justify-content-center mx-auto">
+        <h1>Factura</h1>
+      </ul>
+    </header>
 
     <div class="container">
-        <header
-            class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-            <ul class="nav col-12 justify-content-center mx-auto">
-                <h1>Usuarios</h1>
-            </ul>
-        </header>
+    
 
         <div class="d-flex align-items-center justify-content-between w-100 mb-3">
             <div>
@@ -59,9 +64,9 @@
                     <?php foreach ($factures as $index => $facture): ?>
                         <tr>
 
-                            <td><?= $facture['id_factura'] ?></td>
-                            <td><?= $facture['fecha'] ?></td>
-                            <td>$<?= $facture['valor_total'] ?></td>
+                            <td><?= $facture['id_facture'] ?></td>
+                            <td><?= $facture['date'] ?></td>
+                            <td>$<?= $facture['total_value'] ?></td>
                             <td><?= $facture['user_fk'] ?></td>
                         </tr>
 

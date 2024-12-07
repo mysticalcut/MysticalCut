@@ -32,8 +32,8 @@ class FactureModel
   public function __construct()
   {
     $this->data = [];
-    $this->modelData = ['fecha', 'valor_total', 'user_fk'];
-    $this->primaryKey = 'id_factura';
+    $this->modelData = ['date', 'total_value', 'user_fk'];
+    $this->primaryKey = 'id_facture';
   }
 
 

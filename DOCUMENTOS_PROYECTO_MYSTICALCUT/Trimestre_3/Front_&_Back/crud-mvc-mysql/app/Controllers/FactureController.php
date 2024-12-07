@@ -283,12 +283,12 @@ class FactureController
     $data_request = json_decode(file_get_contents('php://input'), true);
 
     if ($data_request != NULL) {
-      $getModel['fecha'] = empty($data_request['fecha']) ? '' : $data_request['fecha'];
-      $getModel['valor_total'] = empty($data_request['valor_total']) ? '' : $data_request['valor_total'];
+      $getModel['date'] = empty($data_request['date']) ? '' : $data_request['date'];
+      $getModel['total_value'] = empty($data_request['total_value']) ? '' : $data_request['total_value'];
       $getModel['user_fk'] = $data_request['user_fk'];
     } else {
-      $getModel['fecha'] = empty($_REQUEST['fecha']) ? '' : $_REQUEST['fecha'];
-      $getModel['valor_total'] = empty($_REQUEST['valor_total']) ? '' : $_REQUEST['valor_total'];
+      $getModel['date'] = empty($_REQUEST['date']) ? '' : $_REQUEST['date'];
+      $getModel['total_value'] = empty($_REQUEST['total_value']) ? '' : $_REQUEST['total_value'];
       $getModel['user_fk'] = $_REQUEST['user_fk'];
     }
 
