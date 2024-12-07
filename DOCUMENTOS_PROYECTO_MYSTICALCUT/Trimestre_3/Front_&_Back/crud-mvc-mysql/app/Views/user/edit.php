@@ -34,11 +34,11 @@
 
       <form action="<?= URL_CONTROLLER ?>/user/update/<?=$user[0]['user_id']?>" method="POST">
         <div class="form-floating mb-3">
-          <input type="email" class="form-control form-control-sm" id="user" name="user" placeholder="name@example.com" value="<?= $user[0]['user_email'] ?>" required disabled>
+          <input type="email" class="form-control form-control-sm" id="user" name="user" placeholder="name@example.com" value="<?= $user[0]['user_email'] ?>" required>
           <label for="user">Email address</label>
         </div>
         <div class="form-floating">
-          <input type="password" style="text-overflow: ellipsis;" class="form-control form-control-sm" id="password" name="password" placeholder="Password" value="<?= $user[0]['user_password'] ?>" required disabled>
+          <input type="password" style="text-overflow: ellipsis;" class="form-control form-control-sm" id="password" name="password" placeholder="Password" value="<?= $user[0]['user_password'] ?>" required>
           <label for="password">Password</label>
         </div>
         <select class="form-select form-select-sm mt-2" aria-label=".form-select-sm example" id="role" name="role" required >
