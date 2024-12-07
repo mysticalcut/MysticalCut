@@ -148,7 +148,7 @@ class UserModel
       if ($this->validateModel($user)) {
         $this->conn = new ConnectDB();
         $this->pdo = $this->conn->connect();
-        $this->sql = "INSERT INTO user(user_email, user_password,userStatus_fk,role_fk) VALUES (?,?,?,?)";
+        $this->sql = "CALL sp_create_user(?,?,?,?)";
         $stmt = $this->pdo->prepare($this->sql);
         $passwordHast = password_hash($user[$this->modelData[1]], PASSWORD_DEFAULT);
         $stmt->bindParam(1, $user[$this->modelData[0]]);
