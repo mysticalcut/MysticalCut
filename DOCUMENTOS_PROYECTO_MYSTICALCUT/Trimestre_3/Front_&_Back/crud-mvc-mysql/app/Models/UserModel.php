@@ -200,9 +200,10 @@ class UserModel
         $this->pdo = $this->conn->connect();
         $this->sql = "UPDATE user SET user_email=?,user_password=?,userStatus_fk=?,role_fk=? WHERE  $this->primaryKey=?";
         $stmt = $this->pdo->prepare($this->sql);
-        $stmt->bindParam(1, $user[$this->modelData[0]]);  
-        $stmt->bindParam(2, $user[$this->modelData[1]]); 
-        $stmt->bindParam(3, $user[$this->modelData[7]]);  
+        $passwordHast = password_hash($user[$this->modelData[1]], PASSWORD_DEFAULT);
+        $stmt->bindParam(1, $user[$this->modelData[0]]);
+        $stmt->bindParam(2, $passwordHast);
+        $stmt->bindParam(3, $user[$this->modelData[7]]);
         $stmt->bindParam(4, $user[$this->modelData[8]]);
         $stmt->bindParam(5, $id);
         $stmt->execute();

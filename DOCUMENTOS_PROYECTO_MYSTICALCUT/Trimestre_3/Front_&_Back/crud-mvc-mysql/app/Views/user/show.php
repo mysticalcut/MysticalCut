@@ -9,51 +9,34 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <?php include_once FOLDER_VIEWS_CSS . 'style.php'; ?>
+  <?php include_once FOLDER_VIEWS_CSS . 'editUser.php'; ?>
   <title><?= $title ?></title>
 </head>
 
 <body>
 <div class="container">
-        <header
+<header
             class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
             <div class="col-md-3 mb-2 mb-md-0">
                 <img src="<?= FOLDER_PUBLIC_ASSETS ?>/img/background/LOGO.png" alt="Logo" width="125" height="125"
                     class="d-inline-block align-text-top">
             </div>
 
-            <div class="col-md-3 text-end">
-                <div class="dropdown d-inline">
-                    <a href="#" class="textnav dropdown-toggle" id="profileDropdown" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        <img src="<?= FOLDER_PUBLIC_ASSETS ?>/img/background/Icono usuario.png" alt="Profile"
-                            class="icon">
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-                        <li>
-                            <a class="dropdown-item" href="<?= URL_CONTROLLER_HOME ?>">
-                                <i class="fas fa-cog me-2"></i>Perfil
-                            </a>
-                        </li>
-
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="<?= URL_CONTROLLER_INDEX ?>">
-                                <i class="fas fa-sign-out-alt me-2"></i> Cerrar sesión
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            <ul class="nav col-12 justify-content-center mx-auto">
+                <h1>Ver usuario</h1>
+            </ul>
         </header>
     </div>
-  <div class="container">
-    <h3><?= $title ?></h3>
+  <div class="recover-container">
+    
 
     <div class="row">
 
       <form action="" method="POST">
+      <div class="form-floating mb-3">
+          <input type="email" class="form-control form-control-sm" id="user" name="user" value="<?= $user[0]['full_name'] ?>" required disabled>
+          <label for="user">Name</label>
+        </div>
         <div class="form-floating mb-3">
           <input type="email" class="form-control form-control-sm" id="user" name="user" placeholder="name@example.com" value="<?= $user[0]['user_email'] ?>" required disabled>
           <label for="user">Email address</label>
@@ -85,7 +68,9 @@
       </form>
     </div>
 
-
+    <div class="btn-regresar mt-3">
+      <button class="back-button btn btn-secondary" onclick="window.location.href='../index';">Regresar</button>
+    </div>
   </div>
 
   <?php include_once FOLDER_VIEWS_JS . 'js.php'; ?>
