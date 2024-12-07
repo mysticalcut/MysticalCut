@@ -72,7 +72,11 @@
       <button class="back-button btn btn-secondary" onclick="window.location.href='../index';">Regresar</button>
     </div>
   </div>
-
+  <footer class="py-3 my-4">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+        </ul>
+        <p class="text-center text-white"></p>
+    </footer> 
   <?php include_once FOLDER_VIEWS_JS . 'js.php'; ?>
 </body>
 
