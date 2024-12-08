@@ -4,7 +4,6 @@
 namespace App\Controllers;
 
 use App\Models\ServiceModel;
-use App\Models\ServiceModel;
 use App\Models\RoleModuleModel;
 use App\Models\ServiceStatusModel;
 use App\Models\RoleModel;
@@ -32,7 +31,7 @@ class ServiceController
     $this->data = [];
     $this->userApp=[];
     $this->model = new ServiceModel();
-    $this->statusModel = new ServiceStatusModel();
+    //$this->statusModel = new ServiceStatusModel();
     $this->roleModel = new RoleModel();
     $this->result = "";
     $this->getModulesRoles();
@@ -76,12 +75,12 @@ class ServiceController
   public function showId(int $id = null)
   {
     try {
-      $this->result = $this->model->findId($iServiced);
+      $this->result = $this->model->findId($id);
       $view = new View('Service/show');
       $view->set('title', 'Service Show');
-      $view->set('Service', $this->result);
+      $view->set('Services', $this->result);
       $view->set('roles', $this->roleModel->findAll());
-      $view->set('status', $this->statusModel->findAll());
+      //$view->set('status', $this->statusModel->findAll());
       $view->set('roleModules',  $this->roleModules);
       $view->set('getUser',  $this->userApp);
       $view->render();
@@ -108,9 +107,9 @@ class ServiceController
       $this->result = $this->model->findId($id);
       $view = new View('Service/edit');
       $view->set('title', 'Service Edit');
-      $view->set('Service', $this->result);
+      $view->set('Services', $this->result);
       $view->set('roles', $this->roleModel->findAll());
-      $view->set('status', $this->statusModel->findAll());
+      //$view->set('status', $this->statusModel->findAll());
       $view->set('roleModules',  $this->roleModules);
       $view->set('getUser',  $this->userApp);
       $view->render();
