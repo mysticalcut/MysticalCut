@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-12-2024 a las 17:30:16
+-- Tiempo de generación: 08-12-2024 a las 05:18:45
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -27,6 +27,23 @@ DELIMITER $$
 --
 -- Procedimientos
 --
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_create_user` (IN `p_full_name` VARCHAR(100), IN `p_user_email` VARCHAR(255), IN `p_user_password` VARCHAR(255), IN `p_role_fk` INT, IN `p_userStatus_fk` INT)   BEGIN
+    -- Validar si el usuario ya existe
+    IF EXISTS (
+        SELECT 1 FROM `user` WHERE full_name = p_full_name
+    ) THEN
+        -- Si el usuario ya existe, lanza un mensaje pero no detiene la ejecución
+        SELECT 'El usuario ya existe.' AS mensaje;
+    ELSE
+        -- Insertar un nuevo usuario
+        INSERT INTO `user` (full_name, user_email, user_password, role_fk, userStatus_fk)
+        VALUES (p_full_name, p_user_email, SHA2(p_user_password, 256), p_role_fk, p_userStatus_fk);
+
+        -- Mensaje de confirmación
+        SELECT 'Usuario creado exitosamente.' AS mensaje;
+    END IF;
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_role_module` (IN `idRole` INT)   BEGIN
 SELECT ROL.role_name AS `role_fk`,MD.module_name AS `role_module`,MD.module_icon,MD.module_description, MD.module_route FROM role_module AS RM 
 INNER JOIN role AS ROL ON RM.role_fk=ROL.role_id
@@ -62,10 +79,6 @@ CREATE TABLE IF NOT EXISTS `category_product` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- RELACIONES PARA LA TABLA `category_product`:
---
-
---
 -- Truncar tablas antes de insertar `category_product`
 --
 
@@ -92,10 +105,6 @@ CREATE TABLE IF NOT EXISTS `category_services` (
   `name` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id_category_services`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- RELACIONES PARA LA TABLA `category_services`:
---
 
 --
 -- Truncar tablas antes de insertar `category_services`
@@ -126,10 +135,6 @@ CREATE TABLE IF NOT EXISTS `document_type` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- RELACIONES PARA LA TABLA `document_type`:
---
-
---
 -- Truncar tablas antes de insertar `document_type`
 --
 
@@ -156,12 +161,6 @@ CREATE TABLE IF NOT EXISTS `facture` (
   PRIMARY KEY (`id_facture`),
   KEY `fk_factura_usuario` (`user_fk`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- RELACIONES PARA LA TABLA `facture`:
---   `user_fk`
---       `user` -> `user_id`
---
 
 --
 -- Truncar tablas antes de insertar `facture`
@@ -197,10 +196,6 @@ CREATE TABLE IF NOT EXISTS `module` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- RELACIONES PARA LA TABLA `module`:
---
-
---
 -- Truncar tablas antes de insertar `module`
 --
 
@@ -232,12 +227,6 @@ CREATE TABLE IF NOT EXISTS `product` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- RELACIONES PARA LA TABLA `product`:
---   `id_category`
---       `category_product` -> `id_category`
---
-
---
 -- Truncar tablas antes de insertar `product`
 --
 
@@ -267,14 +256,6 @@ CREATE TABLE IF NOT EXISTS `product_invoice_detail` (
   KEY `fk_product_invoice_detail` (`id_facture`),
   KEY `fk_detail_invoice_product_product` (`id_product`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- RELACIONES PARA LA TABLA `product_invoice_detail`:
---   `id_product`
---       `product` -> `id_product`
---   `id_facture`
---       `facture` -> `id_facture`
---
 
 --
 -- Truncar tablas antes de insertar `product_invoice_detail`
@@ -309,12 +290,6 @@ CREATE TABLE IF NOT EXISTS `quotes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- RELACIONES PARA LA TABLA `quotes`:
---   `user_id`
---       `user` -> `user_id`
---
-
---
 -- Truncar tablas antes de insertar `quotes`
 --
 
@@ -344,10 +319,6 @@ CREATE TABLE IF NOT EXISTS `role` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- RELACIONES PARA LA TABLA `role`:
---
-
---
 -- Truncar tablas antes de insertar `role`
 --
 
@@ -375,14 +346,6 @@ CREATE TABLE IF NOT EXISTS `role_module` (
   KEY `role_module_role` (`role_fk`),
   KEY `role_module_module` (`module_fk`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- RELACIONES PARA LA TABLA `role_module`:
---   `module_fk`
---       `module` -> `module_id`
---   `role_fk`
---       `role` -> `role_id`
---
 
 --
 -- Truncar tablas antes de insertar `role_module`
@@ -417,12 +380,6 @@ CREATE TABLE IF NOT EXISTS `services` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- RELACIONES PARA LA TABLA `services`:
---   `id_category_services`
---       `category_services` -> `id_category_services`
---
-
---
 -- Truncar tablas antes de insertar `services`
 --
 
@@ -454,14 +411,6 @@ CREATE TABLE IF NOT EXISTS `service_invoice_detail` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- RELACIONES PARA LA TABLA `service_invoice_detail`:
---   `id_services`
---       `services` -> `id_services`
---   `id_facture`
---       `facture` -> `id_facture`
---
-
---
 -- Truncar tablas antes de insertar `service_invoice_detail`
 --
 
@@ -490,14 +439,6 @@ CREATE TABLE IF NOT EXISTS `type_of_quotes` (
   KEY `fk_type_citation_citation` (`id_quotes`),
   KEY `fk_type_appointment_service` (`id_services`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- RELACIONES PARA LA TABLA `type_of_quotes`:
---   `id_services`
---       `services` -> `id_services`
---   `id_quotes`
---       `quotes` -> `id_quotes`
---
 
 --
 -- Truncar tablas antes de insertar `type_of_quotes`
@@ -538,17 +479,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   KEY `user_role` (`role_fk`),
   KEY `user_status` (`userStatus_fk`),
   KEY `document_type` (`document_type`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- RELACIONES PARA LA TABLA `user`:
---   `document_type`
---       `document_type` -> `id_doctype`
---   `role_fk`
---       `role` -> `role_id`
---   `userStatus_fk`
---       `userstatus` -> `userStatus_id`
---
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Truncar tablas antes de insertar `user`
@@ -564,7 +495,8 @@ INSERT INTO `user` (`user_id`, `user_email`, `user_password`, `document_number`,
 (2, 'andresecasvar05@gmail.com', '$2y$10$o94DCxTwFVI.uQGHbkinAOGkQ7RkFK50/YhNqWkzGv08a5lVr2IH6', '1011200996', 'Andres Esteban Castañeda', 'Calle Principal #1235', '3175248114', 1, 3, 1),
 (3, 'leonoscarandres04@gmail.com', '$2y$10$zNXemXVFPEbCd7yFTM.rMe3FO2sTze.cW/cOrGTps0dOi1YyFO7nW', '1022933160', 'Oscar Andres Leon', 'Calle Principal #1236', '3209241730', 1, 2, 1),
 (4, 'hharold855@gmail.com', '$2y$10$zNXemXVFPEbCd7yFTM.rMe3FO2sTze.cW/cOrGTps0dOi1YyFO7nW', '1022938044', 'Harold David Hernandez', 'Calle Principal #1237', '3212709274', 1, 2, 1),
-(5, 'prueba@gmail.com', '$2y$10$zNXemXVFPEbCd7yFTM.rMe3FO2sTze.cW/cOrGTps0dOi1YyFO7nW', '1237856337', 'trabajo de prueba', 'Calle Principal #12378', '323456789', 1, 2, 2);
+(5, 'prueba@gmail.com', '$2y$10$zNXemXVFPEbCd7yFTM.rMe3FO2sTze.cW/cOrGTps0dOi1YyFO7nW', '1237856337', 'trabajo de prueba', 'Calle Principal #12378', '323456789', 1, 2, 2),
+(20, '', '0b4ab8673fa9ac81536ccd61cb9c6cfc980be880ec40b6968d762d02ce3d5244', '', 'hh', NULL, NULL, 1, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -578,10 +510,6 @@ CREATE TABLE IF NOT EXISTS `userstatus` (
   PRIMARY KEY (`userStatus_id`),
   UNIQUE KEY `userStatus_name` (`userStatus_name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- RELACIONES PARA LA TABLA `userstatus`:
---
 
 --
 -- Truncar tablas antes de insertar `userstatus`
