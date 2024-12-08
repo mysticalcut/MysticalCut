@@ -172,8 +172,8 @@ class UserController
       $view = new View('user/create');
       $view->set('title', 'User Create');
 
-      //$view->set('roleModules',  $this->roleModules);
-      //$view->set('getUser',  $this->userApp);
+      $view->set('roleModules',  $this->roleModules);
+      $view->set('getUser',  $this->userApp);
       $view->render();
     } catch (Exception $e) {
       $this->data['data'] = [];

@@ -14,7 +14,9 @@
 </head>
 
 <body>
-<header
+
+<div class="container">
+    <header
       class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
       <div class="col-md-3 mb-2 mb-md-0">
         <img src="<?= FOLDER_PUBLIC_ASSETS ?>/img/background/LOGO.png" alt="Logo" width="125" height="125"
@@ -25,6 +27,7 @@
         <h1>Eliminar Usuario</h1>
       </ul>
     </header>
+  </div>
   <div class="container">
  
 
@@ -59,10 +62,13 @@
             <?php endif ?>
           <?php endfor ?>
         </select>
-        <button type="submit" class="btn btn-primary mt-2 w-100" title="Update">Update</button>
+        <button type="submit" class="btn btn-danger mt-2 w-100" title="delete">Delete</button>
       </form>
     </div>
-
+    <div class="btn-regresar mt-3">
+            <button class="back-button btn btn-secondary"
+                onclick="window.location.href='../index';">Regresar</button>
+        </div>
 
   </div>
 
