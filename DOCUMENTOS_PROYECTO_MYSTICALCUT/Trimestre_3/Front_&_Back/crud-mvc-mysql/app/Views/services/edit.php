@@ -3,32 +3,89 @@
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <?php include_once FOLDER_VIEWS_CSS . 'style.php'; ?>
-  <title><?= $title ?></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../../../public/assets/img/LOGOHEADERTRANS.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.all.min.js"></script>
+    <title>Editar Servicios</title>
+    <link rel="stylesheet" href="../../../public/assets/css/Administrador/index.css">
+    <link rel="stylesheet" href="../../../public/assets/css/Administrador/agregarProducto.css">
+    <style>
+        /* Estilos adicionales para el input file escondido */
+        .file-input {
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
-  <?php include_once FOLDER_VIEWS_ASSETS . 'nav/navBar.php'; ?>
-  <div class="container">
-    <h3><?= $title ?></h3>
+    <div class="container">
+        <header
+            class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+            <div class="col-md-3 mb-2 mb-md-0">
+                <img src="../../../public/assets/img/LOGO.png" alt="" width="125" height="125">
+            </div>
+            <ul class="nav col-12 justify-content-center mx-auto">
+                <h1>Editar Servicios</h1>
+            </ul>
+        </header>
 
-    <div class="row">
-    <form action="<?= URL_CONTROLLER ?>/role/update/<?=$role[0]['role_id']?>" method="POST">
-        <div class="form-floating mb-3">
-          <input type="text" class="form-control form-control-sm" id="name" name="name" placeholder="Role name" value="<?=$role[0]['role_name']?>" required >
-          <label for="user">Name Role</label>
+
+        <div class="row edit-container">
+            <div class="col-md-5 text-center">
+                <div class="image-placeholder mx-auto">
+                    <img id="placeholder-image" src="placeholder.png" alt="Placeholder Image"
+                        style="max-width: 100%; height: auto;">
+                </div>
+                <div class="additional-container">
+                    <!-- Botón para abrir el explorador de archivos -->
+                    <button class="profile-button btn btn-dark mt-2" id="browse-button">Examinar</button>
+                    <!-- Input de tipo file escondido, restringido a imágenes -->
+                    <input type="file" id="file-input" class="file-input" accept="image/jpeg, image/png, image/jpg">
+                    <label for="precio" class="precio-label">Precio</label>
+                    <input type="text" id="precio" placeholder="Precio" class="precio-input">
+                </div>
+            </div>
+            <div class="col-md-5 offset-md-1">
+                <form class="edit-form">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id="nombre" placeholder="Nombre">
+
+                    <label for="descripcion">Descripción</label>
+                    <input type="text" id="descripcion" placeholder="Descripción">
+
+                    <label for="clase">Clase</label>
+                    <select id="clase">
+                        <option value="opcion1">seleccionar</option>
+                        <option value="opcion2">Corte</option>
+                        <option value="opcion3">Barba</option>
+                        <option value="opcion4">Cejas</option>
+                        <option value="opcion5">Tintes</option>
+                        <option value="opcion6">Combos</option>
+                    </select>
+                </form>
+
+                <td><a class="profile-button btn btn-dark mt-2" onclick="editarServicio()">Editar</a></td>
+            </div>
         </div>
-        <button type="submit" class="btn btn-success mt-2 w-100">Update</button>
-      </form>
-    </div>  
-  </div>
-  <?php include_once FOLDER_VIEWS_ASSETS . 'footer/footer.php'; ?>
-  <?php include_once FOLDER_VIEWS_JS . 'js.php'; ?>
+
+        <div>
+            <button class="back-button2" onclick="window.location.href='ServiciosADM.html';">Regresar</button>
+        </div>
+
+    </div>
+    <footer class="py-3 my-4">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3"></ul>
+    </footer>
+
+    <script src="../../../public/assets/js/Administrador/examinarImagen.js"></script>
+    <script src="../../../public/assets/js/Administrador/editarServicio.js"></script>
 </body>
 
 </html>

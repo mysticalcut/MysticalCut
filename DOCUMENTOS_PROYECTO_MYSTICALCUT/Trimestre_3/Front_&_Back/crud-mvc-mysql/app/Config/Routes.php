@@ -190,7 +190,7 @@ class Routes
     $this->routes["roleModule"] = $roleModuleRoutes;
     $this->routes["error"] = $errorRoutes;
     $this->routes["facture"] = $factureRoutes;
-    $this->routes["service"] = $ServiceRoutes;
+    $this->routes["services"] = $ServiceRoutes;
     if (empty($this->routes[$controller])) {
       return $this->routes["error"][0];
     }
