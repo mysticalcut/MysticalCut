@@ -75,7 +75,7 @@ class ServiceModel
     try {
       $this->conn = new ConnectDB();
       $this->pdo = $this->conn->connect();
-      $this->sql = "SELECT * FROM services WHERE $this->primaryKey ={$id}";
+      $this->sql = "SELECT * FROM 'Service' WHERE $this->primaryKey ={$id}";
       $result = $this->pdo->prepare($this->sql);
       $result->execute();
       $results = $result->fetchAll(PDO::FETCH_ASSOC);

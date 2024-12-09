@@ -104,8 +104,8 @@ class FactureController
   {
     try {
       $this->result = $this->model->findId($id);
-      $view = new View('user/edit');
-      $view->set('title', 'User Edit');
+      $view = new View('Service/edit');
+      $view->set('title', 'Service Edit');
       $view->set('user', $this->result);
       $view->set('roles', $this->roleModel->findAll());
       $view->set('status', $this->statusModel->findAll());
@@ -167,10 +167,9 @@ class FactureController
   {
     try {
 
-      $view = new View('user/create');
-      $view->set('title', 'User Create');
-      $view->set('roles', $this->roleModel->findAll());
-      $view->set('status', $this->statusModel->findAll());
+      $view = new View('Service/create');
+      $view->set('title', 'Service Create');
+
       $view->set('roleModules',  $this->roleModules);
       $view->set('getUser',  $this->userApp);
       $view->render();

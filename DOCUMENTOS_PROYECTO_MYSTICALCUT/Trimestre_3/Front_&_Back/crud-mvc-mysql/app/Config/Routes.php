@@ -129,7 +129,15 @@ class Routes
       ["method" => "register", "REQUEST" => 'GET', "controller" => "HomeController"],
     ];
     $factureRoutes = [
-      ["method" => "index", "REQUEST" => "GET", "controller" => "FactureController", "filter" => "logIn"],
+      ["method" => "create", "REQUEST" => "POST", "controller" => "factureController"],
+      ["method" => "show", "REQUEST" => "GET", "controller" => "factureController"],
+      ["method" => "showId", "REQUEST" => "GET", "controller" => "factureController"],
+      ["method" => "update", "REQUEST" => "POST", "controller" => "factureController"],
+      ["method" => "edit", "REQUEST" => "GET", "controller" => "factureController"],
+      ["method" => "delete", "REQUEST" => 'POST', "controller" => "factureController"],
+      ["method" => "index", "REQUEST" => "GET", "controller" => "factureController", "filter" => "logIn"],
+      ["method" => "viewCreate", "REQUEST" => 'GET', "controller" => "factureController"],
+      ["method" => "viewDelete", "REQUEST" => 'GET', "controller" => "factureController", "filter" => "logIn"],
 
     ];
     $ServiceRoutes = [
