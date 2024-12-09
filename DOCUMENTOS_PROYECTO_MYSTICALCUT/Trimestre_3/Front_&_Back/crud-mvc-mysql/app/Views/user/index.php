@@ -83,6 +83,7 @@
 
                     <div class="icon-container">
                         <a href="<?= URL_CONTROLLER ?>/user/edit/<?= $user['user_id'] ?>" class="btn btn-icon">
+                        <img src="../../public/assets/img/logos/pencil.svg" alt="Icono lapiz">
                         </a>
                         <a href="<?= URL_CONTROLLER ?>/user/showId/<?= $user['user_id'] ?>" class="btn btn-icon">
                             <img src="../../public/assets/img/logos/eye.svg" alt="Icono Ojo">
