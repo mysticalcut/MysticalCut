@@ -129,16 +129,15 @@ class Routes
       ["method" => "register", "REQUEST" => 'GET', "controller" => "HomeController"],
     ];
     $factureRoutes = [
-      ["method" => "create", "REQUEST" => "POST", "controller" => "factureController"],
-      ["method" => "show", "REQUEST" => "GET", "controller" => "factureController"],
-      ["method" => "showId", "REQUEST" => "GET", "controller" => "factureController"],
-      ["method" => "update", "REQUEST" => "POST", "controller" => "factureController"],
-      ["method" => "edit", "REQUEST" => "GET", "controller" => "factureController"],
-      ["method" => "delete", "REQUEST" => 'POST', "controller" => "factureController"],
-      ["method" => "index", "REQUEST" => "GET", "controller" => "factureController", "filter" => "logIn"],
-      ["method" => "viewCreate", "REQUEST" => 'GET', "controller" => "factureController"],
-      ["method" => "viewDelete", "REQUEST" => 'GET', "controller" => "factureController", "filter" => "logIn"],
-
+      ["method" => "create", "REQUEST" => "POST", "controller" => "FactureController"],
+      ["method" => "show", "REQUEST" => "GET", "controller" => "FactureController"],
+      ["method" => "showId", "REQUEST" => "GET", "controller" => "FactureController"],
+      ["method" => "update", "REQUEST" => "POST", "controller" => "FactureController"],
+      ["method" => "edit", "REQUEST" => "GET", "controller" => "FactureController"],
+      ["method" => "delete", "REQUEST" => 'POST', "controller" => "FactureController"],
+      ["method" => "index", "REQUEST" => "GET", "controller" => "FactureController", "filter" => "logIn"],
+      ["method" => "viewCreate", "REQUEST" => 'GET', "controller" => "FactureController"],
+      ["method" => "viewDelete", "REQUEST" => 'GET', "controller" => "FactureController", "filter" => "logIn"],
     ];
     $ServiceRoutes = [
       ["method" => "create", "REQUEST" => "POST", "controller" => "ServiceController"],
@@ -197,7 +196,6 @@ class Routes
     $this->routes["module"] = $moduleRoutes;
     $this->routes["roleModule"] = $roleModuleRoutes;
     $this->routes["error"] = $errorRoutes;
-    $this->routes["facture"] = $factureRoutes;
     $this->routes["services"] = $ServiceRoutes;
     if (empty($this->routes[$controller])) {
       return $this->routes["error"][0];

@@ -152,7 +152,7 @@ class UserController
       $this->data['data'] = $this->result;
       $this->data['status'] = 200;
       $this->data['message'] = "ok";
-      header("Location: ".URL_CONTROLLER_INDEX);
+      header("Location: ".URL_CONTROLLER_USER);
     } catch (Exception $e) {
       $this->data['data'] = [];
       $this->data['status'] = 404;
@@ -292,8 +292,9 @@ class UserController
       $getModel['full_name'] = empty($data_request['full_name']) ? '' : $data_request['full_name'];
       $getModel['address'] = empty($data_request['address']) ? '' : $data_request['address'];
       $getModel['phone'] = empty($data_request['phone']) ? '' : $data_request['phone'];
-      $getModel['userStatus_fk'] = $data_request['status'];
       $getModel['role_fk'] = $data_request['role'];
+      $getModel['userStatus_fk'] = $data_request['status'];
+      
     } else {
       $getModel['user_email'] = empty($_REQUEST['user']) ? '' : $_REQUEST['user'];
       $getModel['user_password'] = empty($_REQUEST['password']) ? '' : $_REQUEST['password'];
@@ -302,8 +303,9 @@ class UserController
       $getModel['full_name'] = empty($_REQUEST['full_name']) ? '' : $_REQUEST['full_name'];
       $getModel['address'] = empty($_REQUEST['address']) ? '' : $_REQUEST['address'];
       $getModel['phone'] = empty($_REQUEST['phone']) ? '' : $_REQUEST['phone'];
-      $getModel['userStatus_fk'] =empty($_REQUEST['status']) ? '' : $_REQUEST['status'];
       $getModel['role_fk'] = empty($_REQUEST['role']) ? '' : $_REQUEST['role'];
+      $getModel['userStatus_fk'] =empty($_REQUEST['status']) ? '' : $_REQUEST['status'];
+     
     }
 
     return $getModel;

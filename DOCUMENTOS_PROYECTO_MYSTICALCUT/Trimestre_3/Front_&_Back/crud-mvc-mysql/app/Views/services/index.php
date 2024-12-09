@@ -93,7 +93,7 @@ $customTitles = [
                                     <h5 class="card-title"><?= htmlspecialchars($service['name_service']) ?></h5>
                                    
                                     <div class="card-actions mt-2">
-                                        <a href="<?= URL_CONTROLLER ?>/Service/edit/<?= $service['id_services'] ?>" class="btn btn-icon btn-edit">Editar</a>
+                                        <a href="<?= URL_CONTROLLER ?>/services/edit/<?= $service['id_services'] ?>" class="btn btn-icon btn-edit">Editar</a>
                                         <button 
                                         class="btn btn-icon btn-delete" 
                                          onclick="if(confirm('¿Estás seguro de eliminar este servicio?')) { window.location.href='<?= URL_CONTROLLER ?>/facture/index/<?= $service['id_services'] ?>'; }">Eliminar</button>

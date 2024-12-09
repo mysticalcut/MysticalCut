@@ -45,9 +45,9 @@ class ServiceController
   {
     try {
       $this->result = $this->model->findAll();
-      $view = new View('service/index');
+      $view = new View('services/index');
       $view->set('title', 'service Index');
-      $view->set('services ', $this->result);
+      $view->set('services', $this->result);
       $view->set('roleModules',  $this->roleModules);
       $view->set('getUser',  $this->userApp);
       $view->render();
@@ -76,11 +76,11 @@ class ServiceController
   {
     try {
       $this->result = $this->model->findId($id);
-      $view = new View('Service/show');
+      $view = new View('Services/show');
       $view->set('title', 'Service Show');
       $view->set('Services', $this->result);
       $view->set('roles', $this->roleModel->findAll());
-      //$view->set('status', $this->statusModel->findAll());
+      $view->set('status', $this->statusModel->findAll());
       $view->set('roleModules',  $this->roleModules);
       $view->set('getUser',  $this->userApp);
       $view->render();

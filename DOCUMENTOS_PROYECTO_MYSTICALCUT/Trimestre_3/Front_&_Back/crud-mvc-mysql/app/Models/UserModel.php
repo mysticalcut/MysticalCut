@@ -148,18 +148,15 @@ class UserModel
       if ($this->validateModel($user)) {
         $this->conn = new ConnectDB();
         $this->pdo = $this->conn->connect();
-        $this->sql = "CALL sp_create_user(?,?,?,?)";
+        $this->sql = "INSERT INTO user(full_name, user_email, user_password, userStatus_fk, role_fk) VALUES (?,?,?,?,?)";
         $stmt = $this->pdo->prepare($this->sql);
+        
         $passwordHast = password_hash($user[$this->modelData[1]], PASSWORD_DEFAULT);
-        $stmt->bindParam(1, $user[$this->modelData[0]]);
-        $stmt->bindParam(2, $passwordHast);
-        $stmt->bindParam(3, $user[$this->modelData[2]]);
-        $stmt->bindParam(4, $user[$this->modelData[3]]);
-        $stmt->bindParam(5, $user[$this->modelData[4]]);
-        $stmt->bindParam(6, $user[$this->modelData[5]]);
-        $stmt->bindParam(7, $user[$this->modelData[6]]);
-        $stmt->bindParam(8, $user[$this->modelData[7]]);
-        $stmt->bindParam(9, $user[$this->modelData[8]]);
+        $stmt->bindParam(1, $user[$this->modelData[4]]);
+        $stmt->bindParam(2, $user[$this->modelData[0]]);
+        $stmt->bindParam(3, $passwordHast);
+        $stmt->bindParam(4, $user[$this->modelData[8]]);
+        $stmt->bindParam(5, $user[$this->modelData[7]]);
         $stmt->execute();
         $last_id = $this->pdo->lastInsertId();
         $this->data['newId'] =  $last_id;
