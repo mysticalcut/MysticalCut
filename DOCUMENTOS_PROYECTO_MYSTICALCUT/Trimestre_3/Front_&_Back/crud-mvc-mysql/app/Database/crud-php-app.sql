@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-12-2024 a las 04:37:48
+-- Tiempo de generación: 10-12-2024 a las 22:13:07
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -35,16 +35,55 @@ WHERE ROL.role_id=idRole;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_user_all` ()   BEGIN
-SELECT `user_id`,`full_name`,`user_password`, UST.userStatus_name AS `userStatus_fk`, ROL.role_name AS `role_fk` FROM `user` AS US  
+SELECT `user_email`, `user_id`,`full_name`,`user_password`, UST.userStatus_name AS `userStatus_fk`, ROL.role_name AS `role_fk` FROM `user` AS US  
 INNER JOIN role AS ROL ON US.role_fk=ROL.role_id
-INNER JOIN userstatus AS UST  ON US.userStatus_fk=UST.userStatus_id;
+INNER JOIN userstatus AS UST  ON US.userStatus_fk=UST.userStatus_id
+WHERE US.userStatus_fk=1
+;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_user_all_paginated` (IN `offset` INT, IN `limit_rows` INT)   BEGIN
+    SET @query = CONCAT('SELECT * FROM user LIMIT ', offset, ', ', limit_rows);
+    PREPARE stmt FROM @query;
+    EXECUTE stmt;
+    DEALLOCATE PREPARE stmt;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_user_count` ()   BEGIN
+    SELECT COUNT(*) AS total_users 
+    FROM user;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_user_create` (IN `p_user_email` VARCHAR(100), IN `p_user_password` VARCHAR(255), IN `p_full_name` VARCHAR(100), IN `p_userStatus_fk` VARCHAR(20), IN `p_role_fk` INT)   BEGIN
+-- Si no se pasa el estado, se asigna el valor predeterminado 'activo'
+    IF p_userStatus_fk IS NULL THEN
+        SET p_userStatus_fk = 1;
+    END IF;
+    -- Si no se pasa el rol, se asigna el valor predeterminado 1
+    IF p_role_fk IS NULL THEN
+        SET p_role_fk = 3;
+    END IF;
+
+    -- Inserta el nuevo usuario con los valores proporcionados o los predeterminados
+    INSERT INTO user (
+         user_email, user_password, full_name, userStatus_fk, role_fk 
+    ) 
+    VALUES (
+        
+        p_user_email, 
+        p_user_password, 
+        p_full_name, 
+        p_userStatus_fk,    -- Estado (si es NULL, se asigna 'activo')
+        p_role_fk  -- Rol (si es NULL, se asigna 1)
+        
+    );
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_user_search` (IN `dataSearch` VARCHAR(60))   BEGIN
-SELECT `user_id`,`user_user`,`user_password`, UST.userStatus_name AS `userStatus_fk`, ROL.role_name AS `role_fk` FROM `user` AS US  
+SELECT `user_id`,`user_email`,`user_password`, UST.userStatus_name AS `userStatus_fk`, ROL.role_name AS `role_fk` FROM `user` AS US  
 INNER JOIN role AS ROL ON US.role_fk=ROL.role_id
 INNER JOIN userstatus AS UST  ON US.userStatus_fk=UST.userStatus_id 
-WHERE ROL.role_name=dataSearch OR UST.userStatus_name=dataSearch OR US.user_user=dataSearch;
+WHERE ROL.role_name=dataSearch OR UST.userStatus_name=dataSearch OR US.user_email=dataSearch;
 END$$
 
 DELIMITER ;
@@ -116,6 +155,35 @@ INSERT INTO `category_services` (`id_category_services`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `document_type`
+--
+
+CREATE TABLE IF NOT EXISTS `document_type` (
+  `id_doctypes` int(11) NOT NULL AUTO_INCREMENT,
+  `doctype_name` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`id_doctypes`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- RELACIONES PARA LA TABLA `document_type`:
+--
+
+--
+-- Truncar tablas antes de insertar `document_type`
+--
+
+TRUNCATE TABLE `document_type`;
+--
+-- Volcado de datos para la tabla `document_type`
+--
+
+INSERT INTO `document_type` (`id_doctypes`, `doctype_name`) VALUES
+(1, 'Cedula de ciudadania'),
+(2, 'Tarjeta de identidad');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `facture`
 --
 
@@ -182,7 +250,8 @@ TRUNCATE TABLE `module`;
 
 INSERT INTO `module` (`module_id`, `module_name`, `module_route`, `module_icon`, `module_description`) VALUES
 (1, 'Home', 'home/home', '<i class=\"bi bi-house-fill\"></i>', 'This is module home'),
-(2, 'User', 'user/index', '<i class=\"bi bi-person-badge-fill\"></i>', 'This is module user');
+(2, 'User', 'user/index', '<i class=\"bi bi-person-badge-fill\"></i>', 'This is module user'),
+(3, 'Servicio', 'services/index', '<i class=\"bi bi-clipboard-check\"></i>', 'This is module facture');
 
 -- --------------------------------------------------------
 
@@ -344,7 +413,7 @@ CREATE TABLE IF NOT EXISTS `role_module` (
   PRIMARY KEY (`roleModule_id`),
   KEY `role_module_role` (`role_fk`),
   KEY `role_module_module` (`module_fk`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- RELACIONES PARA LA TABLA `role_module`:
@@ -367,7 +436,8 @@ INSERT INTO `role_module` (`roleModule_id`, `role_fk`, `module_fk`) VALUES
 (1, 1, 1),
 (2, 1, 2),
 (3, 2, 1),
-(4, 3, 1);
+(4, 3, 1),
+(5, 1, 3);
 
 -- --------------------------------------------------------
 
@@ -377,7 +447,7 @@ INSERT INTO `role_module` (`roleModule_id`, `role_fk`, `module_fk`) VALUES
 
 CREATE TABLE IF NOT EXISTS `services` (
   `id_services` int(11) NOT NULL,
-  `name` varchar(100) DEFAULT NULL,
+  `name_service` varchar(20) DEFAULT NULL,
   `estimated_time` time DEFAULT NULL,
   `price` float DEFAULT NULL,
   `id_category_services` int(11) NOT NULL,
@@ -400,11 +470,11 @@ TRUNCATE TABLE `services`;
 -- Volcado de datos para la tabla `services`
 --
 
-INSERT INTO `services` (`id_services`, `name`, `estimated_time`, `price`, `id_category_services`) VALUES
+INSERT INTO `services` (`id_services`, `name_service`, `estimated_time`, `price`, `id_category_services`) VALUES
 (1, 'Corte Clásico', '00:30:00', 15, 1),
 (2, 'Afeitado Tradicional', '00:20:00', 10, 2),
 (3, 'Tinte Capilar', '01:00:00', 40, 3),
-(4, 'Tratamiento Hidratante', '00:45:00', 25, 4),
+(4, 'Tratamiento Hidratan', '00:45:00', 25, 4),
 (5, 'Corte Infantil', '00:25:00', 12, 5);
 
 -- --------------------------------------------------------
@@ -494,19 +564,14 @@ CREATE TABLE IF NOT EXISTS `user` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_email` varchar(30) NOT NULL,
   `user_password` varchar(256) NOT NULL,
-  `document_type` enum('Cédula de Ciudadanía','Tarjeta de Identidad','Cédula de Extranjería') NOT NULL,
-  `document_number` varchar(20) NOT NULL,
   `full_name` varchar(100) NOT NULL,
-  `address` varchar(150) DEFAULT NULL,
-  `phone` varchar(20) DEFAULT NULL,
   `userStatus_fk` int(11) NOT NULL,
   `role_fk` int(11) NOT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_email` (`user_email`),
-  UNIQUE KEY `document_number` (`document_number`),
   KEY `user_role` (`role_fk`),
   KEY `user_status` (`userStatus_fk`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- RELACIONES PARA LA TABLA `user`:
@@ -525,12 +590,15 @@ TRUNCATE TABLE `user`;
 -- Volcado de datos para la tabla `user`
 --
 
-INSERT INTO `user` (`user_id`, `user_email`, `user_password`, `document_type`, `document_number`, `full_name`, `address`, `phone`, `userStatus_fk`, `role_fk`) VALUES
-(1, 'kevinsabogal24@gmail.com', '$2y$10$zNXemXVFPEbCd7yFTM.rMe3FO2sTze.cW/cOrGTps0dOi1YyFO7nW', 'Cédula de Ciudadanía', '1000619691', 'Kevin David Sabogal', 'Calle Principal #1234', '3003113203', 1, 1),
-(2, 'andresecasvar05@gmail.com', '$2y$10$zNXemXVFPEbCd7yFTM.rMe3FO2sTze.cW/cOrGTps0dOi1YyFO7nW', 'Cédula de Ciudadanía', '1011200996', 'Andres Esteban Castañeda', 'Calle Principal #1235', '3175248114', 1, 2),
-(3, 'leonoscarandres04@gmail.com', '$2y$10$zNXemXVFPEbCd7yFTM.rMe3FO2sTze.cW/cOrGTps0dOi1YyFO7nW', 'Cédula de Ciudadanía', '1022933160', 'Oscar Andres Leon', 'Calle Principal #1236', '3209241730', 1, 2),
-(4, 'hharold855@gmail.com', '$2y$10$zNXemXVFPEbCd7yFTM.rMe3FO2sTze.cW/cOrGTps0dOi1YyFO7nW', 'Cédula de Ciudadanía', '1022938044', 'Harold David Hernandez', 'Calle Principal #1237', '3212709274', 1, 2),
-(5, 'prueba@gmail.com', '$2y$10$zNXemXVFPEbCd7yFTM.rMe3FO2sTze.cW/cOrGTps0dOi1YyFO7nW', 'Cédula de Ciudadanía', '1237856337', 'trabajo de prueba', 'Calle Principal #12378', '323456789', 1, 2);
+INSERT INTO `user` (`user_id`, `user_email`, `user_password`, `full_name`, `userStatus_fk`, `role_fk`) VALUES
+(1, 'kevinsabogal24@gmail.com', '$2y$10$zNXemXVFPEbCd7yFTM.rMe3FO2sTze.cW/cOrGTps0dOi1YyFO7nW', 'Kevin David Sabogal', 1, 1),
+(2, 'andresecasvar05@gmail.com', '$2y$10$zNXemXVFPEbCd7yFTM.rMe3FO2sTze.cW/cOrGTps0dOi1YyFO7nW', 'Andres Esteban Castañeda', 1, 3),
+(3, 'leonoscarandres04@gmail.com', '$2y$10$qzDqu59/2GzX4SEQ73AkWey5kwBLOQRlQ0wS8YI/t5nlr6aQecaMu', 'Oscar Andres Leon', 1, 2),
+(4, 'hharold855@gmail.com', '$2y$10$apbVkvl8vulCNI1eNSvDUOaQlOSCDg3NrHHV6elR7d5uCAsszt2Tq', 'Harold David Hernandez', 1, 2),
+(5, 'prueba@gmail.com', '$2y$10$OCw6UzozG1/WR9K6RxFp6O9TfuBT5Luiub/tj2.T3rcPHpgJ1gvA2', 'Administrador', 3, 1),
+(53, 'sandramcipe.07@hotmail.com', '$2y$10$vK.5hwK/Ayj1YP.YU9Uyaezt8Rs8RdkWTBzTY0HVbij7Hp9txlyUe', 'Sandra Mancipe', 1, 3),
+(55, 'diegoc@gmail.com', '$2y$10$Kv15g8qw66pY4uLWCcR9GuD6RPXqrA1.s8oP9ACWGK8jtWjslzliq', 'Diego Sena', 1, 3),
+(56, 'user58@email.com', '$2y$10$TfUZIrsaq5metTZD2kEQ/OYwRe2bs0cXzzhShrIDFxDJ6eWYl5WUm', 'user prueba', 1, 3);
 
 -- --------------------------------------------------------
 
