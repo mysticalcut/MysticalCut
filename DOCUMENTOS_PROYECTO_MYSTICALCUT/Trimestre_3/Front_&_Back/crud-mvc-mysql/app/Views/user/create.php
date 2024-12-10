@@ -32,24 +32,26 @@
     <div class="row">
 
     <form action="<?= URL_CONTROLLER ?>/user/create" method="POST">
-        <div class="form-floating mb-3">
-          <input type="text" class="form-control form-control-sm" id="full_name" name="full_name" placeholder="full name" required>
-          <label for="user">Full name</label>
-        </div>
+        
         <div class="form-floating mb-3">
           <input type="email" class="form-control form-control-sm" id="user" name="user" placeholder="name@example.com" required>
           <label for="user">Email</label>
         </div>
-        <div class="form-floating">
+        <div class="form-floating mb-3">
           <input type="password" class="form-control form-control-sm" id="password" name="password" placeholder="Password" required>
           <label for="password">Password</label>
         </div>
-        <div class="form-floating">
-          <input type="hidden" class="form-control form-control-sm" id="role" value="3" name="role" placeholder="Cliente" required>
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control form-control-sm" id="full_name" name="full_name" placeholder="full name" required>
+          <label for="user">Full name</label>
         </div>
         <div class="form-floating">
           <input type="hidden" class="form-control form-control-sm" id="status" value="1" name="status" placeholder="Activo" required>
         </div>
+        <div class="form-floating">
+          <input type="hidden" class="form-control form-control-sm" id="role" value="3" name="role" placeholder="Cliente" required>
+        </div>
+        
   
         <button type="submit" class="btn btn-success mt-2 w-100">Success</button>
       </form>

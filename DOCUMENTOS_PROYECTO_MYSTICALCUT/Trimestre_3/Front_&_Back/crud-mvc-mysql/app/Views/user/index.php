@@ -73,7 +73,8 @@
             </div>
         </div>
 
-        <div class="pedido-container">
+        <div class="pedido-container" style="height : 400px; overflow: auto">
+            
             <?php foreach ($users as $index => $user): ?>
                 <div class="pedido-box">
                     <div class="icon-usuario-container">
@@ -96,6 +97,7 @@
                 </div>
             <?php endforeach; ?>
         </div>
+
 
         <div class="btn-regresar mt-3">
             <button class="back-button btn btn-secondary"

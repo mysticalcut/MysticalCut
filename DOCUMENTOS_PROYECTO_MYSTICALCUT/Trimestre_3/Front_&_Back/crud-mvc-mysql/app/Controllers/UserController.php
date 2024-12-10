@@ -34,7 +34,7 @@ class UserController
     $this->statusModel = new UserStatusModel();
     $this->roleModel = new RoleModel();
     $this->result = "";
-    $this->getModulesRoles();
+    
   }
 
  /**
@@ -42,22 +42,39 @@ class UserController
   * exceptions by setting an error message if an exception occurs.
   */
   public function index()
-  {
+{
     try {
-      $this->result = $this->model->findAll();
-      $view = new View('user/index');
-      $view->set('title', 'User Index');
-      $view->set('users', $this->result);
-      $view->set('roleModules',  $this->roleModules);
-      $view->set('getUser',  $this->userApp);
-      $view->render();
+      $this->getModulesRoles();
+        // Parámetros de paginación
+        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // Página actual
+        $limit = 20; // Número de usuarios por página
+        $offset = ($page - 1) * $limit; // Cálculo del desplazamiento
+
+        // Obtener usuarios paginados
+        $this->result = $this->model->findAll($offset, $limit);
+        $totalUsers = $this->model->countUsers(); // Método para contar el total de usuarios
+
+        // Cálculo de páginas totales
+        $totalPages = ceil($totalUsers / $limit);
+
+        // Configurar vista con datos
+        $view = new View('user/index');
+        $view->set('title', 'User Index');
+        $view->set('users', $this->result);
+        $view->set('roleModules', $this->roleModules);
+        $view->set('getUser', $this->userApp);
+
+        // Datos de paginación
+        $view->set('currentPage', $page);
+        $view->set('totalPages', $totalPages);
+        $view->render();
     } catch (Exception $e) {
-      $this->data['data'] = [];
-      $this->data['status'] = 404;
-      $this->data['message'] = "Error: " . $e->getMessage();
+        $this->data['data'] = [];
+        $this->data['status'] = 404;
+        $this->data['message'] = "Error: " . $e->getMessage();
     }
-     //echo json_encode($this->data);
-  }
+}
+
   public function getModulesRoles(){
     $this->roleModuleModel=new RoleModuleModel();
     $this->userApp= $_SESSION[SESSION_APP];
@@ -75,6 +92,7 @@ class UserController
   public function showId(int $id = null)
   {
     try {
+      $this->getModulesRoles();
       $this->result = $this->model->findId($id);
       $view = new View('user/show');
       $view->set('title', 'User Show');
@@ -104,6 +122,7 @@ class UserController
   public function edit(int $id = null)
   {
     try {
+      $this->getModulesRoles();
       $this->result = $this->model->findId($id);
       $view = new View('user/edit');
       $view->set('title', 'User Edit');
@@ -137,7 +156,7 @@ class UserController
       $this->data['status'] = 404;
       $this->data['message'] = "Error: " . $e->getMessage();
     }
-    //echo json_encode($this->data);
+    echo json_encode($this->data);
   }
 
   /**
@@ -145,21 +164,45 @@ class UserController
    * setting appropriate response data.
    */
 
-  public function create()
-  {
+   public function create()
+{
     try {
-      $this->result  = $this->model->create($this->getDataModel());
+      $this->result = $this->model->create($this->getDataModel());
       $this->data['data'] = $this->result;
       $this->data['status'] = 200;
       $this->data['message'] = "ok";
-      header("Location: ".URL_CONTROLLER_USER);
+        
+        // $this->result = $this->model->create($data); // Intenta crear el usuario
+
+        if ($this->result) {
+            //Redirigir con mensaje de éxito
+            header("Location: ".URL_CONTROLLER_USER."");
+            exit;
+        } else {
+            throw new Exception("Error al crear el usuario.");
+        }
+    } catch (Exception $e) {
+        // Redirigir con mensaje de error
+        header("Location: ".URL_CONTROLLER_USER."/create?error=" . urlencode($e->getMessage()));
+        exit;
+    }
+}
+
+public function createAPI()
+{
+    
+    try {
+      $this->result = $this->model->create($this->getDataModel());
+      $this->data['data'] = $this->result;
+      $this->data['status'] = 200;
+      $this->data['message'] = "ok";
     } catch (Exception $e) {
       $this->data['data'] = [];
       $this->data['status'] = 404;
       $this->data['message'] = "Error: " . $e->getMessage();
     }
-    //echo json_encode($this->data);
-  }
+    echo json_encode($this->data);
+}
 
  /**
   * The viewCreate function in PHP sets up a view for creating a user with title, roles, and status
@@ -168,7 +211,7 @@ class UserController
   public function viewCreate()
   {
     try {
-
+      $this->getModulesRoles();
       $view = new View('user/create');
       $view->set('title', 'User Create');
 
@@ -195,6 +238,7 @@ class UserController
   public function update(int $id = null)
   {
     try {
+      
       if (count($this->model->findId($id)) > 0) {
         $this->result  = $this->model->update($this->getDataModel(), $id);
         $this->data['data'] = $this->result;
@@ -215,6 +259,28 @@ class UserController
     //echo json_encode($this->data);
   }
 
+  public function updateAPI(int $id = null)
+  {
+    try {
+      
+      if (count($this->model->findId($id)) > 0) {
+        $this->result  = $this->model->update($this->getDataModel(), $id);
+        $this->data['data'] = $this->result;
+        $this->data['status'] = 200;
+        $this->data['message'] = "ok";
+
+      } else {
+        $this->data['data'] =  [];
+        $this->data['status'] = 404;
+        $this->data['message'] = "Error: Validate - User record does not exist";
+      }
+    } catch (Exception $e) {
+      $this->data['data'] = [];
+      $this->data['status'] = 404;
+      $this->data['message'] = "Error: " . $e->getMessage();
+    }
+    echo json_encode($this->data);
+  }
 /**
  * This PHP function deletes a user record based on the provided ID and returns a response with status
  * and message.
@@ -225,6 +291,7 @@ class UserController
   public function delete(int $id = null)
   {
     try {
+     
         if (count($this->model->findId($id)) > 0) {
           $this->result  = $this->model->delete($id);
           $this->data['data'] = $this->result;
@@ -256,6 +323,7 @@ class UserController
   public function viewDelete(int $id = null)
   {
     try {
+      $this->getModulesRoles();
         $this->result = $this->model->findId($id);
         $view = new View('user/delete');
         $view->set('title', 'User Delete');
@@ -287,24 +355,22 @@ class UserController
     if ($data_request != NULL) {
       $getModel['user_email'] = empty($data_request['user']) ? '' : $data_request['user'];
       $getModel['user_password'] = empty($data_request['password']) ? '' : $data_request['password'];
-      $getModel['document_type'] = empty($data_request['document_type']) ? '' : $data_request['document_type'];
-      $getModel['document_number'] = empty($data_request['document_number']) ? '' : $data_request['document_number'];
+      
       $getModel['full_name'] = empty($data_request['full_name']) ? '' : $data_request['full_name'];
-      $getModel['address'] = empty($data_request['address']) ? '' : $data_request['address'];
-      $getModel['phone'] = empty($data_request['phone']) ? '' : $data_request['phone'];
-      $getModel['role_fk'] = $data_request['role'];
+      
       $getModel['userStatus_fk'] = $data_request['status'];
+      $getModel['role_fk'] = $data_request['role'];
+      
       
     } else {
       $getModel['user_email'] = empty($_REQUEST['user']) ? '' : $_REQUEST['user'];
       $getModel['user_password'] = empty($_REQUEST['password']) ? '' : $_REQUEST['password'];
-      $getModel['document_type'] = empty($_REQUEST['document_type']) ? '' : $_REQUEST['document_type'];
-      $getModel['document_number'] = empty($_REQUEST['document_number']) ? '' : $_REQUEST['document_number'];
+     
       $getModel['full_name'] = empty($_REQUEST['full_name']) ? '' : $_REQUEST['full_name'];
-      $getModel['address'] = empty($_REQUEST['address']) ? '' : $_REQUEST['address'];
-      $getModel['phone'] = empty($_REQUEST['phone']) ? '' : $_REQUEST['phone'];
-      $getModel['role_fk'] = empty($_REQUEST['role']) ? '' : $_REQUEST['role'];
+
       $getModel['userStatus_fk'] =empty($_REQUEST['status']) ? '' : $_REQUEST['status'];
+      $getModel['role_fk'] = empty($_REQUEST['role']) ? '' : $_REQUEST['role'];
+      
      
     }
 

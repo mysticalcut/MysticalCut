@@ -32,7 +32,7 @@ class UserModel
   public function __construct()
   {
     $this->data = [];
-    $this->modelData = ['user_email', 'user_password', 'document_type', 'document_number', 'full_name', 'address', 'phone', 'userStatus_fk', 'role_fk'];
+    $this->modelData = ['user_email', 'user_password', 'full_name', 'userStatus_fk', 'role_fk'];
     $this->primaryKey = 'user_id';
   }
 
@@ -46,24 +46,52 @@ class UserModel
  * array. If an exception occurs during the execution, an empty array with a status code of 404 and an
  * error message will be returned.
  */
-  public function findAll()
-  {
+public function findAll($offset = 0, $limit = null)
+{
     try {
-      $this->conn = new ConnectDB();
-      $this->pdo = $this->conn->connect();
-      $this->sql = "SELECT * FROM user";
-      $this->sql = "CALL sp_user_all()";
-      $result = $this->pdo->prepare($this->sql);
-      $result->execute();
-      $results = $result->fetchAll(PDO::FETCH_ASSOC);
-      $this->data = $results;
+        $this->conn = new ConnectDB();
+        $this->pdo = $this->conn->connect();
+
+        if ($limit !== null) {
+            // Llamar a un procedimiento almacenado para usuarios paginados
+            $this->sql = "CALL sp_user_all()";
+            $result = $this->pdo->prepare($this->sql);
+        } else {
+            // Llamar al procedimiento almacenado para todos los usuarios
+            $this->sql = "CALL sp_user_all()";
+            $result = $this->pdo->prepare($this->sql);
+        }
+
+        $result->execute();
+        $results = $result->fetchAll(PDO::FETCH_ASSOC);
+        $this->data = $results;
     } catch (Exception $e) {
-      $this->data = [];
-      $this->data['status'] = 404;
-      $this->data['message'] = $e->getMessage();
+        $this->data = [];
+        $this->data['status'] = 404;
+        $this->data['message'] = $e->getMessage();
     }
+
     return $this->data;
-  }
+}
+
+public function countUsers()
+{
+    try {
+        $this->conn = new ConnectDB();
+        $this->pdo = $this->conn->connect();
+        
+        // Llamar al procedimiento almacenado para contar usuarios
+        $this->sql = "CALL sp_user_count()";
+        $result = $this->pdo->prepare($this->sql);
+        $result->execute();
+        
+        $count = $result->fetch(PDO::FETCH_ASSOC);
+        return $count['total_users'];
+    } catch (Exception $e) {
+        return 0; // Devuelve 0 en caso de error
+    }
+}
+
 
 
  /**
@@ -148,15 +176,15 @@ class UserModel
       if ($this->validateModel($user)) {
         $this->conn = new ConnectDB();
         $this->pdo = $this->conn->connect();
-        $this->sql = "INSERT INTO user(full_name, user_email, user_password, userStatus_fk, role_fk) VALUES (?,?,?,?,?)";
+        $this->sql = "CALL sp_user_create (?,?,?,?,?)";
         $stmt = $this->pdo->prepare($this->sql);
         
         $passwordHast = password_hash($user[$this->modelData[1]], PASSWORD_DEFAULT);
-        $stmt->bindParam(1, $user[$this->modelData[4]]);
-        $stmt->bindParam(2, $user[$this->modelData[0]]);
-        $stmt->bindParam(3, $passwordHast);
-        $stmt->bindParam(4, $user[$this->modelData[8]]);
-        $stmt->bindParam(5, $user[$this->modelData[7]]);
+        $stmt->bindParam(1, $user[$this->modelData[0]]);
+        $stmt->bindParam(2, $passwordHast);
+        $stmt->bindParam(3, $user[$this->modelData[2]]);
+        $stmt->bindParam(4, $user[$this->modelData[3]]);
+        $stmt->bindParam(5, $user[$this->modelData[4]]);
         $stmt->execute();
         $last_id = $this->pdo->lastInsertId();
         $this->data['newId'] =  $last_id;
@@ -195,14 +223,15 @@ class UserModel
       if ($this->validateModel($user)) {
         $this->conn = new ConnectDB();
         $this->pdo = $this->conn->connect();
-        $this->sql = "UPDATE user SET user_email=?,user_password=?,userStatus_fk=?,role_fk=? WHERE  $this->primaryKey=?";
+        $this->sql = "UPDATE user SET user_email=?,user_password=?, full_name=?, userStatus_fk=?,role_fk=? WHERE  $this->primaryKey=?";
         $stmt = $this->pdo->prepare($this->sql);
         $passwordHast = password_hash($user[$this->modelData[1]], PASSWORD_DEFAULT);
         $stmt->bindParam(1, $user[$this->modelData[0]]);
         $stmt->bindParam(2, $passwordHast);
-        $stmt->bindParam(3, $user[$this->modelData[7]]);
-        $stmt->bindParam(4, $user[$this->modelData[8]]);
-        $stmt->bindParam(5, $id);
+        $stmt->bindParam(3, $user[$this->modelData[2]]);
+        $stmt->bindParam(4, $user[$this->modelData[3]]);
+        $stmt->bindParam(5, $user[$this->modelData[4]]);
+        $stmt->bindParam(6, $id);
         $stmt->execute();
         $this->data['updateId'] = $id;
       } else {

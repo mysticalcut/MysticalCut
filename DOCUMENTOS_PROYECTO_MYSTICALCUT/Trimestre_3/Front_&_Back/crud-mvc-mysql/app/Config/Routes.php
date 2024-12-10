@@ -103,9 +103,11 @@ class Routes
   {
     $userRoutes = [
       ["method" => "create", "REQUEST" => "POST", "controller" => "UserController"],
+      ["method" => "createAPI", "REQUEST" => "POST", "controller" => "UserController"],
       ["method" => "show", "REQUEST" => "GET", "controller" => "UserController"],
       ["method" => "showId", "REQUEST" => "GET", "controller" => "UserController"],
       ["method" => "update", "REQUEST" => "POST", "controller" => "UserController"],
+      ["method" => "updateAPI", "REQUEST" => "POST", "controller" => "UserController"],
       ["method" => "edit", "REQUEST" => "GET", "controller" => "UserController"],
       ["method" => "delete", "REQUEST" => 'POST', "controller" => "UserController"],
       ["method" => "index", "REQUEST" => "GET", "controller" => "UserController", "filter" => "logIn"],
