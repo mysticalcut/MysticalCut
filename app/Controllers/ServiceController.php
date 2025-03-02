@@ -105,7 +105,7 @@ class ServiceController
   {
     try {
       $this->result = $this->model->findId($id);
-      $view = new View('Service/edit');
+      $view = new View('services/edit');
       $view->set('title', 'Service Edit');
       $view->set('Services', $this->result);
       $view->set('roles', $this->roleModel->findAll());
@@ -169,7 +169,7 @@ class ServiceController
   {
     try {
 
-      $view = new View('Service/create');
+      $view = new View('services/create');
       $view->set('title', 'Service Create');
 
       //$view->set('roleModules',  $this->roleModules);
@@ -257,7 +257,7 @@ class ServiceController
   {
     try {
         $this->result = $this->model->findId($id);
-        $view = new View('Service/delete');
+        $view = new View('service/delete');
         $view->set('title', 'Service Delete');
         $view->set('Service', $this->result);
         $view->set('roles', $this->roleModel->findAll());

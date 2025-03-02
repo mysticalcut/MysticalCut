@@ -81,3 +81,9 @@
 .swal2-cancel {
     color: #000 !important;
 }
+.btn-agregar{
+    background-color: #CCAF54;
+}
+.btn-agregar:hover{
+    background-color: #9c8337;
+}
