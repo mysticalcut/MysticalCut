@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Author:DIEGO CASALLAS
- * Date:13/11/2024
- * Descriptions: This is the module class controller data model
- */
 
 namespace App\Controllers;
 

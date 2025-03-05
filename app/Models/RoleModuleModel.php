@@ -1,10 +1,6 @@
 <?php
 
-/**
- * Author:DIEGO CASALLAS
- * Date:08/11/2024
- * Descriptions:This is the class for the data model role and module functionality manager.
- */
+
 
 namespace App\Models;
 

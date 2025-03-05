@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Author:DIEGO CASALLAS
- * Date:15/11/2024
- * Descriptions: This is the class for the role controller functionality manager.
- */
 
 namespace App\Controllers;
 

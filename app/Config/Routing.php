@@ -1,9 +1,5 @@
 <?php
-/**
- * Author:DIEGO CASALLAS
- * Date:08/11/2024
- * Descriptions: This is the connection class for MySQL
- */
+
 namespace App\Config;
 /* The Routing class in PHP is responsible for autoloading classes by converting namespaces to file
 paths and including the corresponding PHP files. */

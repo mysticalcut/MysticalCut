@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Author:DIEGO CASALLAS
- * Date:21/11/2024
- * Descriptions: This is the Login user class controller access applications data model
- */
 
 namespace App\Controllers;
 
