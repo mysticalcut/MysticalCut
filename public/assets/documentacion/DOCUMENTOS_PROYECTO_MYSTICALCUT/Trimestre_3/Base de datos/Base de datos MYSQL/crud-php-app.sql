@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-03-2025 a las 13:37:34
+-- Tiempo de generación: 29-03-2025 a las 13:42:31
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -516,7 +516,7 @@ INSERT INTO `user` (`user_id`, `user_email`, `user_password`, `full_name`, `docu
 (2, 'andresecasvar05@gmail.com', '$2y$10$zNXemXVFPEbCd7yFTM.rMe3FO2sTze.cW/cOrGTps0dOi1YyFO7nW', 'Andres Esteban Castañeda Vargas', '1000621126', 1, 1, 2, 'Carrera 14 #22-46'),
 (3, 'leonoscarandres04@gmail.com', '$2y$10$qzDqu59/2GzX4SEQ73AkWey5kwBLOQRlQ0wS8YI/t5nlr6aQecaMu', 'Oscar Andres Leon', '1000313313', 1, 2, 3, 'Carrera 14 #22-47'),
 (4, 'hharold855@gmail.com', '$2y$10$apbVkvl8vulCNI1eNSvDUOaQlOSCDg3NrHHV6elR7d5uCAsszt2Tq', 'Harold David Hernandez', '1000919919', 1, 2, 1, 'Carrera 14 #22-48'),
-(5, 'prueba@gmail.com', '$2y$10$OCw6UzozG1/WR9K6RxFp6O9TfuBT5Luiub/tj2.T3rcPHpgJ1gvA2', 'Administrador', '7142565', 3, 1, 1, 'Carrera 14 #22-49');
+(5, 'prueba@gmail.com', '$2y$10$OCw6UzozG1/WR9K6RxFp6O9TfuBT5Luiub/tj2.T3rcPHpgJ1gvA2', 'Administrador', '7142565', 1, 1, 1, 'Carrera 14 #22-49');
 
 -- --------------------------------------------------------
 
@@ -529,7 +529,7 @@ CREATE TABLE IF NOT EXISTS `userstatus` (
   `userStatus_name` varchar(20) NOT NULL,
   PRIMARY KEY (`userStatus_id`),
   UNIQUE KEY `userStatus_name` (`userStatus_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Truncar tablas antes de insertar `userstatus`
@@ -542,8 +542,8 @@ TRUNCATE TABLE `userstatus`;
 
 INSERT INTO `userstatus` (`userStatus_id`, `userStatus_name`) VALUES
 (1, 'Active'),
-(3, 'Blocked'),
-(2, 'Inactive');
+(2, 'Blocked'),
+(3, 'Inactive');
 
 --
 -- Restricciones para tablas volcadas
