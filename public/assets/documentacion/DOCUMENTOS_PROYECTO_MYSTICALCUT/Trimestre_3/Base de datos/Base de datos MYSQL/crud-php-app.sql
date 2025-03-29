@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-03-2025 a las 04:51:59
+-- Tiempo de generación: 29-03-2025 a las 06:43:17
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -27,6 +27,7 @@ DELIMITER $$
 --
 -- Procedimientos
 --
+DROP PROCEDURE IF EXISTS `sp_role_module`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_role_module` (IN `idRole` INT)   BEGIN
 SELECT ROL.role_name AS `role_fk`,MD.module_name AS `role_module`,MD.module_icon,MD.module_description, MD.module_route FROM role_module AS RM 
 INNER JOIN role AS ROL ON RM.role_fk=ROL.role_id
@@ -34,6 +35,7 @@ INNER JOIN module AS MD ON RM.module_fk=MD.module_id
 WHERE ROL.role_id=idRole;
 END$$
 
+DROP PROCEDURE IF EXISTS `sp_user_all`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_user_all` ()   BEGIN
 SELECT `user_email`, `user_id`,`full_name`,`user_password`, UST.userStatus_name AS `userStatus_fk`, ROL.role_name AS `role_fk` FROM `user` AS US  
 INNER JOIN role AS ROL ON US.role_fk=ROL.role_id
@@ -42,6 +44,7 @@ WHERE US.userStatus_fk=1
 ;
 END$$
 
+DROP PROCEDURE IF EXISTS `sp_user_all_paginated`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_user_all_paginated` (IN `offset` INT, IN `limit_rows` INT)   BEGIN
     SET @query = CONCAT('SELECT * FROM user LIMIT ', offset, ', ', limit_rows);
     PREPARE stmt FROM @query;
@@ -49,11 +52,13 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_user_all_paginated` (IN `offset`
     DEALLOCATE PREPARE stmt;
 END$$
 
+DROP PROCEDURE IF EXISTS `sp_user_count`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_user_count` ()   BEGIN
     SELECT COUNT(*) AS total_users 
     FROM user;
 END$$
 
+DROP PROCEDURE IF EXISTS `sp_user_create`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_user_create` (IN `p_user_email` VARCHAR(100), IN `p_user_password` VARCHAR(255), IN `p_full_name` VARCHAR(100), IN `p_userStatus_fk` VARCHAR(20), IN `p_role_fk` INT)   BEGIN
 -- Si no se pasa el estado, se asigna el valor predeterminado 'activo'
     IF p_userStatus_fk IS NULL THEN
@@ -79,6 +84,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_user_create` (IN `p_user_email` 
     );
 END$$
 
+DROP PROCEDURE IF EXISTS `sp_user_search`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_user_search` (IN `dataSearch` VARCHAR(60))   BEGIN
 SELECT `user_id`,`user_email`,`user_password`, UST.userStatus_name AS `userStatus_fk`, ROL.role_name AS `role_fk` FROM `user` AS US  
 INNER JOIN role AS ROL ON US.role_fk=ROL.role_id
@@ -94,6 +100,7 @@ DELIMITER ;
 -- Estructura de tabla para la tabla `category_product`
 --
 
+DROP TABLE IF EXISTS `category_product`;
 CREATE TABLE IF NOT EXISTS `category_product` (
   `id_category` int(11) NOT NULL,
   `name` varchar(100) DEFAULT NULL,
@@ -122,6 +129,7 @@ INSERT INTO `category_product` (`id_category`, `name`) VALUES
 -- Estructura de tabla para la tabla `category_services`
 --
 
+DROP TABLE IF EXISTS `category_services`;
 CREATE TABLE IF NOT EXISTS `category_services` (
   `id_category_services` int(11) NOT NULL,
   `name` varchar(100) DEFAULT NULL,
@@ -150,6 +158,7 @@ INSERT INTO `category_services` (`id_category_services`, `name`) VALUES
 -- Estructura de tabla para la tabla `document_type`
 --
 
+DROP TABLE IF EXISTS `document_type`;
 CREATE TABLE IF NOT EXISTS `document_type` (
   `id_doctypes` int(11) NOT NULL AUTO_INCREMENT,
   `doctype_name` varchar(20) DEFAULT NULL,
@@ -175,6 +184,7 @@ INSERT INTO `document_type` (`id_doctypes`, `doctype_name`) VALUES
 -- Estructura de tabla para la tabla `facture`
 --
 
+DROP TABLE IF EXISTS `facture`;
 CREATE TABLE IF NOT EXISTS `facture` (
   `id_facture` int(11) NOT NULL AUTO_INCREMENT,
   `date` date NOT NULL,
@@ -206,6 +216,7 @@ INSERT INTO `facture` (`id_facture`, `date`, `total_value`, `user_fk`) VALUES
 -- Estructura de tabla para la tabla `module`
 --
 
+DROP TABLE IF EXISTS `module`;
 CREATE TABLE IF NOT EXISTS `module` (
   `module_id` int(11) NOT NULL AUTO_INCREMENT,
   `module_name` varchar(20) NOT NULL,
@@ -237,6 +248,7 @@ INSERT INTO `module` (`module_id`, `module_name`, `module_route`, `module_icon`,
 -- Estructura de tabla para la tabla `product`
 --
 
+DROP TABLE IF EXISTS `product`;
 CREATE TABLE IF NOT EXISTS `product` (
   `id_product` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
@@ -270,6 +282,7 @@ INSERT INTO `product` (`id_product`, `name`, `price`, `description`, `amount`, `
 -- Estructura de tabla para la tabla `product_invoice_detail`
 --
 
+DROP TABLE IF EXISTS `product_invoice_detail`;
 CREATE TABLE IF NOT EXISTS `product_invoice_detail` (
   `amount` int(11) NOT NULL,
   `price` float DEFAULT NULL,
@@ -301,6 +314,7 @@ INSERT INTO `product_invoice_detail` (`amount`, `price`, `id_facture`, `id_produ
 -- Estructura de tabla para la tabla `quotes`
 --
 
+DROP TABLE IF EXISTS `quotes`;
 CREATE TABLE IF NOT EXISTS `quotes` (
   `id_quotes` int(11) NOT NULL,
   `date_time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
@@ -333,6 +347,7 @@ INSERT INTO `quotes` (`id_quotes`, `date_time`, `end_time`, `state_quotes`, `use
 -- Estructura de tabla para la tabla `role`
 --
 
+DROP TABLE IF EXISTS `role`;
 CREATE TABLE IF NOT EXISTS `role` (
   `role_id` int(11) NOT NULL AUTO_INCREMENT,
   `role_name` varchar(20) NOT NULL,
@@ -360,6 +375,7 @@ INSERT INTO `role` (`role_id`, `role_name`) VALUES
 -- Estructura de tabla para la tabla `role_module`
 --
 
+DROP TABLE IF EXISTS `role_module`;
 CREATE TABLE IF NOT EXISTS `role_module` (
   `roleModule_id` int(11) NOT NULL AUTO_INCREMENT,
   `role_fk` int(11) NOT NULL,
@@ -391,6 +407,7 @@ INSERT INTO `role_module` (`roleModule_id`, `role_fk`, `module_fk`) VALUES
 -- Estructura de tabla para la tabla `services`
 --
 
+DROP TABLE IF EXISTS `services`;
 CREATE TABLE IF NOT EXISTS `services` (
   `id_services` int(11) NOT NULL,
   `name_service` varchar(20) DEFAULT NULL,
@@ -423,6 +440,7 @@ INSERT INTO `services` (`id_services`, `name_service`, `estimated_time`, `price`
 -- Estructura de tabla para la tabla `service_invoice_detail`
 --
 
+DROP TABLE IF EXISTS `service_invoice_detail`;
 CREATE TABLE IF NOT EXISTS `service_invoice_detail` (
   `amount` int(11) NOT NULL,
   `price` float DEFAULT NULL,
@@ -454,6 +472,7 @@ INSERT INTO `service_invoice_detail` (`amount`, `price`, `id_facture`, `id_servi
 -- Estructura de tabla para la tabla `type_of_quotes`
 --
 
+DROP TABLE IF EXISTS `type_of_quotes`;
 CREATE TABLE IF NOT EXISTS `type_of_quotes` (
   `id_quotes` int(11) NOT NULL,
   `id_services` int(11) NOT NULL,
@@ -484,6 +503,7 @@ INSERT INTO `type_of_quotes` (`id_quotes`, `id_services`, `barber`) VALUES
 -- Estructura de tabla para la tabla `user`
 --
 
+DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_email` varchar(30) NOT NULL,
@@ -499,7 +519,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   KEY `user_role` (`role_fk`),
   KEY `user_status` (`userStatus_fk`),
   KEY `fk_id_tipo_docuemnto_User` (`type_document_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Truncar tablas antes de insertar `user`
@@ -511,16 +531,8 @@ TRUNCATE TABLE `user`;
 --
 
 INSERT INTO `user` (`user_id`, `user_email`, `user_password`, `full_name`, `document_number`, `userStatus_fk`, `role_fk`, `type_document_id`, `address`) VALUES
-(1, 'kevinsabogal24@gmail.com', '$2b$10$bGXPYe3noxnrmwhQl5brc.duAufA1JP7lqN1w8Z0/Y9FbrsfSp7Ju', 'Kevin David Sabogal', '1000619691', 1, 1, 1, 'Carrera 14 #22-45'),
-(2, 'andresecasvar05@gmail.com', '$2y$10$zNXemXVFPEbCd7yFTM.rMe3FO2sTze.cW/cOrGTps0dOi1YyFO7nW', 'Andres Esteban Castañeda Vargas', '', 1, 1, NULL, NULL),
-(3, 'leonoscarandres04@gmail.com', '$2y$10$qzDqu59/2GzX4SEQ73AkWey5kwBLOQRlQ0wS8YI/t5nlr6aQecaMu', 'Oscar Andres Leon', '', 1, 2, NULL, NULL),
-(4, 'hharold855@gmail.com', '$2y$10$apbVkvl8vulCNI1eNSvDUOaQlOSCDg3NrHHV6elR7d5uCAsszt2Tq', 'Harold David Hernandez', '', 1, 2, NULL, NULL),
-(5, 'prueba@gmail.com', '$2y$10$OCw6UzozG1/WR9K6RxFp6O9TfuBT5Luiub/tj2.T3rcPHpgJ1gvA2', 'Administrador', '', 3, 1, NULL, NULL),
-(53, 'sandramcipe.07@hotmail.com', '$2y$10$vK.5hwK/Ayj1YP.YU9Uyaezt8Rs8RdkWTBzTY0HVbij7Hp9txlyUe', 'Sandra Mancipe', '', 3, 3, NULL, NULL),
-(55, 'diegoc@gmail.com', '$2y$10$Kv15g8qw66pY4uLWCcR9GuD6RPXqrA1.s8oP9ACWGK8jtWjslzliq', 'Diego Sena', '', 3, 3, NULL, NULL),
-(56, 'juanito@gmail.com', '$2y$10$TfUZIrsaq5metTZD2kEQ/OYwRe2bs0cXzzhShrIDFxDJ6eWYl5WUm', 'Juan Petunio', '', 3, 1, NULL, NULL),
-(57, 'vivi@gmail.com', '$2b$10$/qVe1aGmPVJlMnUouWHG7OoR2/9Qex00CuxMJhVRTiTb.j7HNWhBW', 'Viviana Gomez', '', 1, 1, NULL, NULL),
-(58, 'juan@example.com', '$2b$10$g9VGSww6pq4Ec9C3TDKh2.YQQ408fxeXQD9mMlc6y4bSeygqoVUJ.', 'Juan Pérez', '', 3, 1, NULL, NULL);
+(1, 'kevinsabogal24@gmail.com', '$2b$10$bGXPYe3noxnrmwhQl5brc.duAufA1JP7lqN1w8Z0/Y9FbrsfSp7Ju', 'Kevin Sabogal', '1000619691', 1, 1, 1, 'Carrera 11 J Bis # 43 - 40 sur'),
+(60, 'andresecasvar05@gmail.com', '$2b$10$BnM37NniMuQ0wyRwByidM.8P/X5qAidQOWRurSRSLg6E02Ci1pVJm', 'Andres Castañeda', '1011200996', 1, 2, 1, 'Calle 58 sur #19 B - 32');
 
 -- --------------------------------------------------------
 
@@ -528,12 +540,13 @@ INSERT INTO `user` (`user_id`, `user_email`, `user_password`, `full_name`, `docu
 -- Estructura de tabla para la tabla `userstatus`
 --
 
+DROP TABLE IF EXISTS `userstatus`;
 CREATE TABLE IF NOT EXISTS `userstatus` (
   `userStatus_id` int(11) NOT NULL AUTO_INCREMENT,
   `userStatus_name` varchar(20) NOT NULL,
   PRIMARY KEY (`userStatus_id`),
   UNIQUE KEY `userStatus_name` (`userStatus_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Truncar tablas antes de insertar `userstatus`
@@ -546,8 +559,8 @@ TRUNCATE TABLE `userstatus`;
 
 INSERT INTO `userstatus` (`userStatus_id`, `userStatus_name`) VALUES
 (1, 'Active'),
-(3, 'Blocked'),
-(2, 'Inactive');
+(2, 'Blocked'),
+(3, 'Inactive');
 
 --
 -- Restricciones para tablas volcadas
