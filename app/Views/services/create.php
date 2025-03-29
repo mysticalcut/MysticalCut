@@ -66,7 +66,7 @@
             <select class="form-select form-select-sm mt-2" id="id_category_services" name="id_category_services"
               required>
               <option disabled value>Selecciona una categoría</option>
-              <?php foreach ($categories as $category): ?>
+              <?php foreach ($category_services as $category): ?>
                 <option value="<?= $category['id_category_services'] ?>"
                   <?= $category['id_category_services'] == $service['id_category_services'] ? 'selected' : '' ?>>
                   <?= $category['name'] ?>
