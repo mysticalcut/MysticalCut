@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-03-2025 a las 04:51:59
+-- Tiempo de generación: 29-03-2025 a las 13:37:34
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -152,9 +152,9 @@ INSERT INTO `category_services` (`id_category_services`, `name`) VALUES
 
 CREATE TABLE IF NOT EXISTS `document_type` (
   `id_doctypes` int(11) NOT NULL AUTO_INCREMENT,
-  `doctype_name` varchar(20) DEFAULT NULL,
+  `doctype_name` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id_doctypes`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Truncar tablas antes de insertar `document_type`
@@ -167,7 +167,8 @@ TRUNCATE TABLE `document_type`;
 
 INSERT INTO `document_type` (`id_doctypes`, `doctype_name`) VALUES
 (1, 'Cedula de ciudadania'),
-(2, 'Tarjeta de identidad');
+(2, 'Tarjeta de identidad'),
+(3, 'Cedula de extranjeria');
 
 -- --------------------------------------------------------
 
@@ -512,15 +513,10 @@ TRUNCATE TABLE `user`;
 
 INSERT INTO `user` (`user_id`, `user_email`, `user_password`, `full_name`, `document_number`, `userStatus_fk`, `role_fk`, `type_document_id`, `address`) VALUES
 (1, 'kevinsabogal24@gmail.com', '$2b$10$bGXPYe3noxnrmwhQl5brc.duAufA1JP7lqN1w8Z0/Y9FbrsfSp7Ju', 'Kevin David Sabogal', '1000619691', 1, 1, 1, 'Carrera 14 #22-45'),
-(2, 'andresecasvar05@gmail.com', '$2y$10$zNXemXVFPEbCd7yFTM.rMe3FO2sTze.cW/cOrGTps0dOi1YyFO7nW', 'Andres Esteban Castañeda Vargas', '', 1, 1, NULL, NULL),
-(3, 'leonoscarandres04@gmail.com', '$2y$10$qzDqu59/2GzX4SEQ73AkWey5kwBLOQRlQ0wS8YI/t5nlr6aQecaMu', 'Oscar Andres Leon', '', 1, 2, NULL, NULL),
-(4, 'hharold855@gmail.com', '$2y$10$apbVkvl8vulCNI1eNSvDUOaQlOSCDg3NrHHV6elR7d5uCAsszt2Tq', 'Harold David Hernandez', '', 1, 2, NULL, NULL),
-(5, 'prueba@gmail.com', '$2y$10$OCw6UzozG1/WR9K6RxFp6O9TfuBT5Luiub/tj2.T3rcPHpgJ1gvA2', 'Administrador', '', 3, 1, NULL, NULL),
-(53, 'sandramcipe.07@hotmail.com', '$2y$10$vK.5hwK/Ayj1YP.YU9Uyaezt8Rs8RdkWTBzTY0HVbij7Hp9txlyUe', 'Sandra Mancipe', '', 3, 3, NULL, NULL),
-(55, 'diegoc@gmail.com', '$2y$10$Kv15g8qw66pY4uLWCcR9GuD6RPXqrA1.s8oP9ACWGK8jtWjslzliq', 'Diego Sena', '', 3, 3, NULL, NULL),
-(56, 'juanito@gmail.com', '$2y$10$TfUZIrsaq5metTZD2kEQ/OYwRe2bs0cXzzhShrIDFxDJ6eWYl5WUm', 'Juan Petunio', '', 3, 1, NULL, NULL),
-(57, 'vivi@gmail.com', '$2b$10$/qVe1aGmPVJlMnUouWHG7OoR2/9Qex00CuxMJhVRTiTb.j7HNWhBW', 'Viviana Gomez', '', 1, 1, NULL, NULL),
-(58, 'juan@example.com', '$2b$10$g9VGSww6pq4Ec9C3TDKh2.YQQ408fxeXQD9mMlc6y4bSeygqoVUJ.', 'Juan Pérez', '', 3, 1, NULL, NULL);
+(2, 'andresecasvar05@gmail.com', '$2y$10$zNXemXVFPEbCd7yFTM.rMe3FO2sTze.cW/cOrGTps0dOi1YyFO7nW', 'Andres Esteban Castañeda Vargas', '1000621126', 1, 1, 2, 'Carrera 14 #22-46'),
+(3, 'leonoscarandres04@gmail.com', '$2y$10$qzDqu59/2GzX4SEQ73AkWey5kwBLOQRlQ0wS8YI/t5nlr6aQecaMu', 'Oscar Andres Leon', '1000313313', 1, 2, 3, 'Carrera 14 #22-47'),
+(4, 'hharold855@gmail.com', '$2y$10$apbVkvl8vulCNI1eNSvDUOaQlOSCDg3NrHHV6elR7d5uCAsszt2Tq', 'Harold David Hernandez', '1000919919', 1, 2, 1, 'Carrera 14 #22-48'),
+(5, 'prueba@gmail.com', '$2y$10$OCw6UzozG1/WR9K6RxFp6O9TfuBT5Luiub/tj2.T3rcPHpgJ1gvA2', 'Administrador', '7142565', 3, 1, 1, 'Carrera 14 #22-49');
 
 -- --------------------------------------------------------
 
