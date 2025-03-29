@@ -371,7 +371,7 @@ public function createAPI()
       $getModel['userStatus_fk'] =empty($_REQUEST['status']) ? '' : $_REQUEST['status'];
       $getModel['role_fk'] = empty($_REQUEST['role']) ? '' : $_REQUEST['role'];
       
-     
+
     }
 
     return $getModel;
