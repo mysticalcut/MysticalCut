@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-12-2024 a las 22:13:07
+-- Tiempo de generación: 29-03-2025 a las 04:51:59
 -- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.0.30
+-- Versión de PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -101,10 +101,6 @@ CREATE TABLE IF NOT EXISTS `category_product` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- RELACIONES PARA LA TABLA `category_product`:
---
-
---
 -- Truncar tablas antes de insertar `category_product`
 --
 
@@ -131,10 +127,6 @@ CREATE TABLE IF NOT EXISTS `category_services` (
   `name` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id_category_services`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- RELACIONES PARA LA TABLA `category_services`:
---
 
 --
 -- Truncar tablas antes de insertar `category_services`
@@ -165,10 +157,6 @@ CREATE TABLE IF NOT EXISTS `document_type` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- RELACIONES PARA LA TABLA `document_type`:
---
-
---
 -- Truncar tablas antes de insertar `document_type`
 --
 
@@ -195,12 +183,6 @@ CREATE TABLE IF NOT EXISTS `facture` (
   PRIMARY KEY (`id_facture`),
   KEY `fk_factura_usuario` (`user_fk`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- RELACIONES PARA LA TABLA `facture`:
---   `user_fk`
---       `user` -> `user_id`
---
 
 --
 -- Truncar tablas antes de insertar `facture`
@@ -236,10 +218,6 @@ CREATE TABLE IF NOT EXISTS `module` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- RELACIONES PARA LA TABLA `module`:
---
-
---
 -- Truncar tablas antes de insertar `module`
 --
 
@@ -271,12 +249,6 @@ CREATE TABLE IF NOT EXISTS `product` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- RELACIONES PARA LA TABLA `product`:
---   `id_category`
---       `category_product` -> `id_category`
---
-
---
 -- Truncar tablas antes de insertar `product`
 --
 
@@ -306,14 +278,6 @@ CREATE TABLE IF NOT EXISTS `product_invoice_detail` (
   KEY `fk_product_invoice_detail` (`id_facture`),
   KEY `fk_detail_invoice_product_product` (`id_product`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- RELACIONES PARA LA TABLA `product_invoice_detail`:
---   `id_product`
---       `product` -> `id_product`
---   `id_facture`
---       `facture` -> `id_facture`
---
 
 --
 -- Truncar tablas antes de insertar `product_invoice_detail`
@@ -348,12 +312,6 @@ CREATE TABLE IF NOT EXISTS `quotes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- RELACIONES PARA LA TABLA `quotes`:
---   `user_id`
---       `user` -> `user_id`
---
-
---
 -- Truncar tablas antes de insertar `quotes`
 --
 
@@ -383,10 +341,6 @@ CREATE TABLE IF NOT EXISTS `role` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- RELACIONES PARA LA TABLA `role`:
---
-
---
 -- Truncar tablas antes de insertar `role`
 --
 
@@ -414,14 +368,6 @@ CREATE TABLE IF NOT EXISTS `role_module` (
   KEY `role_module_role` (`role_fk`),
   KEY `role_module_module` (`module_fk`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- RELACIONES PARA LA TABLA `role_module`:
---   `module_fk`
---       `module` -> `module_id`
---   `role_fk`
---       `role` -> `role_id`
---
 
 --
 -- Truncar tablas antes de insertar `role_module`
@@ -456,12 +402,6 @@ CREATE TABLE IF NOT EXISTS `services` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- RELACIONES PARA LA TABLA `services`:
---   `id_category_services`
---       `category_services` -> `id_category_services`
---
-
---
 -- Truncar tablas antes de insertar `services`
 --
 
@@ -491,14 +431,6 @@ CREATE TABLE IF NOT EXISTS `service_invoice_detail` (
   KEY `fk_service_invoice_detail` (`id_facture`),
   KEY `fk_detail_invoice_service_service` (`id_services`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- RELACIONES PARA LA TABLA `service_invoice_detail`:
---   `id_services`
---       `services` -> `id_services`
---   `id_facture`
---       `facture` -> `id_facture`
---
 
 --
 -- Truncar tablas antes de insertar `service_invoice_detail`
@@ -531,14 +463,6 @@ CREATE TABLE IF NOT EXISTS `type_of_quotes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- RELACIONES PARA LA TABLA `type_of_quotes`:
---   `id_services`
---       `services` -> `id_services`
---   `id_quotes`
---       `quotes` -> `id_quotes`
---
-
---
 -- Truncar tablas antes de insertar `type_of_quotes`
 --
 
@@ -565,21 +489,17 @@ CREATE TABLE IF NOT EXISTS `user` (
   `user_email` varchar(30) NOT NULL,
   `user_password` varchar(256) NOT NULL,
   `full_name` varchar(100) NOT NULL,
+  `document_number` varchar(20) NOT NULL,
   `userStatus_fk` int(11) NOT NULL,
   `role_fk` int(11) NOT NULL,
+  `type_document_id` int(11) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_email` (`user_email`),
   KEY `user_role` (`role_fk`),
-  KEY `user_status` (`userStatus_fk`)
-) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- RELACIONES PARA LA TABLA `user`:
---   `role_fk`
---       `role` -> `role_id`
---   `userStatus_fk`
---       `userstatus` -> `userStatus_id`
---
+  KEY `user_status` (`userStatus_fk`),
+  KEY `fk_id_tipo_docuemnto_User` (`type_document_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Truncar tablas antes de insertar `user`
@@ -590,15 +510,17 @@ TRUNCATE TABLE `user`;
 -- Volcado de datos para la tabla `user`
 --
 
-INSERT INTO `user` (`user_id`, `user_email`, `user_password`, `full_name`, `userStatus_fk`, `role_fk`) VALUES
-(1, 'kevinsabogal24@gmail.com', '$2y$10$zNXemXVFPEbCd7yFTM.rMe3FO2sTze.cW/cOrGTps0dOi1YyFO7nW', 'Kevin David Sabogal', 1, 1),
-(2, 'andresecasvar05@gmail.com', '$2y$10$zNXemXVFPEbCd7yFTM.rMe3FO2sTze.cW/cOrGTps0dOi1YyFO7nW', 'Andres Esteban Castañeda', 1, 3),
-(3, 'leonoscarandres04@gmail.com', '$2y$10$qzDqu59/2GzX4SEQ73AkWey5kwBLOQRlQ0wS8YI/t5nlr6aQecaMu', 'Oscar Andres Leon', 1, 2),
-(4, 'hharold855@gmail.com', '$2y$10$apbVkvl8vulCNI1eNSvDUOaQlOSCDg3NrHHV6elR7d5uCAsszt2Tq', 'Harold David Hernandez', 1, 2),
-(5, 'prueba@gmail.com', '$2y$10$OCw6UzozG1/WR9K6RxFp6O9TfuBT5Luiub/tj2.T3rcPHpgJ1gvA2', 'Administrador', 3, 1),
-(53, 'sandramcipe.07@hotmail.com', '$2y$10$vK.5hwK/Ayj1YP.YU9Uyaezt8Rs8RdkWTBzTY0HVbij7Hp9txlyUe', 'Sandra Mancipe', 1, 3),
-(55, 'diegoc@gmail.com', '$2y$10$Kv15g8qw66pY4uLWCcR9GuD6RPXqrA1.s8oP9ACWGK8jtWjslzliq', 'Diego Sena', 1, 3),
-(56, 'user58@email.com', '$2y$10$TfUZIrsaq5metTZD2kEQ/OYwRe2bs0cXzzhShrIDFxDJ6eWYl5WUm', 'user prueba', 1, 3);
+INSERT INTO `user` (`user_id`, `user_email`, `user_password`, `full_name`, `document_number`, `userStatus_fk`, `role_fk`, `type_document_id`, `address`) VALUES
+(1, 'kevinsabogal24@gmail.com', '$2b$10$bGXPYe3noxnrmwhQl5brc.duAufA1JP7lqN1w8Z0/Y9FbrsfSp7Ju', 'Kevin David Sabogal', '1000619691', 1, 1, 1, 'Carrera 14 #22-45'),
+(2, 'andresecasvar05@gmail.com', '$2y$10$zNXemXVFPEbCd7yFTM.rMe3FO2sTze.cW/cOrGTps0dOi1YyFO7nW', 'Andres Esteban Castañeda Vargas', '', 1, 1, NULL, NULL),
+(3, 'leonoscarandres04@gmail.com', '$2y$10$qzDqu59/2GzX4SEQ73AkWey5kwBLOQRlQ0wS8YI/t5nlr6aQecaMu', 'Oscar Andres Leon', '', 1, 2, NULL, NULL),
+(4, 'hharold855@gmail.com', '$2y$10$apbVkvl8vulCNI1eNSvDUOaQlOSCDg3NrHHV6elR7d5uCAsszt2Tq', 'Harold David Hernandez', '', 1, 2, NULL, NULL),
+(5, 'prueba@gmail.com', '$2y$10$OCw6UzozG1/WR9K6RxFp6O9TfuBT5Luiub/tj2.T3rcPHpgJ1gvA2', 'Administrador', '', 3, 1, NULL, NULL),
+(53, 'sandramcipe.07@hotmail.com', '$2y$10$vK.5hwK/Ayj1YP.YU9Uyaezt8Rs8RdkWTBzTY0HVbij7Hp9txlyUe', 'Sandra Mancipe', '', 3, 3, NULL, NULL),
+(55, 'diegoc@gmail.com', '$2y$10$Kv15g8qw66pY4uLWCcR9GuD6RPXqrA1.s8oP9ACWGK8jtWjslzliq', 'Diego Sena', '', 3, 3, NULL, NULL),
+(56, 'juanito@gmail.com', '$2y$10$TfUZIrsaq5metTZD2kEQ/OYwRe2bs0cXzzhShrIDFxDJ6eWYl5WUm', 'Juan Petunio', '', 3, 1, NULL, NULL),
+(57, 'vivi@gmail.com', '$2b$10$/qVe1aGmPVJlMnUouWHG7OoR2/9Qex00CuxMJhVRTiTb.j7HNWhBW', 'Viviana Gomez', '', 1, 1, NULL, NULL),
+(58, 'juan@example.com', '$2b$10$g9VGSww6pq4Ec9C3TDKh2.YQQ408fxeXQD9mMlc6y4bSeygqoVUJ.', 'Juan Pérez', '', 3, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -612,10 +534,6 @@ CREATE TABLE IF NOT EXISTS `userstatus` (
   PRIMARY KEY (`userStatus_id`),
   UNIQUE KEY `userStatus_name` (`userStatus_name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- RELACIONES PARA LA TABLA `userstatus`:
---
 
 --
 -- Truncar tablas antes de insertar `userstatus`
@@ -691,6 +609,7 @@ ALTER TABLE `type_of_quotes`
 -- Filtros para la tabla `user`
 --
 ALTER TABLE `user`
+  ADD CONSTRAINT `fk_id_tipo_docuemnto_User` FOREIGN KEY (`type_document_id`) REFERENCES `document_type` (`id_doctypes`),
   ADD CONSTRAINT `user_role` FOREIGN KEY (`role_fk`) REFERENCES `role` (`role_id`),
   ADD CONSTRAINT `user_status` FOREIGN KEY (`userStatus_fk`) REFERENCES `userstatus` (`userStatus_id`);
 COMMIT;
