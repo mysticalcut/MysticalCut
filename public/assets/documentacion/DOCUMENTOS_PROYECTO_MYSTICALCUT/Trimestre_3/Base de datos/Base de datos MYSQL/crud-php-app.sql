@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-04-2025 a las 01:29:12
+-- Tiempo de generación: 09-04-2025 a las 05:45:28
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -393,15 +393,18 @@ INSERT INTO `role_module` (`roleModule_id`, `role_fk`, `module_fk`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `services` (
-  `id_services` int(11) NOT NULL,
+  `id_services` int(11) NOT NULL AUTO_INCREMENT,
   `name_service` varchar(255) DEFAULT NULL,
   `description` varchar(255) NOT NULL,
   `estimated_time` time DEFAULT NULL,
   `price` float DEFAULT NULL,
   `id_category_services` int(11) NOT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `id_status` int(11) DEFAULT 1,
   PRIMARY KEY (`id_services`),
-  KEY `fk_categoria_Servicios` (`id_category_services`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  KEY `fk_categoria_Servicios` (`id_category_services`),
+  KEY `fk_status` (`id_status`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Truncar tablas antes de insertar `services`
@@ -412,12 +415,12 @@ TRUNCATE TABLE `services`;
 -- Volcado de datos para la tabla `services`
 --
 
-INSERT INTO `services` (`id_services`, `name_service`, `description`, `estimated_time`, `price`, `id_category_services`) VALUES
-(1, 'Corte Clásico', 'Corte clasico para gente wapa', '00:30:00', 15, 1),
-(2, 'Afeitado Tradicional', 'Afeitado tranquilon para gente wapa', '00:20:00', 10, 2),
-(3, 'Tinte Capilar', 'Tinte bien mamalon para gente wapa', '01:00:00', 40, 3),
-(4, 'Tratamiento Hidratan', 'Tratamiento que hidrata para gente wapa', '00:45:00', 25, 4),
-(5, 'Corte Infantil', 'Corte infantil para niños bien wapos', '00:25:00', 12, 5);
+INSERT INTO `services` (`id_services`, `name_service`, `description`, `estimated_time`, `price`, `id_category_services`, `image`, `id_status`) VALUES
+(1, 'Corte Clásico', 'Corte clasico para gente wapa', '00:30:00', 15, 1, 'combo01.png', 1),
+(2, 'Afeitado Tradicional', 'Afeitado tranquilon para gente wapa', '00:20:00', 10, 2, 'combo01.png', 1),
+(3, 'Tinte Capilar', 'Tinte bien mamalon para gente wapa', '01:00:00', 40, 3, 'combo01.png', 1),
+(4, 'Tratamiento Hidratan', 'Tratamiento que hidrata para gente wapa', '00:45:00', 25, 4, 'combo01.png', 1),
+(5, 'Corte Infantil', 'Corte infantil para niños bien wapos', '00:25:00', 12, 5, 'combo01.png', 1);
 
 -- --------------------------------------------------------
 
@@ -449,6 +452,31 @@ INSERT INTO `service_invoice_detail` (`amount`, `price`, `id_facture`, `id_servi
 (2, 80, 3, 3),
 (1, 25, 4, 4),
 (3, 36, 5, 5);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `service_status`
+--
+
+CREATE TABLE IF NOT EXISTS `service_status` (
+  `id_status` int(11) NOT NULL,
+  `name_status` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id_status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Truncar tablas antes de insertar `service_status`
+--
+
+TRUNCATE TABLE `service_status`;
+--
+-- Volcado de datos para la tabla `service_status`
+--
+
+INSERT INTO `service_status` (`id_status`, `name_status`) VALUES
+(1, 'Active'),
+(2, 'Inactive');
 
 -- --------------------------------------------------------
 
@@ -497,12 +525,14 @@ CREATE TABLE IF NOT EXISTS `user` (
   `type_document_id` int(11) DEFAULT NULL,
   `address` varchar(255) DEFAULT NULL,
   `phone` varchar(20) NOT NULL,
+  `reset_token` varchar(64) DEFAULT NULL,
+  `reset_token_expires` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_email` (`user_email`),
   KEY `user_role` (`role_fk`),
   KEY `user_status` (`userStatus_fk`),
   KEY `fk_id_tipo_docuemnto_User` (`type_document_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Truncar tablas antes de insertar `user`
@@ -513,19 +543,21 @@ TRUNCATE TABLE `user`;
 -- Volcado de datos para la tabla `user`
 --
 
-INSERT INTO `user` (`user_id`, `user_email`, `user_password`, `full_name`, `document_number`, `userStatus_fk`, `role_fk`, `type_document_id`, `address`, `phone`) VALUES
-(1, 'kevinsabogal24@gmail.com', '$2b$10$bGXPYe3noxnrmwhQl5brc.duAufA1JP7lqN1w8Z0/Y9FbrsfSp7Ju', 'Kevin David Sabogal', '1000619691', 1, 1, 1, 'Carrera 14 #22-45', '3003113203'),
-(2, 'andresecasvar05@gmail.com', '$2b$10$RlHAWeZYSjsv6Cq1l372oe1cG0Mw7hi7b.BubdiVEARZYxcYpnjd6', 'Andres Esteban Castañeda', '1000621126', 2, 1, 2, 'Carrera 14 #22-46', '3175248114'),
-(3, 'leonoscarandres04@gmail.com', '$2b$10$zAt29/KSBa9msB95jO5lTeU4nv3Tp4fsRg/Lv2wE.WC4OIvZ5Dige', 'Oscar Andres Leon', '1000313313', 1, 3, 3, 'Carrera 14 #22-47', '3209241730'),
-(4, 'hharold855@gmail.com', '$2b$10$69ey/9t5R1YwcxtOSS2sa.RjRq.0AaerI3rhCColETWMIx/OmaD5m', 'Harold David Hernandez', '1000919919', 1, 2, 1, 'Carrera 14 #22-48', '3212709274'),
-(5, 'administrador5@gmail.com', '$2y$10$OCw6UzozG1/WR9K6RxFp6O9TfuBT5Luiub/tj2.T3rcPHpgJ1gvA2', 'Administrador', '7142565', 1, 1, 1, 'Carrera 14 #22-49', '000'),
-(59, 'venitoca.1@hotmail.com', '$2b$10$YM0Xagrq.7UC5WiHXkQY..FpDNqX0zdVXulYsdcM86cwve150gFAK', 'Daniel Venegas', '132365548', 2, 3, 1, 'Carrera 20 #24-02', '000'),
-(60, 'mario@gmail.com', '$2b$10$2mwrIThLDywBhN6pQh7RWuDeXEQ14gpvzpEznI4.VYDLfyL/8ci9.', 'Mario Mendoza', '1000625545', 2, 3, 2, 'Carrera 20 #84-69', '000'),
-(61, 'mariano@gmail.com', '$2b$10$BPrmoIyoGRCSW2/qXT8F5.fM8Hl8uUXJYB/JAOIUMggbfPyRap6c6', 'Mariano Castro', '123456565', 2, 3, 1, 'Carrera 20 #44-20', '000'),
-(62, 'gregory@gmail.com', '$2b$10$ARnDB2GDgKY.r9EFupKbheyocEAEiB39k9UvDSSmdAxXxp.Bn2Nje', 'Gregory Diaz', '1000325786', 1, 1, 3, 'Carrera 20 #24-96', '000'),
-(63, 'fgfernan@gmail.com', '$2b$10$Dm3nkmify5X0U4jqCRE8te8vPe6oCQ8bH38gcPaw5QUOHupjG.vv6', 'Felipe Garcia', '1030133364', 1, 3, 1, 'Carrera 69 #56-22', '000'),
-(69, 'viviana@gmail.com', '$2b$10$IPeC4JdBgxRaDGQBhZ21ou2VSX3/Bvl4HeagFzQOKdTbamQtWxHnS', 'Viviana Gomez', '1000619600', 1, 3, 1, 'Carrera 14 #22-87', '3202425632'),
-(70, 'gluglu@gmail.com', '$2b$10$MorZ1Jv.KkHoJ6RzNr6LDuiePbgGD5uFfzzbS/Ydb5jFoJjfxgoMu', 'Mamahuevo GluGlu', '1000621444', 3, 3, 3, 'Carrera 74 #22-46', '3200022332');
+INSERT INTO `user` (`user_id`, `user_email`, `user_password`, `full_name`, `document_number`, `userStatus_fk`, `role_fk`, `type_document_id`, `address`, `phone`, `reset_token`, `reset_token_expires`) VALUES
+(1, 'kevinsabogal24@gmail.com', '$2b$10$4zzz43P8ZzJWGJU5nfLLpum9IJEYWUZQ9.MYeYAR3/TTa0OIIbXWq', 'Kevin David Sabogal', '1000619691', 1, 1, 1, 'Carrera 14 #22-45', '3003113203', NULL, NULL),
+(2, 'andresecasvar05@gmail.com', '$2b$10$RlHAWeZYSjsv6Cq1l372oe1cG0Mw7hi7b.BubdiVEARZYxcYpnjd6', 'Andres Esteban Castañeda', '1000621126', 1, 1, 2, 'Carrera 14 #22-46', '3175248114', NULL, NULL),
+(3, 'leonoscarandres04@gmail.com', '$2b$10$zAt29/KSBa9msB95jO5lTeU4nv3Tp4fsRg/Lv2wE.WC4OIvZ5Dige', 'Oscar Andres Leon', '1000313313', 1, 3, 3, 'Carrera 14 #22-47', '3209241730', NULL, NULL),
+(4, 'hharold855@gmail.com', '$2b$10$69ey/9t5R1YwcxtOSS2sa.RjRq.0AaerI3rhCColETWMIx/OmaD5m', 'Harold David Hernandez', '1000919919', 1, 2, 1, 'Carrera 14 #22-48', '3212709274', NULL, NULL),
+(5, 'administrador5@gmail.com', '$2y$10$OCw6UzozG1/WR9K6RxFp6O9TfuBT5Luiub/tj2.T3rcPHpgJ1gvA2', 'Administrador', '7142565', 1, 1, 1, 'Carrera 14 #22-49', '000', NULL, NULL),
+(59, 'venitoca.1@hotmail.com', '$2b$10$YM0Xagrq.7UC5WiHXkQY..FpDNqX0zdVXulYsdcM86cwve150gFAK', 'Daniel Venegas', '132365548', 1, 3, 1, 'Carrera 20 #24-02', '000', NULL, NULL),
+(60, 'mario@gmail.com', '$2b$10$2mwrIThLDywBhN6pQh7RWuDeXEQ14gpvzpEznI4.VYDLfyL/8ci9.', 'Mario Mendoza', '1000625545', 2, 3, 2, 'Carrera 20 #84-69', '000', NULL, NULL),
+(61, 'mariano@gmail.com', '$2b$10$BPrmoIyoGRCSW2/qXT8F5.fM8Hl8uUXJYB/JAOIUMggbfPyRap6c6', 'Mariano Castro', '123456565', 2, 3, 1, 'Carrera 20 #44-20', '000', NULL, NULL),
+(62, 'gregory@gmail.com', '$2b$10$ARnDB2GDgKY.r9EFupKbheyocEAEiB39k9UvDSSmdAxXxp.Bn2Nje', 'Gregory Diaz', '1000325786', 1, 1, 3, 'Carrera 20 #24-96', '000', NULL, NULL),
+(63, 'fgfernan@gmail.com', '$2b$10$Dm3nkmify5X0U4jqCRE8te8vPe6oCQ8bH38gcPaw5QUOHupjG.vv6', 'Felipe Garcia', '1030133364', 1, 3, 1, 'Carrera 69 #56-22', '000', NULL, NULL),
+(69, 'viviana@gmail.com', '$2b$10$IPeC4JdBgxRaDGQBhZ21ou2VSX3/Bvl4HeagFzQOKdTbamQtWxHnS', 'Viviana Gomez', '1000619600', 3, 3, 1, 'Carrera 14 #22-87', '3202425632', NULL, NULL),
+(70, 'gluglu@gmail.com', '$2b$10$MorZ1Jv.KkHoJ6RzNr6LDuiePbgGD5uFfzzbS/Ydb5jFoJjfxgoMu', 'Mamahuevo GluGlu', '1000621444', 3, 3, 3, 'Carrera 74 #22-46', '3200022332', NULL, NULL),
+(72, 'maicol@gmail.com', '$2b$10$1yvJ0l.pPs3/DeH2Zuu4/ehqcEb19yBLyIXxEohlm.IP/RzjHaku6', 'Maicol Hernandez', '196325412', 1, 3, 1, 'Carrera 14 #65-21', '3216549885', NULL, NULL),
+(73, 'venito@gmail.com', '$2b$10$2iFl/jAhBwod32gFzJw3ouv9EafymfQeOgz/Gs1ymgoO.2jPwBuN.', 'Venito Verganzas', '100545232', 3, 3, 3, 'Calle 30 #38-22', '3514115200', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -594,7 +626,8 @@ ALTER TABLE `role_module`
 -- Filtros para la tabla `services`
 --
 ALTER TABLE `services`
-  ADD CONSTRAINT `fk_categoria_Servicios` FOREIGN KEY (`id_category_services`) REFERENCES `category_services` (`id_category_services`);
+  ADD CONSTRAINT `fk_categoria_Servicios` FOREIGN KEY (`id_category_services`) REFERENCES `category_services` (`id_category_services`),
+  ADD CONSTRAINT `fk_status` FOREIGN KEY (`id_status`) REFERENCES `service_status` (`id_status`);
 
 --
 -- Filtros para la tabla `service_invoice_detail`
