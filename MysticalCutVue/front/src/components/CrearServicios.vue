@@ -8,7 +8,9 @@
   </router-link>
 </div>
 
-      <h1 class="text-center mx-auto title">Crear Servicio</h1>
+<ul class="nav col-12 justify-content-center mx-auto">
+          <h1>Agregar Servicio</h1>
+        </ul>
     </header>
 
     <!-- Main Content -->

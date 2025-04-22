@@ -1,4 +1,5 @@
 <template>
+  
   <div class="container mt-5 text-white">
     <div class="card p-4 bg-dark text-white">
       <!-- Título dentro del recuadro -->
@@ -56,7 +57,7 @@ const fetchService = async () => {
 };
 
 const getImage = (image) => {
-  return image ? `/background/${image}` : '/img/background/combo01.png';
+  return image ? `/img/background/${image}` : '/img/background/combo01.png';
 };
 
 onMounted(fetchService);

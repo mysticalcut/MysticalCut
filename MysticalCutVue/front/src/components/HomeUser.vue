@@ -99,7 +99,7 @@
       <div class="row row-cols-1 row-cols-md-4 g-8">
         <div v-for="service in services" :key="service.title" class="col">
           <div class="card">
-            <a href="/usuario/elegir-tipo-cita">
+            <a href="/services">
               <img :src="service.image" class="card-img-top" :alt="service.title" />
             </a>
             <div class="card-body">
