@@ -295,4 +295,10 @@ router.get('/barbers', authenticateToken, userController.getBarbers);
  */
 router.post('/profile-by-email', authenticateToken, userController.getUserByEmail);
 
+router.get('/role/:role', authenticateToken, userController.filterUsersByRole);
+
+router.put("/:id/delete", authenticateToken, userController.deleteAccount);
+
+
+
 module.exports = router;

@@ -198,4 +198,29 @@ export const getUserByEmail = async (email) => {
   }
 };
 
+export const filterUsersByRole = async (role) => {
+  try {
+    const token = localStorage.getItem('token');
+    const response = await axios.get(`${API_URL}/role/${role}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    console.log("Respuesta de la API:", response.data); // Verificar qué contiene la respuesta
+    return response.data;  // Asegúrate de que esto sea un arreglo
+  } catch (error) {
+    console.error("Error al obtener usuarios por rol:", error);
+    throw error;
+  }
+};
+
+export const deleteAccount = async (userId, token) => {
+  return axios.put(`${API_URL}/${userId}/delete`, {}, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+};
+
+
 

@@ -24,6 +24,8 @@
       </router-link>
       <button v-if="['Cliente', 'Empleado'].includes(user.role)" class="btn botonav" @click="goMisCitas">Mis citas</button>
       <button v-if="['Administrador', 'Cliente', 'Empleado'].includes(user.role)" class="btn botonav" @click="goBack">Regresar</button>
+      <button class="btn botonav" @click="confirmDelete"> Eliminar cuenta </button>
+
     </div>
 
     <FooterComponent />
@@ -33,7 +35,7 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
 import { useRouter } from "vue-router";
-import { getUserData } from "@/services/api"; 
+import { getUserData, deleteAccount } from "@/services/api"; 
 import '@/assets/css/perfilUsuario.css';
 import HeaderComponent from '@/components/HeaderComponent.vue';
 import FooterComponent from '@/components/FooterComponent.vue';
@@ -96,6 +98,22 @@ onMounted(() => {
 onUnmounted(() => {
   document.removeEventListener("click", closeMenu);
 });
+
+const confirmDelete = async () => {
+  const confirmed = window.confirm("¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer.");
+  if (!confirmed) return;
+
+  try {
+    const token = localStorage.getItem("token");
+    await deleteAccount(user.value.id, token);
+    alert("Cuenta eliminada exitosamente. ¡Hasta pronto!");
+    localStorage.removeItem("token");
+    router.push("/");
+  } catch (error) {
+    console.error("❌ Error al eliminar la cuenta:", error);
+    alert("Hubo un problema al intentar eliminar tu cuenta.");
+  }
+};
 
 // 🔹 Función para regresar a la página anterior
 const goBack = () => {
