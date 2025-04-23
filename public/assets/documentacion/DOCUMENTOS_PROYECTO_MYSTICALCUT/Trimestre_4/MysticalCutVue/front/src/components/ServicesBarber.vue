@@ -7,8 +7,6 @@
     <img src="/img/background/LOGO.png" alt="Logo" width="125" height="125" class="d-inline-block align-text-top" />
   </router-link>
 </div>
-
-
       <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
         <li v-for="module in roleModules" :key="module.module_route" class="nav-item">
           <a class="nav-link" :href="`/${module.module_route}`">{{ module.role_module }}</a>
@@ -28,6 +26,9 @@
           </ul>
         </div>
       </div>
+      <ul class="nav col-12 justify-content-center mx-auto">
+        <h1>Servicios</h1>
+      </ul>
     </header>
 
     <!-- NAV DE CATEGORÍAS -->
@@ -95,7 +96,7 @@
 
     <!-- BOTÓN REGRESAR -->
     <div class="btn-regresar mt-3 text-center">
-      <button class="btn btn-secondary" @click="goBack">Regresar</button>
+      <button class="btn back-button" @click="goBack">Regresar</button>
     </div>
 
     <footer class="py-3 my-4">
@@ -162,15 +163,15 @@ const fetchServices = async () => {
   }
 };
 
-const servicesByCategory = computed(() => {
-  const categorized = {};
-  services.value.forEach(service => {
-    const category = service.category_name || "Otros";
-    if (!categorized[category]) categorized[category] = [];
-    categorized[category].push(service);
+  const servicesByCategory = computed(() => {
+    const categorized = {};
+    services.value.forEach(service => {
+      const category = service.category_name || "Otros";
+      if (!categorized[category]) categorized[category] = [];
+      categorized[category].push(service);
+    });
+    return categorized;
   });
-  return categorized;
-});
 
 const getCategoryId = (category) => category.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
 const getServiceImage = (image) => image ? `/background/${image}` : '/img/background/combo01.png';

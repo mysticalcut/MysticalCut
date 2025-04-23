@@ -7,7 +7,9 @@
           <img src="/img/background/LOGO.png" alt="Logo" width="125" height="125" class="d-inline-block align-text-top" />
         </router-link>
       </div>
-      <h1 class="text-center mx-auto title">Editar Servicio</h1>
+      <ul class="nav col-12 justify-content-center mx-auto">
+          <h1>Editar Servicio</h1>
+        </ul>
     </header>
 
     <!-- Main Content -->

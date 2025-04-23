@@ -13,6 +13,11 @@
           </div>
 
           <div class="fila-dato">
+            <span class="etiqueta">Barbero:</span>
+            <span class="valor">{{ barberName || 'No disponible' }}</span>
+          </div>
+
+          <div class="fila-dato">
             <span class="etiqueta">Fecha:</span>
             <span class="valor">{{ date || 'No disponible' }}</span>
           </div>
@@ -32,7 +37,6 @@
             <span class="valor"><strong>${{ totalServicios }}</strong></span>
           </div>
 
-          <!-- Solo el botón de "Ver Citas" que enviará el correo y redirigirá -->
           <button class="volver-btn" @click="verCitas">Ver Citas</button>
         </div>
       </div>
@@ -41,6 +45,8 @@
 </template>
 
 <script>
+
+
 import { sendQuoteEmail } from '@/services/quotesApi';
 
 export default {
@@ -98,6 +104,7 @@ export default {
           servicio: this.servicioSeleccionado.name_service,
           fecha: this.date,
           hora: this.time,
+          barbero: this.barberName,
           total: this.totalServicios
         });
 
@@ -112,10 +119,8 @@ export default {
         alert('Ocurrió un error al enviar el correo. Intenta nuevamente.');
       }
     },
-    // Método para redirigir a la vista de citas después de enviar el correo
     verCitas() {
       this.enviarCorreo().then(() => {
-        // Después de enviar el correo, redirigimos a la vista de citas
         this.$router.push('/citas');
       });
     }

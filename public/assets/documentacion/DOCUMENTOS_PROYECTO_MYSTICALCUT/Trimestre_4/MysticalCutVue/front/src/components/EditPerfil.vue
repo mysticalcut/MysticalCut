@@ -63,7 +63,7 @@
 
       <button type="submit" class="btn button-registrar">Guardar Cambios</button>
     </form>
-    <button class="back-button" @click="goBack">Regresar</button>
+    <button class="btn back-button" @click="goBack">Regresar</button>
   </div>
   <footer class="py-3 my-4">
       <ul class="nav justify-content-center border-bottom pb-3 mb-3"></ul>

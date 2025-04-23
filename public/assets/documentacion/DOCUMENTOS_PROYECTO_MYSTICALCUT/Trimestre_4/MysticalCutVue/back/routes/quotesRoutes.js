@@ -85,18 +85,64 @@ router.get('/mes', quotesController.getQuotesByBarberAndMonth);
  *     parameters:
  *       - in: query
  *         name: user_id
+ *         required: false
  *         schema:
  *           type: integer
+ *         description: ID del usuario (cliente)
  *       - in: query
  *         name: barber_id
+ *         required: false
  *         schema:
  *           type: integer
+ *         description: ID del barbero
  *     responses:
  *       200:
- *         description: Lista de citas con detalles
+ *         description: Lista de citas con detalles (servicio, barbero y cliente)
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id_quotes:
+ *                     type: integer
+ *                     description: ID de la cita
+ *                   date_time:
+ *                     type: string
+ *                     format: date-time
+ *                     description: Fecha y hora de la cita
+ *                   state_quotes:
+ *                     type: string
+ *                     description: Estado de la cita
+ *                   id_services:
+ *                     type: integer
+ *                     description: ID del servicio
+ *                   name_service:
+ *                     type: string
+ *                     description: Nombre del servicio
+ *                   price:
+ *                     type: number
+ *                     format: float
+ *                     description: Precio del servicio
+ *                   estimated_time:
+ *                     type: string
+ *                     description: Tiempo estimado para el servicio
+ *                   barber_id:
+ *                     type: integer
+ *                     description: ID del barbero
+ *                   barber_name:
+ *                     type: string
+ *                     description: Nombre completo del barbero
+ *                   client_name:
+ *                     type: string
+ *                     description: Nombre completo del cliente
  *       400:
  *         description: Falta el parámetro user_id o barber_id
+ *       500:
+ *         description: Error al obtener las citas
  */
+
 router.get('/detalles', authenticateToken, quotesController.getQuotesWithServiceDetails);
 
 /**

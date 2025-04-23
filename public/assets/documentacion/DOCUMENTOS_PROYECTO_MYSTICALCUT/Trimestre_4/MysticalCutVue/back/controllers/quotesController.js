@@ -3,34 +3,35 @@ const db = require('../config/db');
 const nodemailer = require('nodemailer');
 
 // 🔹 Enviar correo con detalles de la cita
-exports.sendQuoteEmail = async (req, res) => {
-  const { email, servicio, fecha, hora, total } = req.body;
+exports.sendQuoteEmail = async (req, res) => { 
+  const { email, servicio, fecha, hora, total, barbero } = req.body;
 
-  if (!email || !servicio || !fecha || !hora || !total) {
+  if (!email || !servicio || !fecha || !hora || !total || !barbero) {
     return res.status(400).json({ message: 'Faltan datos del correo' });
   }
 
   try {
-    console.log('📤 Datos para enviar correo:', { email, servicio, fecha, hora, total });
+    console.log('📤 Datos para enviar correo:', { email, servicio, fecha, hora, total, barbero });
 
     // Configuración del transporte
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: 'kevinsabogal24@gmail.com',  // Asegúrate de que sea correcto
-        pass: 'wwqc rxvl xmqi mocs', // Considera usar una contraseña de aplicación si tienes 2FA habilitado
+        user: 'mysticalcut@gmail.com',  
+        pass: 'wwgn lfus tlik utax', 
       },
     });
 
     // Contenido del correo
     const mailOptions = {
-      from: 'kevinsabogal24@gmail.com',
+      from: 'mysticalcut@gmail.com',
       to: email,
       subject: 'Confirmación de tu cita - MysticalCut',
       html: `
         <h2>💥💈Gracias por confiar en MysticalCut💈💥</h2>
-        <h2>💈Aqui tienes el resumen de tu cita 😉💈</h2>
+        <h2>💈Aquí tienes el resumen de tu cita 😉💈</h2>
         <p><strong>Servicio:</strong> ${servicio}</p>
+        <p><strong>Barbero:</strong> ${barbero}</p> <!-- Se muestra el nombre del barbero -->
         <p><strong>Fecha:</strong> ${fecha}</p>
         <p><strong>Hora:</strong> ${hora}</p>
         <p><strong>Total:</strong> $${total}</p>
@@ -143,38 +144,73 @@ exports.getQuotesByBarberAndMonth = (req, res) => {
 // 🔹 Obtener citas con detalle de servicio por usuario o barbero
 exports.getQuotesWithServiceDetails = (req, res) => {
   const { user_id, barber_id } = req.query;
+  const userRole = req.user.role; // Suponiendo que tienes el rol en la sesión del usuario (esto depende de tu implementación de autenticación)
 
-  if (!user_id && !barber_id) {
+  // Si el rol es admin, no filtramos por user_id ni barber_id
+  if (userRole === 'admin') {
+    const query = `
+      SELECT 
+        q.id_quotes,
+        q.date_time,
+        q.state_quotes,
+        q.id_services,
+        s.name_service,
+        s.price,
+        s.estimated_time,
+        q.barber_id,
+        barberos.full_name AS barber_name,
+        clientes.full_name AS client_name
+      FROM quotes q
+      JOIN services s ON q.id_services = s.id_services
+      LEFT JOIN user barberos ON q.barber_id = barberos.user_id
+      LEFT JOIN user clientes ON q.user_id = clientes.user_id
+      ORDER BY q.date_time DESC
+    `;
+
+    db.query(query, (err, results) => {
+      if (err) {
+        console.error('🔴 Error al obtener citas con detalles:', err);
+        return res.status(500).json({ message: 'Error al obtener citas' });
+      }
+
+      res.status(200).json(results);
+    });
+
+  } else if (user_id || barber_id) {
+    // Lógica actual para otros usuarios (barbero o cliente)
+    const query = `
+      SELECT 
+        q.id_quotes,
+        q.date_time,
+        q.state_quotes,
+        q.id_services,
+        s.name_service,
+        s.price,
+        s.estimated_time,
+        q.barber_id,
+        barberos.full_name AS barber_name,
+        clientes.full_name AS client_name
+      FROM quotes q
+      JOIN services s ON q.id_services = s.id_services
+      LEFT JOIN user barberos ON q.barber_id = barberos.user_id
+      LEFT JOIN user clientes ON q.user_id = clientes.user_id
+      WHERE (q.user_id = ? OR q.barber_id = ?)
+      ORDER BY q.date_time DESC
+    `;
+
+    db.query(query, [user_id || barber_id, barber_id || user_id], (err, results) => {
+      if (err) {
+        console.error('🔴 Error al obtener citas con detalles:', err);
+        return res.status(500).json({ message: 'Error al obtener citas' });
+      }
+
+      res.status(200).json(results);
+    });
+  } else {
     return res.status(400).json({ message: 'Falta el parámetro user_id o barber_id' });
   }
-
-  const query = `
-    SELECT 
-      q.id_quotes,
-      q.date_time,
-      q.state_quotes,
-      s.id_services,
-      s.name_service,
-      s.price,
-      s.estimated_time,
-      q.barber_id,
-      u.full_name AS barber_name
-    FROM quotes q
-    JOIN services s ON q.id_services = s.id_services
-    LEFT JOIN user u ON q.barber_id = u.user_id
-    WHERE (q.user_id = ? OR q.barber_id = ?)
-    ORDER BY q.date_time DESC
-  `;
-
-  db.query(query, [user_id || barber_id, barber_id || user_id], (err, results) => {
-    if (err) {
-      console.error('🔴 Error al obtener citas con detalles de servicio:', err);
-      return res.status(500).json({ message: 'Error al obtener citas' });
-    }
-
-    res.status(200).json(results);
-  });
 };
+
 
 // Función para cancelar una cita
 exports.cancelQuote = (req, res) => {
