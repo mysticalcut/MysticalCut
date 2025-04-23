@@ -295,8 +295,58 @@ router.get('/barbers', authenticateToken, userController.getBarbers);
  */
 router.post('/profile-by-email', authenticateToken, userController.getUserByEmail);
 
+/**
+ * @swagger
+ * /api/users/role/{role}:
+ *   get:
+ *     summary: Obtener usuarios filtrados por rol
+ *     tags: [Usuarios]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: role
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID del rol (1 = Cliente, 2 = Barbero, 3 = Administrador, 4 = Eliminado)
+ *     responses:
+ *       200:
+ *         description: Lista de usuarios con el rol especificado
+ *       400:
+ *         description: Rol inválido
+ *       404:
+ *         description: No se encontraron usuarios
+ *       500:
+ *         description: Error del servidor
+ */
 router.get('/role/:role', authenticateToken, userController.filterUsersByRole);
 
+/**
+ * @swagger
+ * /api/users/{id}/delete:
+ *   put:
+ *     summary: Marcar una cuenta de usuario como eliminada (estado 4)
+ *     tags: [Usuarios]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID del usuario a eliminar
+ *     responses:
+ *       200:
+ *         description: Cuenta marcada como eliminada correctamente
+ *       400:
+ *         description: ID de usuario inválido
+ *       404:
+ *         description: Usuario no encontrado
+ *       500:
+ *         description: Error al eliminar la cuenta
+ */
 router.put("/:id/delete", authenticateToken, userController.deleteAccount);
 
 
