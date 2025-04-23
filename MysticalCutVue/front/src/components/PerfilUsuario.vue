@@ -22,7 +22,7 @@
       <router-link :to="`/EditPerfil/${user.id}`" class="btn btn-icon">
         <img src="/img/background/editar_perfil_2.png"> Editar
       </router-link>
-      <button v-if="['Cliente', 'Empleado'].includes(user.role)" class="btn botonav" @click="goMisCitas">Mis citas</button>
+      <button v-if="['Cliente', 'Empleado', 'Administrador'].includes(user.role)" class="btn botonav" @click="goMisCitas">Mis citas</button>
       <button v-if="['Administrador', 'Cliente', 'Empleado'].includes(user.role)" class="btn botonav" @click="goBack">Regresar</button>
       <button class="btn botonav" @click="confirmDelete"> Eliminar cuenta </button>
 
