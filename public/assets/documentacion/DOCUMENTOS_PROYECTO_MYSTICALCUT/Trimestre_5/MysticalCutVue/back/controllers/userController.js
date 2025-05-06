@@ -1,0 +1,268 @@
+const db = require('../config/db');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const nodemailer = require('nodemailer');
+const {
+    registerUser,
+    loginUser,
+    getProfile,
+    getUsers,
+    getUserById,
+    updateUser,
+    updateUserStatus,
+    deleteUser,
+    getInactiveUsers,
+    forgotPassword,
+    resetPassword,
+    showResetPasswordForm,
+    getBarbers,
+    getUserByEmail,
+    filterUsersByRole,
+    deleteAccount,
+    activateUser
+} = require('../models/userModel');
+
+class UserController {
+
+    async registerUser(req, res) {
+        try {
+            await registerUser(req.body);
+            res.status(201).json({ message: '✅ Usuario creado correctamente' });
+        } catch (error) {
+            res.status(500).json({ message: 'Error al registrar el usuario', error });
+        }
+    }
+
+    async loginUser(req, res) {
+        const { email, password } = req.body;
+
+        try {
+            const user = await getUserByEmail(email);
+            if (!user) {
+                return res.status(401).json({ error: 'Usuario no encontrado' });
+            }
+
+            if (user.userStatus_fk === 4) {
+                return res.status(403).json({ error: 'Cuenta eliminada, no puedes acceder' });
+            }
+
+            if (user.userStatus_fk === 2) {
+                return res.status(403).json({ error: 'Cuenta bloqueada, no puedes acceder' });
+            }
+
+            const passwordMatch = await bcrypt.compare(password, user.user_password);
+            if (!passwordMatch) {
+                return res.status(401).json({ error: 'Credenciales incorrectas' });
+            }
+
+            if (user.userStatus_fk === 3) {
+                await activateUser(user.user_id);
+            }
+
+            const token = jwt.sign(
+                { id: user.user_id, role: user.role_name },
+                process.env.JWT_SECRET,
+                { expiresIn: '1h' }
+            );
+
+            res.json({
+                message: 'Inicio de sesión exitoso',
+                token,
+                user: {
+                    full_name: user.full_name,
+                    email: user.user_email,
+                    role: user.role_name
+                }
+            });
+
+        } catch (error) {
+            res.status(500).json({ message: 'Error al iniciar sesión', error: error.message });
+        }
+    }
+
+    async getProfile(req, res) {
+        try {
+            const result = await getProfile(req.user.id);
+            res.status(200).json(result);
+        } catch (error) {
+            res.status(500).json({ message: 'Error al obtener el perfil', error });
+        }
+    }
+
+    async getUsers(req, res) {
+        try {
+            const result = await getUsers();
+            res.status(200).json(result);
+        } catch (error) {
+            res.status(500).json({ message: 'Error al obtener los usuarios', error });
+        }
+    }
+
+    async getUserById(req, res) {
+        try {
+            const result = await getUserById(req.params.id);
+            res.status(200).json(result);
+        } catch (error) {
+            res.status(500).json({ message: 'Error al obtener el usuario por ID', error });
+        }
+    }
+
+    async updateUser(req, res) {
+        try {
+            await updateUser(req.params.id, req.body);
+            res.status(200).json({ message: '✅ Usuario actualizado correctamente' });
+        } catch (error) {
+            console.error('Error al actualizar usuario:', error.message);
+            if (error.message === 'Usuario no encontrado') {
+                res.status(404).json({ message: 'Usuario no encontrado' });
+            } else {
+                res.status(500).json({ message: 'Error al actualizar usuario' });
+            }
+        }
+    }
+
+    async updateUserStatus(req, res) {
+        try {
+            await updateUserStatus(req.params.id, req.body.userStatus_fk);
+            res.status(200).json({ message: `Estado del usuario actualizado a ${req.body.userStatus_fk}` });
+
+        } catch (error) {
+            res.status(500).json({ message: 'Error al actualizar el estado del usuario', error });
+        }
+    }
+
+    async deleteUser(req, res) {
+        try {
+            const result = await deleteUser(req.params.id);
+            res.status(200).json(result);
+        } catch (error) {
+            res.status(500).json({ message: 'Error al eliminar el usuario', error });
+        }
+    }
+
+    async getInactiveUsers(req, res) {
+        try {
+            const result = await getInactiveUsers();
+            res.status(200).json(result);
+        } catch (error) {
+            res.status(500).json({ message: 'Error al buscar los usuarios inactivos', error });
+        }
+    }
+
+    async forgotPassword(req, res) {
+        const { email } = req.body;
+        try {
+            const user = await getUserByEmail(email);
+            if (!user) {
+                return res.status(404).json({ message: 'Usuario no encontrado' });
+            }
+
+            const token = jwt.sign({ id: user.user_id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+            const expires = Date.now() + 3600000;
+
+            console.log('Token:', token);
+            console.log('Expires:', expires);
+
+            try {
+                await forgotPassword(user.user_email, token, expires);
+            } catch (dbError) {
+                console.error('Error actualizando reset_token en DB:', dbError);
+                return res.status(500).json({ message: 'Error al actualizar token en base de datos', error: dbError });
+            }
+
+            const transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: process.env.EMAIL_USER,
+                    pass: process.env.EMAIL_PASS,
+                },
+            });
+
+            const resetLink = `http://localhost:8080/reset-password/${token}`;
+            const mailOptions = {
+                from: process.env.EMAIL_USER,
+                to: user.user_email,
+                subject: 'Recuperación de contraseña',
+                html: `<p>Bienvenido a Mystical Cut 💈💥</p>
+                    <p>Haz clic en el siguiente enlace para restablecer tu contraseña 😉:</p>
+                    <a href="${resetLink}">${resetLink}</a>
+                    <p>Ingresa al enlace lo más pronto posible y restablece tu contraseña, este expirará en 1 hora 😱🏃‍♂️.</p>`
+            };
+
+            transporter.sendMail(mailOptions, (error, info) => {
+                if (error) {
+                    return res.status(500).json({ message: 'Error al enviar correo', error });
+                }
+                res.status(200).json({ message: 'Correo de recuperación enviado' });
+            });
+        } catch (error) {
+            console.error('Error general en forgotPassword:', error);
+            res.status(500).json({ message: 'Error en la recuperación de contraseña', error });
+        }
+    }
+
+    async resetPassword(req, res) {
+        const { token, newPassword } = req.body;
+    
+        try {
+            const decoded = jwt.verify(token, process.env.JWT_SECRET);
+            const userId = decoded.id;
+    
+            const hashedPassword = await bcrypt.hash(newPassword, 10);
+            const result = await resetPassword(userId, hashedPassword);
+    
+            res.status(200).json(result);
+        } catch (error) {
+            console.error('Error en resetPassword:', error);
+            res.status(500).json({ message: 'Error al restablecer la contraseña', error: error.message });
+        }
+    }
+
+    async showResetPasswordForm(req, res) {
+        const { token } = req.params;
+        try {
+            jwt.verify(token, process.env.JWT_SECRET);
+            res.status(200).json({ message: 'Token válido' });
+        } catch (error) {
+            res.status(500).json({ message: 'Token inválido o expirado', error });
+        }
+    }
+
+    async getBarbers(req, res) {
+        try {
+            const result = await getBarbers();
+            res.status(200).json(result);
+        } catch (error) {
+            res.status(500).json({ message: 'Error al obtener los barberos', error });
+        }
+    }
+
+    async getUserByEmail(req, res) {
+        try {
+            const result = await getUserByEmail(req.params.email);
+            res.status(200).json(result);
+        } catch (error) {
+            res.status(500).json({ message: 'Error al obtener el usuario', error });
+        }
+    }
+
+    async filterUsersByRole(req, res) {
+        try {
+            const result = await filterUsersByRole(req.params.role);
+            res.status(200).json(result);
+        } catch (error) {
+            res.status(500).json({ message: 'Error al filtrar los usuarios por rol', error });
+        }
+    }
+
+    async deleteAccount(req, res) {
+        try {
+            const result = await deleteAccount(req.user.id);
+            res.status(200).json(result);
+        } catch (error) {
+            res.status(500).json({ message: 'Error al eliminar la cuenta', error });
+        }
+    }
+}
+
+module.exports = new UserController();
