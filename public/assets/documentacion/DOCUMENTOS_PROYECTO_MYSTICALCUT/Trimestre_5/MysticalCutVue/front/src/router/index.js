@@ -28,6 +28,8 @@ import CalendarioCitas from '@/components/CalendarioCitas.vue';
 import FacturaServicios from '@/components/FacturaServicios.vue';
 import CitasPendientes from '@/components/CitasPendientes.vue';
 
+import Products from '../components/ProductsView.vue';
+
 
 
 
@@ -60,7 +62,10 @@ const routes = [
   { path: '/Select-Barbero', component: SeleccionarBarbero , meta: { title: 'Seleccionar Barbero | MysticalCut' } },
   { path: '/Calendario', component: CalendarioCitas , meta: { title: 'Calendario | MysticalCut' } },
   { path: '/FacturaServicios', component: FacturaServicios , meta: { title: 'factura | MysticalCut' } },
-  { path: '/Citas', component: CitasPendientes , meta: { title: 'Citas | MysticalCut', requiresAuth: true } }
+  { path: '/Citas', component: CitasPendientes , meta: { title: 'Citas | MysticalCut', requiresAuth: true } },
+
+  { path: '/Products', component: Products, meta: { title: 'Productos | MysticalCut', requiresAuth: true} },
+
 ];
 
 

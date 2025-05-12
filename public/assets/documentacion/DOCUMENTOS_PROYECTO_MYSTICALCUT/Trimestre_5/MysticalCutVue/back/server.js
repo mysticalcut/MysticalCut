@@ -8,6 +8,7 @@ const db = require('./config/db');
 const userRoutes = require('./routes/userRoutes');
 const serviceRoutes = require('./routes/serviceRoutes');
 const quoteRoutes = require('./routes/quotesRoutes');
+const productRoutes = require('./routes/productRoutes');
 
 const app = express();
 app.use(cors());
@@ -57,6 +58,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use('/api/users', userRoutes);
 app.use('/api/services', serviceRoutes);
 app.use('/api/quotes', quoteRoutes);
+app.use('/api/products', productRoutes)
 
 app.get('/api/', (req, res) => {
   res.send('API funcionando correctamente 🚀');
