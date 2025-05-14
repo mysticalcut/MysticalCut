@@ -59,13 +59,13 @@ export const updateProductStatus = async (productId, statusId) => {
   try {
     const token = localStorage.getItem('token');
     const response = await axios.put(`${API_URL}/status/${productId}`, {
-      productStatus_fk: statusId
+      id_status: statusId
     }, {
       headers: { Authorization: `Bearer ${token}` }
     });
     return response.data;
   } catch (error) {
-    console.error("Error al actualizar el estado del producto:", error);
+    console.error("Error al actualizar el estado del producto:", error.response?.data || error);
     throw 'Error al actualizar el estado del producto';
   }
 };

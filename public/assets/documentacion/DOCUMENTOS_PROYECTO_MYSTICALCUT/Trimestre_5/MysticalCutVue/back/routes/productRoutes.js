@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const productController = require('../controllers/productController');
 const authenticateToken = require('../middlewares/authMiddleware');
+const upload = require('../middlewares/upload'); // Multer para subir imágenes
 
 /**
  * @swagger
@@ -46,22 +47,22 @@ router.get('/:id', authenticateToken, productController.getProductById);
 
 /**
  * @swagger
- * /api/products:
+ * /api/products/create:
  *   post:
- *     summary: Registrar un nuevo producto
+ *     summary: Registrar un nuevo producto con imagen
  *     tags: [Productos]
  *     security:
  *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
- *         application/json:
+ *         multipart/form-data:
  *           schema:
  *             type: object
  *             required:
  *               - name
  *               - price
- *               - stock
+ *               - amount
  *             properties:
  *               name:
  *                 type: string
@@ -75,17 +76,20 @@ router.get('/:id', authenticateToken, productController.getProductById);
  *                 type: integer
  *               id_status:
  *                 type: integer
+ *               image:
+ *                 type: string
+ *                 format: binary
  *     responses:
  *       201:
  *         description: Producto creado
  */
-router.post('/create', authenticateToken, productController.createProduct);
+router.post('/create', authenticateToken, upload.single('image'), productController.createProduct);
 
 /**
  * @swagger
  * /api/products/{id}:
  *   put:
- *     summary: Actualizar un producto
+ *     summary: Actualizar un producto (puede incluir imagen nueva)
  *     tags: [Productos]
  *     security:
  *       - bearerAuth: []
@@ -97,14 +101,30 @@ router.post('/create', authenticateToken, productController.createProduct);
  *           type: integer
  *     requestBody:
  *       content:
- *         application/json:
+ *         multipart/form-data:
  *           schema:
  *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               description:
+ *                 type: string
+ *               price:
+ *                 type: number
+ *               amount:
+ *                 type: integer
+ *               id_category:
+ *                 type: integer
+ *               id_status:
+ *                 type: integer
+ *               image:
+ *                 type: string
+ *                 format: binary
  *     responses:
  *       200:
  *         description: Producto actualizado
  */
-router.put('/:id', authenticateToken, productController.updateProduct);
+router.put('/:id', authenticateToken, upload.single('image'), productController.updateProduct);
 
 /**
  * @swagger

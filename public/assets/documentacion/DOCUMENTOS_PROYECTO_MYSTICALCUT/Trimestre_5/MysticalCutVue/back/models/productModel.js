@@ -1,16 +1,17 @@
-const db = require('../config/db');  // Asegúrate de que db esté correctamente configurado
+const db = require('../config/db');  
 
 // 🔹 Crear producto
 exports.createProduct = (productData) => {
-    const { name, price, description, amount, id_category } = productData;
-    const query = 'INSERT INTO product (name, price, description, amount, id_category) VALUES (?, ?, ?, ?, ?)';
+    const { name, price, description, amount, id_category, image } = productData;
+    const query = 'INSERT INTO product (name, price, description, amount, id_category, image) VALUES (?, ?, ?, ?, ?, ?)';
     return new Promise((resolve, reject) => {
-        db.query(query, [name, price,  description, amount, id_category], (err, result) => {
+        db.query(query, [name, price, description, amount, id_category, image], (err, result) => {
             if (err) return reject(err);
-            resolve({ id: result.insertId, name, price, description, amount, id_category });
+            resolve({ id: result.insertId, name, price, description, amount, id_category, image });
         });
     });
 };
+
 
 // 🔹 Obtener todos los productos
 exports.getAllProducts = () => {
@@ -36,33 +37,33 @@ exports.getProductById = (id) => {
 };
 
 // 🔹 Actualizar producto
-exports.updateProduct = (id, productData) => {
-    const { name, price, description, amount, id_category } = productData;
-    const updateQuery = `
+exports.updateProduct = (id_product, productData) => {
+    const { name, price, description, amount, id_category, image } = productData;
+    const query = `
         UPDATE product 
-        SET name = ?, price = ?, description = ?, amount = ?, id_category = ?
+        SET name = ?, price = ?, description = ?, amount = ?, id_category = ?, image = ?
         WHERE id_product = ?
     `;
     return new Promise((resolve, reject) => {
-        db.query(updateQuery, [name, price, description, amount, id_category, id], (err, result) => {
+        db.query(query, [name, price, description, amount, id_category, image, id_product], (err, result) => {
             if (err) return reject(err);
-            if (result.affectedRows === 0) return reject(new Error('Producto no encontrado'));
-            resolve({ id, name, price, description, amount, id_category });
+            resolve({ id_product, name, price, description, amount, id_category, image });
         });
     });
 };
 
+
 // 🔹 Actualizar estado del producto
-exports.updateProductStatus = (id, id_status) => {
+exports.updateProductStatus = (id_product, id_status) => {
     const query = 'UPDATE product SET id_status = ? WHERE id_product = ?';
     return new Promise((resolve, reject) => {
-        db.query(query, [id_status, id], (err, result) => {
+        db.query(query, [id_status, id_product], (err, result) => {
             if (err) return reject(err);
             if (result.affectedRows === 0) return reject(new Error('Producto no encontrado'));
             resolve(result);
         });
     });
-};
+};  
 
 // 🔹 Obtener productos por estado
 exports.getProductsByStatus = (id_status) => {

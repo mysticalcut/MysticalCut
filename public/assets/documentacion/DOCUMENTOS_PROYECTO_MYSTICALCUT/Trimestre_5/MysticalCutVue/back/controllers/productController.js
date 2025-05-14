@@ -1,14 +1,24 @@
 // back/controllers/ProductController.js
 
 const ProductModel = require('../models/productModel');
+const path = require('path');
 
 class ProductController {
-
   // 🔹 Crear producto
   async createProduct(req, res) {
     try {
       const { name, price, description, amount, id_category } = req.body;
-      const product = await ProductModel.createProduct({ name, price, description, amount, id_category });
+      const image = req.file ? req.file.filename : req.body.image || null;
+
+      const product = await ProductModel.createProduct({
+        name,
+        price,
+        description,
+        amount,
+        id_category,
+        image
+      });
+
       res.status(201).json({ message: 'Producto creado correctamente', product });
     } catch (error) {
       console.error('Error al crear producto:', error);
@@ -46,7 +56,19 @@ class ProductController {
   async updateProduct(req, res) {
     try {
       const { id } = req.params;
-      const updatedProduct = await ProductModel.updateProduct(id, req.body);
+
+      const existingProduct = await ProductModel.getProductById(id);
+      if (!existingProduct) {
+        return res.status(404).json({ message: 'Producto no encontrado' });
+      }
+
+      const image = req.file ? req.file.filename : req.body.image;
+
+      const updatedProduct = await ProductModel.updateProduct(id, {
+        ...req.body,
+        image
+      });
+
       res.json({ message: 'Producto actualizado correctamente', updatedProduct });
     } catch (error) {
       console.error('Error al actualizar producto:', error);
@@ -54,11 +76,12 @@ class ProductController {
     }
   }
 
-  // 🔹 Cambiar estado del producto (activo/inactivo)
+  // 🔹 Cambiar estado del producto (activo/bloqueado)
   async updateProductStatus(req, res) {
     try {
       const { id } = req.params;
       const { id_status } = req.body;
+
       await ProductModel.updateProductStatus(id, id_status);
       res.json({ message: 'Estado del producto actualizado correctamente' });
     } catch (error) {
