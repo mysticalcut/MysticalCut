@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-05-2025 a las 23:36:07
+-- Tiempo de generación: 14-05-2025 a las 17:36:14
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -246,10 +246,11 @@ CREATE TABLE IF NOT EXISTS `product` (
   `amount` int(11) NOT NULL,
   `id_category` int(11) DEFAULT NULL,
   `id_status` int(11) NOT NULL DEFAULT 1,
+  `image` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id_product`),
   KEY `fk_categoria` (`id_category`),
   KEY `fk_product_status` (`id_status`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Truncar tablas antes de insertar `product`
@@ -260,13 +261,17 @@ TRUNCATE TABLE `product`;
 -- Volcado de datos para la tabla `product`
 --
 
-INSERT INTO `product` (`id_product`, `name`, `price`, `description`, `amount`, `id_category`, `id_status`) VALUES
-(1, 'Corte Clásico', 15000, 'Corte de cabello tradicional', 10, 1, 1),
-(2, 'Afeitado Tradicional', 10000, 'Afeitado con navaja y toalla caliente', 15, 2, 1),
-(3, 'Tinte para Cabello', 30000, 'Tinte permanente para cabello', 5, 3, 1),
-(4, 'Tratamiento de Keratina', 50000, 'Hidratación profunda con keratina', 3, 4, 1),
-(5, 'Pomada para el Cabello', 12000, 'Pomada con fijación media para peinado', 20, 5, 1),
-(6, 'Corte irlandes', 28000, 'Corte para gente de irlanda', 12, 1, 1);
+INSERT INTO `product` (`id_product`, `name`, `price`, `description`, `amount`, `id_category`, `id_status`, `image`) VALUES
+(1, 'Cepillo Capilar', 15000, 'Cepillo para cabello delicado', 10, 1, 1, 'cepillo.jpg'),
+(2, 'Afeitado Tradicional', 10000, 'Afeitado con navaja y toalla caliente', 15, 2, 1, 'barbero2.png'),
+(3, 'Tinte para Cabello', 30000, 'Tinte permanente para cabello', 5, 3, 1, 'barbero1.jpg'),
+(4, 'Tratamiento de Keratina', 50000, 'Hidratación profunda con keratina', 3, 4, 1, 'barbero3.jpg'),
+(5, 'Pomada para el Cabello', 12000, 'Pomada con fijación media para peinado', 20, 5, 1, 'barbero4.jpg'),
+(6, 'Corte irlandes', 28000, 'Corte para gente de irlanda', 12, 1, 1, 'barbero4.jpg'),
+(7, 'Corte Makio', 28000, 'Corte para gente', 12, 1, 1, 'barbero4.jpg'),
+(8, 'Corte Chimba', 28000, 'Corte para gente re chimba', 12, 1, 1, 'barbero4.jpg'),
+(9, 'Maquina re Chimba', 28000, 'Para gente re chimba', 12, 1, 1, 'barbero4.jpg'),
+(11, 'Maquina re Chimba', 28000, 'Para gente re chimba', 12, 1, 1, 'barbero1.jpg');
 
 -- --------------------------------------------------------
 
@@ -475,7 +480,7 @@ TRUNCATE TABLE `services`;
 --
 
 INSERT INTO `services` (`id_services`, `name_service`, `description`, `estimated_time`, `price`, `id_category_services`, `image`, `id_status`) VALUES
-(1, 'Corte Clásico', 'Corte clasico para gente wapa', '00:30:00', 15, 1, NULL, 2),
+(1, 'Corte Clásico', 'Corte clasico para gente wapa', '00:30:00', 15, 1, 'barbero1.jpg', 2),
 (2, 'Afeitado Tradicional', 'Afeitado tranquilon para gente wapa', '00:20:00', 10, 2, NULL, 2),
 (3, 'Tinte Capilar', 'Tinte bien mamalon para gente wapa', '01:00:00', 40, 3, NULL, 2),
 (4, 'Tratamiento Hidratan', 'Tratamiento que hidrata para gente wapa', '00:45:00', 25, 4, NULL, 2),
