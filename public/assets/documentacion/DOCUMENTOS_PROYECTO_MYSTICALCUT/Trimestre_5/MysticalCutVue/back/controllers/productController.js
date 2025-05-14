@@ -37,6 +37,28 @@ class ProductController {
     }
   }
 
+  // 🔹 Obtener productos inactivos
+  async getInactiveProducts(req, res) {
+  try {
+    const products = await ProductModel.getInactiveProducts();
+    res.json(products);
+  } catch (error) {
+    console.error("Error al obtener productos inactivos:", error);
+    res.status(500).json({ error: "Error al obtener productos inactivos" });
+  }
+}
+
+async activateProduct(req, res) {
+  try {
+    const productId = req.params.id;
+    await ProductModel.updateProductStatus(productId, 1); // 1 = Activo
+    res.json({ message: 'Producto activado correctamente' });
+  } catch (error) {
+    console.error("Error al activar producto:", error);
+    res.status(500).json({ error: "Error al activar producto" });
+  }
+}
+
   // 🔹 Obtener producto por ID
   async getProductById(req, res) {
     try {
@@ -102,16 +124,8 @@ class ProductController {
     }
   }
 
-  // 🔹 Obtener productos inactivos
-  async getInactiveProducts(req, res) {
-    try {
-      const products = await ProductModel.getProductsByStatus(3);
-      res.json(products);
-    } catch (error) {
-      console.error('Error al obtener productos inactivos:', error);
-      res.status(500).json({ error: 'Error al obtener los productos inactivos' });
-    }
-  }
+  
+
 }
 
 module.exports = new ProductController();

@@ -29,6 +29,8 @@ import FacturaServicios from '@/components/FacturaServicios.vue';
 import CitasPendientes from '@/components/CitasPendientes.vue';
 
 import Products from '../components/ProductsView.vue';
+import ProductsInactives from '../components/ProductsInactives.vue';
+
 
 
 
@@ -65,6 +67,8 @@ const routes = [
   { path: '/Citas', component: CitasPendientes , meta: { title: 'Citas | MysticalCut', requiresAuth: true } },
 
   { path: '/Products', component: Products, meta: { title: 'Productos | MysticalCut', requiresAuth: true} },
+  { path: '/ProductsInactives', component: ProductsInactives, meta: { title: 'Productos | MysticalCut', requiresAuth: true} },
+
 
 ];
 

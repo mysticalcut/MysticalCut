@@ -66,12 +66,14 @@ exports.updateProductStatus = (id_product, id_status) => {
 };  
 
 // 🔹 Obtener productos por estado
-exports.getProductsByStatus = (id_status) => {
-    const query = 'SELECT * FROM product WHERE id_status = ?';
-    return new Promise((resolve, reject) => {
-        db.query(query, [id_status], (err, results) => {
-            if (err) return reject(err);
-            resolve(results);
-        });
+exports.getInactiveProducts = () => {
+  const query = 'SELECT * FROM product WHERE id_status = 3'; // 3 = Inactivo
+  return new Promise((resolve, reject) => {
+    db.query(query, (err, results) => {
+      if (err) return reject(err);
+      resolve(results);
     });
+  });
 };
+
+

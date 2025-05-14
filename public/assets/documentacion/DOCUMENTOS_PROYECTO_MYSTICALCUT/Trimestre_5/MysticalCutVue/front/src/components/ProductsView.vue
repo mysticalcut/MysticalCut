@@ -32,10 +32,16 @@
       </ul>
     </header>
 
+    <div class="d-flex justify-content-between my-3">
+      <router-link to="/AgregarProducto" class="btn btn-agregar" @click="goToRegister">
+        <img src="/img/logos/person-plus-fill.svg" style="width: 20px; height: 20px; margin-right: 5px;"> Agregar
+      </router-link>
 
-    <router-link to="/AgregarProducto" class="btn btn-agregar" @click="goToRegister">
-      <img src="/img/logos/person-plus-fill.svg" style="width: 20px; height: 20px; margin-right: 5px;"> Agregar
-    </router-link>
+      <router-link to="/ProductsInactives" class="btn btn-botonavinactive">
+        <button class="btn">Ver productos inactivos</button>
+      </router-link>
+
+    </div>
 
 
     <!-- Lista de productos -->
@@ -170,11 +176,34 @@ onMounted(() => {
   margin: 1rem 2rem;
 }
 
+.d-flex {
+  display: flex;
+  justify-content: space-between;
+  /* Distribuye los botones uno a la izquierda y otro a la derecha */
+  width: 100%;
+  /* Asegúrate de que el contenedor ocupe todo el ancho disponible */
+}
+
+.btn-botonavinactive {
+  background-color: #d4af37;
+  color: black;
+  border: 1px solid;
+  padding: 0.5rem 1.2rem;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.btn-botonavinactive:hover {
+  background-color: #b28f2f;
+}
+
 .btn-agregar {
   background-color: #d4af37;
   color: black;
   border: none;
-  padding: 0.6rem 1.2rem;
+  padding: 1rem 1.2rem;
   border-radius: 10px;
   font-weight: bold;
   cursor: pointer;
@@ -184,6 +213,7 @@ onMounted(() => {
 .btn-agregar:hover {
   background-color: #b28f2f;
 }
+
 
 .product-grid {
   display: grid;

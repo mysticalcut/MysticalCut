@@ -47,6 +47,20 @@ router.get('/:id', authenticateToken, productController.getProductById);
 
 /**
  * @swagger
+ * /api/products/inactive:
+ *   get:
+ *     summary: Obtener productos inactivos
+ *     tags: [Productos]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Lista de productos inactivos
+ */
+router.get('/inactives', authenticateToken, productController.getInactiveProducts);
+
+/**
+ * @swagger
  * /api/products/create:
  *   post:
  *     summary: Registrar un nuevo producto con imagen
@@ -165,5 +179,9 @@ router.put('/status/:id', authenticateToken, productController.updateProductStat
  *         description: Producto marcado como eliminado
  */
 router.delete('/:id', authenticateToken, productController.deleteProduct);
+
+
+
+
 
 module.exports = router;

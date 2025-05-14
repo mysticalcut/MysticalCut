@@ -6,12 +6,26 @@ const API_URL = 'http://localhost:5000/api/products';
 // 🔹 Registrar producto
 export const createProduct = async (productData) => {
   try {
-    const response = await axios.post(`${API_URL}/create`, productData);
+    const token = localStorage.getItem('token');
+    const formData = new FormData();
+
+    for (const key in productData) {
+      formData.append(key, productData[key]);
+    }
+
+    const response = await axios.post(`${API_URL}/create`, formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
     return response.data;
   } catch (error) {
     throw 'Error al registrar producto';
   }
 };
+
 
 // 🔹 Obtener todos los productos
 export const getProducts = async () => {
@@ -23,6 +37,20 @@ export const getProducts = async () => {
     return response.data;
   } catch (error) {
     console.error("Error al obtener productos:", error);
+    throw error;
+  }
+};
+
+// 🔹 Obtener productos inactivos
+export const getInactiveProducts = async () => {
+  try {
+    const token = localStorage.getItem('token');
+    const response = await axios.get(`${API_URL}/inactives`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error al obtener productos inactivos:", error);
     throw error;
   }
 };
@@ -83,16 +111,4 @@ export const deleteProduct = async (productId) => {
   }
 };
 
-// 🔹 Obtener productos inactivos
-export const getInactiveProducts = async () => {
-  try {
-    const token = localStorage.getItem('token');
-    const response = await axios.get(`${API_URL}/inactives`, {
-      headers: { Authorization: `Bearer ${token}` }
-    });
-    return response.data;
-  } catch (error) {
-    console.error("Error al obtener productos inactivos:", error);
-    throw error;
-  }
-};
+
