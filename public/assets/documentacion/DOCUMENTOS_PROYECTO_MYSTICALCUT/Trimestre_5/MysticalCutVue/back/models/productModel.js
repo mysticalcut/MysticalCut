@@ -67,13 +67,13 @@ exports.updateProductStatus = (id_product, id_status) => {
 
 // 🔹 Obtener productos por estado
 exports.getInactiveProducts = () => {
-  const query = 'SELECT * FROM product WHERE id_status = 3'; // 3 = Inactivo
+  const query = 'SELECT * FROM product WHERE id_status = 3';
   return new Promise((resolve, reject) => {
     db.query(query, (err, results) => {
       if (err) return reject(err);
       resolve(results);
     });
-  });
+  });   
 };
 
 

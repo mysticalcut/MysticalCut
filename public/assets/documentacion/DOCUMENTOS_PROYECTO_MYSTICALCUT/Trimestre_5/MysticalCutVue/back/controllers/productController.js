@@ -1,131 +1,94 @@
-// back/controllers/ProductController.js
+const productModel = require('../models/productModel');
 
-const ProductModel = require('../models/productModel');
-const path = require('path');
-
-class ProductController {
-  // 🔹 Crear producto
-  async createProduct(req, res) {
-    try {
-      const { name, price, description, amount, id_category } = req.body;
-      const image = req.file ? req.file.filename : req.body.image || null;
-
-      const product = await ProductModel.createProduct({
-        name,
-        price,
-        description,
-        amount,
-        id_category,
-        image
-      });
-
-      res.status(201).json({ message: 'Producto creado correctamente', product });
-    } catch (error) {
-      console.error('Error al crear producto:', error);
-      res.status(500).json({ error: 'Error al crear el producto' });
-    }
-  }
-
-  // 🔹 Obtener todos los productos
-  async getProducts(req, res) {
-    try {
-      const products = await ProductModel.getAllProducts();
-      res.json(products);
-    } catch (error) {
-      console.error('Error al obtener productos:', error);
-      res.status(500).json({ error: 'Error al obtener los productos' });
-    }
-  }
-
-  // 🔹 Obtener productos inactivos
-  async getInactiveProducts(req, res) {
+// 🔹 Crear producto
+exports.createProduct = async (req, res) => {
   try {
-    const products = await ProductModel.getInactiveProducts();
-    res.json(products);
-  } catch (error) {
-    console.error("Error al obtener productos inactivos:", error);
-    res.status(500).json({ error: "Error al obtener productos inactivos" });
-  }
-}
+    const image = req.file ? req.file.filename : null;
+    const productData = { ...req.body, image };
 
-async activateProduct(req, res) {
+    const newProduct = await productModel.createProduct(productData);
+    res.status(201).json(newProduct);
+  } catch (error) {
+    console.error('Error al crear producto:', error);
+    res.status(500).json({ error: 'Error al crear producto' });
+  }
+};
+
+// 🔹 Obtener todos los productos
+exports.getProducts = async (req, res) => {
   try {
-    const productId = req.params.id;
-    await ProductModel.updateProductStatus(productId, 1); // 1 = Activo
-    res.json({ message: 'Producto activado correctamente' });
+    const products = await productModel.getAllProducts();
+    res.status(200).json(products);
   } catch (error) {
-    console.error("Error al activar producto:", error);
-    res.status(500).json({ error: "Error al activar producto" });
+    console.error('Error al obtener productos:', error);
+    res.status(500).json({ error: 'Error al obtener productos' });
   }
-}
+};
 
-  // 🔹 Obtener producto por ID
-  async getProductById(req, res) {
-    try {
-      const { id } = req.params;
-      const product = await ProductModel.getProductById(id);
-      if (!product) {
-        return res.status(404).json({ message: 'Producto no encontrado' });
-      }
-      res.json(product);
-    } catch (error) {
-      console.error('Error al obtener el producto:', error);
-      res.status(500).json({ error: 'Error al obtener el producto' });
-    }
+// 🔹 Obtener producto por ID
+exports.getProductById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const product = await productModel.getProductById(id);
+    res.status(200).json(product);
+  } catch (error) {
+    console.error('Error al obtener producto:', error);
+    res.status(404).json({ error: 'Producto no encontrado' });
   }
+};
 
-  // 🔹 Actualizar producto
-  async updateProduct(req, res) {
-    try {
-      const { id } = req.params;
+// 🔹 Actualizar producto
+exports.updateProduct = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const image = req.file ? req.file.filename : null;
 
-      const existingProduct = await ProductModel.getProductById(id);
-      if (!existingProduct) {
-        return res.status(404).json({ message: 'Producto no encontrado' });
-      }
+    const productData = {
+      ...req.body,
+      image,
+    };
 
-      const image = req.file ? req.file.filename : req.body.image;
-
-      const updatedProduct = await ProductModel.updateProduct(id, {
-        ...req.body,
-        image
-      });
-
-      res.json({ message: 'Producto actualizado correctamente', updatedProduct });
-    } catch (error) {
-      console.error('Error al actualizar producto:', error);
-      res.status(500).json({ error: 'Error al actualizar el producto' });
-    }
+    const updatedProduct = await productModel.updateProduct(id, productData);
+    res.status(200).json(updatedProduct);
+  } catch (error) {
+    console.error('Error al actualizar producto:', error);
+    res.status(500).json({ error: 'Error al actualizar producto' });
   }
+};
 
-  // 🔹 Cambiar estado del producto (activo/bloqueado)
-  async updateProductStatus(req, res) {
-    try {
-      const { id } = req.params;
-      const { id_status } = req.body;
+// 🔹 Cambiar estado del producto
+exports.updateProductStatus = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { id_status } = req.body;
 
-      await ProductModel.updateProductStatus(id, id_status);
-      res.json({ message: 'Estado del producto actualizado correctamente' });
-    } catch (error) {
-      console.error('Error al cambiar estado del producto:', error);
-      res.status(500).json({ error: 'Error al cambiar el estado del producto' });
-    }
+    await productModel.updateProductStatus(id, id_status);
+    res.status(200).json({ message: 'Estado del producto actualizado' });
+  } catch (error) {
+    console.error('Error al cambiar estado del producto:', error);
+    res.status(500).json({ error: 'Error al cambiar estado del producto' });
   }
+};
 
-  // 🔹 Eliminar producto (cambia estado a inactivo)
-  async deleteProduct(req, res) {
-    try {
-      const { id } = req.params;
-      await ProductModel.updateProductStatus(id, 3); // 3 = Inactivo
-      res.json({ message: 'Producto eliminado correctamente' });
-    } catch (error) {
-      console.error('Error al eliminar producto:', error);
-      res.status(500).json({ error: 'Error al eliminar el producto' });
-    }
+// 🔹 Eliminar producto (lógica suave)
+exports.deleteProduct = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await productModel.updateProductStatus(id, 3); // Estado 3 = Inactivo
+    res.status(200).json({ message: 'Producto eliminado (inactivado)' });
+  } catch (error) {
+    console.error('Error al eliminar producto:', error);
+    res.status(500).json({ error: 'Error al eliminar producto' });
   }
+};
 
-  
-
-}
-
-module.exports = new ProductController();
+// 🔹 Obtener productos inactivos
+exports.getInactiveProducts = async (req, res) => {
+  try {
+    const products = await productModel.getInactiveProducts();
+    res.status(200).json(products);
+  } catch (error) {
+    console.error('Error al obtener productos inactivos:', error);
+    res.status(500).json({ error: 'Error al obtener productos inactivos' });
+  }
+};

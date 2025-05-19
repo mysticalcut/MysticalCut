@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
@@ -17,7 +18,8 @@ app.use(express.json());
 app.use('/uploads', express.static('uploads'));
 
 // JWT_SECRET
-const JWT_SECRET = 'W9mX7Pq2fG8kY6NvB3rH4tL5zA1J0CDE';
+
+const JWT_SECRET = process.env.JWT_SECRET;
 
 // 🔌 Swagger Setup
 const swaggerOptions = {

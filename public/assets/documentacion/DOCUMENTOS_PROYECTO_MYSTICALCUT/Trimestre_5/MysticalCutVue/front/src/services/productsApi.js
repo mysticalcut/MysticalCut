@@ -98,6 +98,7 @@ export const updateProductStatus = async (productId, statusId) => {
   }
 };
 
+      
 // 🔹 Eliminar producto (cambiar estado a inactivo)
 export const deleteProduct = async (productId) => {
   try {
@@ -110,5 +111,8 @@ export const deleteProduct = async (productId) => {
     throw new Error('Error al eliminar el producto.');
   }
 };
+
+
+
 
 

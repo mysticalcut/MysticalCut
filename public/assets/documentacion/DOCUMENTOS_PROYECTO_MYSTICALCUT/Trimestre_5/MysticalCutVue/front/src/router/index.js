@@ -52,7 +52,7 @@ const routes = [
   { path: '/errorUserBlock', component: ErrorUserBlock, meta: { title: 'Error | MysticalCut' } },
   { path: '/errorUserDeleted', component: ErrorUserDeleted, meta: { title: 'Error | MysticalCut' } },
   { path: '/errorPNF', component: ErrorPNF, meta: { title: 'Error | MysticalCut' } },
-  { path: '/usersInactives', component: UsersInactives, meta: { title: 'Usuarios Inactivos | MysticalCut' } },
+  { path: '/usersInactives', component: UsersInactives, meta: { title: 'Usuarios Inactivos | MysticalCut', requiresAuth: true, role: 'Admin' } },
   { path: '/forgotPassword', component: ForgotPassword, meta: { title: 'Recuperar Contraseña | MysticalCut' } },
   { path: '/reset-password/:token', component: ResetPassword, meta: { title: 'Resetear Contraseña | MysticalCut' } },
 

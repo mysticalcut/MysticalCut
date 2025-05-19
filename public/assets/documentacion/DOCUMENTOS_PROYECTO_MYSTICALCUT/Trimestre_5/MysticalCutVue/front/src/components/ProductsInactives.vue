@@ -12,11 +12,11 @@
     </header>
 
     <div class="content">
-      <div class="pedido-container">
+      <div class="product-grid">
         <div v-for="product in inactiveProducts" :key="product.id" class="pedido-box">
           <div class="service-info">
             <div class="info-row" v-if="product.image">
-              <img :src="product.image" alt="Imagen del producto" class="product-image" />
+              <img :src="getImageUrl(product.image)" alt="Imagen del producto" class="product-img" />
             </div>
             <div class="info-row">
               <h5 class="info-title">Producto</h5>
@@ -28,12 +28,13 @@
             </div>
             <div class="info-row">
               <h5 class="info-title">Precio</h5>
-              <p class="info-text">\${{ parseFloat(product.price).toFixed(2) }}</p>
+              <p class="info-text">${{ parseFloat(product.price).toFixed(2) }}</p>
             </div>
+            <button class="activate-btn" @click="activateProductHandler(product)">Activar</button>
           </div>
-          <button class="activate-btn" @click="activateProductHandler(product)">Activar</button>
         </div>
       </div>
+      
       <div class="text-center mt-4">
         <button class="btn back-button" @click="goBack">Regresar</button>
       </div>
@@ -46,7 +47,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
-import { getInactiveProducts, activateProduct } from '@/services/productsApi';
+import { getInactiveProducts, updateProductStatus } from '@/services/productsApi';
 import FooterComponent from '@/components/FooterComponent.vue';
 import '@/assets/css/style.css';
 import '@/assets/css/usersInfo.css';
@@ -67,11 +68,15 @@ const activateProductHandler = async (product) => {
   if (!confirmActivation) return;
 
   try {
-    await activateProduct(product.id);
-    inactiveProducts.value = inactiveProducts.value.filter(p => p.id !== product.id);
+    await updateProductStatus(product.id_product, 1); // 1 = estado ACTIVO
+    inactiveProducts.value = inactiveProducts.value.filter(p => p.id_product !== product.id_product);
   } catch (error) {
     console.error("Error al activar el producto:", error);
   }
+};
+
+const getImageUrl = (imageName) => {
+  return `http://localhost:5000/uploads/products/${imageName}`;
 };
 
 const goBack = () => {
@@ -83,24 +88,93 @@ onMounted(loadInactiveProducts);
 
 <style scoped>
 .activate-btn {
-  background-color: #CCAF54;
-  color: rgb(0, 0, 0);
-  padding: 5px 10px;
+  position: absolute;
+  bottom: 1rem; /* distancia desde el borde inferior */
+  left: 50%;
+  transform: translateX(-50%);
+  /* estilos del botón */
+  background-color: #c2aa59;
   border: none;
-  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  border-radius: 3px;
 }
 .activate-btn:hover {
   background-color: #8a7432;
 }
-.pedido-box {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 20px;
-  flex-wrap: wrap;
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 250px);
+  justify-content: center;
+  gap: 1rem;
+  margin: 1rem auto;
+  padding: 1rem;
+  height: 800px;
+  overflow-y: auto;
+  border-radius: 6px;
+  background-color: #00000095;
 }
+
+.pedido-box {
+  position: relative;
+  background-color: #3a3a3a;
+  border: 1px solid #ccaf54;
+  border-radius: 6px;
+  padding: 1rem;
+  height: 530px;
+  box-sizing: border-box;
+  text-align: center;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+.info-row {
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.info-title {
+  font-weight: 700;
+  color: #ccaf54;
+  min-height: 1.4rem; /* altura fija para todos los títulos */
+  margin-bottom: 0.3rem;
+  text-align: center;
+}
+
+
+.info-text {
+  font-weight: normal;
+  color: #fff;
+  word-wrap: break-word;
+  font-size: 0.9rem;
+  min-height: 1.4rem; 
+}
+
+.activate-btn {
+  margin-top: auto; 
+  background-color: #ccaf54;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 3px;
+  width: 100px;
+  align-self: center;
+}
+
+
 .service-info {
   flex: 1;
   display: flex;
@@ -108,18 +182,7 @@ onMounted(loadInactiveProducts);
   align-items: center;
   text-align: center;
 }
-.info-row {
-  margin-bottom: 15px;
-}
-.info-title {
-  color: #CCAF54;
-  font-size: 1.25rem;
-  font-weight: bold;
-}
-.info-text {
-  font-size: 1rem;
-  color: #ffffff;
-}
+
 .back-button {
   background-color: #444;
   color: #fff;
@@ -132,10 +195,10 @@ onMounted(loadInactiveProducts);
 .back-button:hover {
   background-color: #666;
 }
-.product-image {
-  max-width: 150px;
-  max-height: 150px;
-  border-radius: 10px;
-  margin-bottom: 10px;
+.product-img {
+  width: 100%;
+  height: 160px;
+  object-fit: contain;
+  margin-bottom: 0.5rem;
 }
 </style>

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const productController = require('../controllers/productController');
-const authenticateToken = require('../middlewares/authMiddleware');
+const authenticate = require('../middlewares/authenticate');
 const upload = require('../middlewares/upload'); // Multer para subir imágenes
 
 /**
@@ -23,7 +23,21 @@ const upload = require('../middlewares/upload'); // Multer para subir imágenes
  *       200:
  *         description: Lista de productos
  */
-router.get('/', authenticateToken, productController.getProducts);
+router.get('/', authenticate, productController.getProducts);
+
+/**
+ * @swagger
+ * /api/products/inactive:
+ *   get:
+ *     summary: Obtener productos inactivos
+ *     tags: [Productos]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Lista de productos inactivos
+ */
+router.get('/inactives', authenticate, productController.getInactiveProducts);
 
 /**
  * @swagger
@@ -43,21 +57,9 @@ router.get('/', authenticateToken, productController.getProducts);
  *       200:
  *         description: Producto obtenido
  */
-router.get('/:id', authenticateToken, productController.getProductById);
+router.get('/:id', authenticate, productController.getProductById);
 
-/**
- * @swagger
- * /api/products/inactive:
- *   get:
- *     summary: Obtener productos inactivos
- *     tags: [Productos]
- *     security:
- *       - bearerAuth: []
- *     responses:
- *       200:
- *         description: Lista de productos inactivos
- */
-router.get('/inactives', authenticateToken, productController.getInactiveProducts);
+
 
 /**
  * @swagger
@@ -97,7 +99,7 @@ router.get('/inactives', authenticateToken, productController.getInactiveProduct
  *       201:
  *         description: Producto creado
  */
-router.post('/create', authenticateToken, upload.single('image'), productController.createProduct);
+router.post('/create', authenticate, upload.single('image'), productController.createProduct);
 
 /**
  * @swagger
@@ -138,7 +140,7 @@ router.post('/create', authenticateToken, upload.single('image'), productControl
  *       200:
  *         description: Producto actualizado
  */
-router.put('/:id', authenticateToken, upload.single('image'), productController.updateProduct);
+router.put('/:id', authenticate, upload.single('image'), productController.updateProduct);
 
 /**
  * @swagger
@@ -158,7 +160,7 @@ router.put('/:id', authenticateToken, upload.single('image'), productController.
  *       200:
  *         description: Estado del producto actualizado
  */
-router.put('/status/:id', authenticateToken, productController.updateProductStatus);
+router.put('/status/:id', authenticate, productController.updateProductStatus);
 
 /**
  * @swagger
@@ -178,7 +180,7 @@ router.put('/status/:id', authenticateToken, productController.updateProductStat
  *       200:
  *         description: Producto marcado como eliminado
  */
-router.delete('/:id', authenticateToken, productController.deleteProduct);
+router.delete('/:id', authenticate, productController.deleteProduct);
 
 
 
