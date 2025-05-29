@@ -9,7 +9,7 @@
 
           <div class="fila-dato">
             <span class="etiqueta">Servicio Seleccionado:</span>
-            <span class="valor">{{ servicioSeleccionado.name_service || 'No disponible' }}</span>
+            <span class="valor">{{ servicioSeleccionado.name || servicioSeleccionado.name_service || 'No disponible' }}</span>
           </div>
 
           <div class="fila-dato">
@@ -19,12 +19,12 @@
 
           <div class="fila-dato">
             <span class="etiqueta">Fecha:</span>
-            <span class="valor">{{ date || 'No disponible' }}</span>
+            <span class="valor">{{ formattedDate || 'No disponible' }}</span>
           </div>
 
           <div class="fila-dato">
             <span class="etiqueta">Hora:</span>
-            <span class="valor">{{ time || 'No disponible' }}</span>
+            <span class="valor">{{ formattedTime || 'No disponible' }}</span>
           </div>
 
           <div class="fila-dato">
@@ -45,8 +45,6 @@
 </template>
 
 <script>
-
-
 import { sendQuoteEmail } from '@/services/quotesApi';
 
 export default {
@@ -60,37 +58,67 @@ export default {
       time: '',
       servicioSeleccionado: {},
       userEmail: '',
+      servicios: []
     };
   },
   computed: {
     totalServicios() {
       return this.servicioSeleccionado.price || 0;
+    },
+    formattedDate() {
+      if (!this.date) return '';
+      const [year, month, day] = this.date.split('-');
+      return `${day}/${month}/${year}`;
+    },
+    formattedTime() {
+      if (!this.time) return '';
+      return this.time.replace(/(\d{2}):(\d{2})/, (match, hh, mm) => {
+        const hours = parseInt(hh);
+        const ampm = hours >= 12 ? 'p.m.' : 'a.m.';
+        const hours12 = hours % 12 || 12;
+        return `${hours12}:${mm} ${ampm}`;
+      });
     }
   },
   mounted() {
-    const query = this.$route.query;
-    this.userId = parseInt(query.user_id);
-    this.barberId = parseInt(query.barber_id);
-    this.barberName = query.barber_name || '';
-    this.date = query.date || '';
-    this.time = query.time || '';
-
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      const user = JSON.parse(storedUser);
-      this.userEmail = user.email || '';
-    }
-
-    if (query.servicios) {
-      try {
-        const servicios = JSON.parse(decodeURIComponent(query.servicios));
-        this.servicioSeleccionado = servicios[0] || {};
-      } catch (e) {
-        console.error('Error al parsear servicios:', e);
-      }
-    }
+    this.loadFacturaData();
   },
   methods: {
+    loadFacturaData() {
+      const facturaData = localStorage.getItem('facturaData');
+      
+      if (!facturaData) {
+        console.error('No se encontraron datos de factura en localStorage');
+        this.$router.push('/error-factura');
+        return;
+      }
+
+      try {
+        const data = JSON.parse(facturaData);
+        console.log('Datos de factura cargados:', data);
+        
+        this.userId = data.user_id;
+        this.barberId = data.barber_id;
+        this.barberName = data.barber_name;
+        this.date = data.date;
+        this.time = data.time;
+        this.servicios = data.servicios || [];
+        
+        // Obtener el primer servicio (asumiendo que solo hay uno)
+        this.servicioSeleccionado = this.servicios[0] || {};
+
+        // Obtener email del usuario
+        const storedUser = localStorage.getItem('user');
+        if (storedUser) {
+          const user = JSON.parse(storedUser);
+          this.userEmail = user.email || '';
+        }
+
+      } catch (error) {
+        console.error('Error al procesar datos de factura:', error);
+        this.$router.push('/error-factura');
+      }
+    },
     async enviarCorreo() {
       try {
         if (!this.userEmail) {
@@ -101,9 +129,9 @@ export default {
         console.log('📤 Enviando correo a:', this.userEmail);
         const response = await sendQuoteEmail({
           email: this.userEmail,
-          servicio: this.servicioSeleccionado.name_service,
-          fecha: this.date,
-          hora: this.time,
+          servicio: this.servicioSeleccionado.name || this.servicioSeleccionado.name_service,
+          fecha: this.formattedDate,
+          hora: this.formattedTime,
           barbero: this.barberName,
           total: this.totalServicios
         });
@@ -121,10 +149,13 @@ export default {
     },
     verCitas() {
       this.enviarCorreo().then(() => {
+        // Limpiar datos de factura después de usarlos
+        localStorage.removeItem('facturaData');
         this.$router.push('/citas');
       });
     }
-  }
+  },
+  
 };
 </script>
 
