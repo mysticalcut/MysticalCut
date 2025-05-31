@@ -90,11 +90,20 @@ class UserController {
     }
 
     async getUsers(req, res) {
-        try {
-            const result = await getUsers();
+        try { 
+            //Intenta ejecutar la función getUsers() que viene del modelo (base de datos) 
+            // Esta función realiza la consulta SQL y devuelve los resultados
+            const result = await getUsers(); // Espera a que la promesa se resuelva
+
+            // ✅ Si todo va bien, devuelve los resultados con un estado 200 (OK)
             res.status(200).json(result);
+
         } catch (error) {
-            res.status(500).json({ message: 'Error al obtener los usuarios', error });
+            // ❌ Si ocurre un error (por ejemplo, falla la conexión o la consulta), captura la excepcion y responde con estado 500 (Error del servidor)
+            res.status(500).json({
+                message: 'Error al obtener los usuarios', // Mensaje
+                error // Detalles del error para depuración
+            });
         }
     }
 
@@ -203,14 +212,14 @@ class UserController {
 
     async resetPassword(req, res) {
         const { token, newPassword } = req.body;
-    
+
         try {
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
             const userId = decoded.id;
-    
+
             const hashedPassword = await bcrypt.hash(newPassword, 10);
             const result = await resetPassword(userId, hashedPassword);
-    
+
             res.status(200).json(result);
         } catch (error) {
             console.error('Error en resetPassword:', error);
