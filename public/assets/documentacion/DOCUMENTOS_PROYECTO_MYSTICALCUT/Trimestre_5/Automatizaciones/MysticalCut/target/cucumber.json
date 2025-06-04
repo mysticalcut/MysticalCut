@@ -1,0 +1,104 @@
+[
+  {
+    "line": 4,
+    "elements": [
+      {
+        "line": 7,
+        "name": "",
+        "description": "",
+        "type": "background",
+        "keyword": "Antecedentes",
+        "steps": [
+          {
+            "result": {
+              "duration": 4601891600,
+              "status": "passed"
+            },
+            "line": 8,
+            "name": "que el visitante está en la página de Mystical e ingresa a iniciarsesion",
+            "match": {
+              "location": "LoginStepsdefinitions.queElVisitanteEstáEnLaPáginaDeMysticalEIngresaAIniciarsesion()"
+            },
+            "keyword": "Dado "
+          },
+          {
+            "result": {
+              "duration": 1882362200,
+              "status": "passed"
+            },
+            "line": 9,
+            "name": "ingresa las credenciales básicas:",
+            "match": {
+              "location": "LoginStepsdefinitions.ingresaLasCredencialesBásicas(CredencialesLogin\u003e)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "correo",
+                  "contraseña"
+                ]
+              },
+              {
+                "cells": [
+                  "leonoscarandres04@gmail.com",
+                  "12345678"
+                ]
+              }
+            ],
+            "keyword": "Cuando "
+          }
+        ]
+      },
+      {
+        "before": [
+          {
+            "result": {
+              "duration": 65063300,
+              "status": "passed"
+            },
+            "match": {
+              "location": "PreparacionEscenario.sepUp()"
+            }
+          }
+        ],
+        "line": 14,
+        "name": "Visualizar toda la infomacion del usuario que se encuentra registrado en la pagina MysticalCut",
+        "description": "",
+        "id": "entrar-al-apartado-de-usuarios-y-visualizar-todos-los-usuarios-registrados;visualizar-toda-la-infomacion-del-usuario-que-se-encuentra-registrado-en-la-pagina-mysticalcut",
+        "type": "scenario",
+        "keyword": "Escenario",
+        "steps": [
+          {
+            "result": {
+              "status": "undefined"
+            },
+            "line": 16,
+            "name": "complete el inicio de sesion, se dirigira al apartado usuarios y podra ver todos los usuarios y seleccionara al usuarios que quiere ver su informacion",
+            "match": {},
+            "keyword": "Cuando "
+          },
+          {
+            "result": {
+              "status": "undefined"
+            },
+            "line": 18,
+            "name": "Verificar que salga toda la informacion del usuario que se encuentra registado en MysticalCut",
+            "match": {},
+            "keyword": "Entonces "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@registro"
+          }
+        ]
+      }
+    ],
+    "name": "Entrar al apartado de usuarios y visualizar todos los usuarios registrados",
+    "description": "",
+    "id": "entrar-al-apartado-de-usuarios-y-visualizar-todos-los-usuarios-registrados",
+    "keyword": "Característica",
+    "uri": "src/test/resources/features/VerInfoUsuario.feature",
+    "tags": []
+  }
+]

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?><testsuite errors="0" failures="1" name="Ver una cita" skipped="0" tests="1" time="7.59" timestamp="2025-06-03 10:48:17"><testcase name="Ver la cita qye se quiere cancelar"><failure message="Expected validaciones quotes cancel&#13;&#10;Expected: is &lt;true&gt;&#13;&#10;     but: was &lt;false&gt;" type="java.lang.AssertionError">Expected validaciones quotes cancel&#13;
+Expected: is &lt;true&gt;&#13;
+     but: was &lt;false&gt;</failure><system-err>Expected validaciones quotes cancel&#13;
+Expected: is &lt;true&gt;&#13;
+     but: was &lt;false&gt;&#13;
+co.com.Mysticalcut.stepsdefinitions.QuotesCancelStepsdefinitions.verificarQueSeCanceleLaCita(QuotesCancelStepsdefinitions.java:24)&#13;
+✽.Verificar que se cancele la cita(src/test/resources/features/QuotesCancel.feature:17)&#13;
+</system-err></testcase></testsuite>

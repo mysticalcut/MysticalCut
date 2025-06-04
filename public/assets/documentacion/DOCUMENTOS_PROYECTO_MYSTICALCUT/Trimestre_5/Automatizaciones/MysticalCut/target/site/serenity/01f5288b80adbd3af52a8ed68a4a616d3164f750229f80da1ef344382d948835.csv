@@ -1,0 +1,4 @@
+"Story","Title","Result","Date","Stability","Duration (s)"
+"Iniciar sesion en la pagina de mysticalcut","Completar el formulario de iniciar sesion","SUCCESS","2025-06-04T12:06:06.1294047-05:00[America/Bogota]","0.0","8.28"
+"Ver una cita","Ver un servicio","SUCCESS","2025-05-30T20:22:26.8681626-05:00[America/Bogota]","0.0","7.96"
+"Entrar al apartado de usuarios y visualizar todos los usuarios registrados","Visualizar todos los usuarios que se encuentren registrados en la pagina MysticalCut","SUCCESS","2025-06-04T12:55:44.498467-05:00[America/Bogota]","0.0","8.57"
