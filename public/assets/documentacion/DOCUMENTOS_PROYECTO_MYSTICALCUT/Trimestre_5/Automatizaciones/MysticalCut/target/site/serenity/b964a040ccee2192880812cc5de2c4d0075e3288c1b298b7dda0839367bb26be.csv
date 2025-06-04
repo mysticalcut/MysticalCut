@@ -1,0 +1,3 @@
+"Story","Title","Result","Date","Stability","Duration (s)"
+"Agendar una cita, elegir el servicio, barbero, dia hora","Agendar una cita","ERROR","2025-06-03T22:45:55.6484524-05:00[America/Bogota]","0.0","10.03"
+"Ver una cita","Ver la cita qye se quiere cancelar","FAILURE","2025-06-03T22:48:17.643941-05:00[America/Bogota]","0.0","7.59"

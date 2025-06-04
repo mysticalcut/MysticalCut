@@ -1,0 +1,111 @@
+[
+  {
+    "line": 4,
+    "elements": [
+      {
+        "line": 7,
+        "name": "",
+        "description": "",
+        "type": "background",
+        "keyword": "Antecedentes",
+        "steps": [
+          {
+            "result": {
+              "duration": 4192508000,
+              "status": "passed"
+            },
+            "line": 8,
+            "name": "que el visitante está en la página de Mystical e ingresa a iniciarsesion",
+            "match": {
+              "location": "LoginStepsdefinitions.queElVisitanteEstáEnLaPáginaDeMysticalEIngresaAIniciarsesion()"
+            },
+            "keyword": "Dado "
+          },
+          {
+            "result": {
+              "duration": 1508733400,
+              "status": "passed"
+            },
+            "line": 9,
+            "name": "ingresa las credenciales básicas:",
+            "match": {
+              "location": "LoginStepsdefinitions.ingresaLasCredencialesBásicas(CredencialesLogin\u003e)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "correo",
+                  "contraseña"
+                ]
+              },
+              {
+                "cells": [
+                  "Bot-services@gmail.com",
+                  "12345678"
+                ]
+              }
+            ],
+            "keyword": "Cuando "
+          }
+        ]
+      },
+      {
+        "before": [
+          {
+            "result": {
+              "duration": 45162700,
+              "status": "passed"
+            },
+            "match": {
+              "location": "PreparacionEscenario.sepUp()"
+            }
+          }
+        ],
+        "line": 14,
+        "name": "Ver la cita qye se quiere cancelar",
+        "description": "",
+        "id": "ver-una-cita;ver-la-cita-qye-se-quiere-cancelar",
+        "type": "scenario",
+        "keyword": "Escenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 1647402200,
+              "status": "passed"
+            },
+            "line": 15,
+            "name": "Cancelar la cita que se quiere cancelar",
+            "match": {
+              "location": "QuotesCancelStepsdefinitions.cancelarLaCitaQueSeQuiereCancelar()"
+            },
+            "keyword": "Cuando "
+          },
+          {
+            "result": {
+              "error_message": "java.lang.AssertionError: Expected validaciones quotes cancel\r\nExpected: is \u003ctrue\u003e\r\n     but: was \u003cfalse\u003e\r\n\tat net.serenitybdd.screenplay.ErrorTally.throwSummaryExceptionFrom(ErrorTally.java:36)\r\n\tat net.serenitybdd.screenplay.ErrorTally.reportAnyErrors(ErrorTally.java:30)\r\n\tat net.serenitybdd.screenplay.Actor.should(Actor.java:316)\r\n\tat co.com.Mysticalcut.stepsdefinitions.QuotesCancelStepsdefinitions.verificarQueSeCanceleLaCita(QuotesCancelStepsdefinitions.java:24)\r\n\tat ✽.Verificar que se cancele la cita(src/test/resources/features/QuotesCancel.feature:17)\r\n",
+              "duration": 95551100,
+              "status": "failed"
+            },
+            "line": 17,
+            "name": "Verificar que se cancele la cita",
+            "match": {
+              "location": "QuotesCancelStepsdefinitions.verificarQueSeCanceleLaCita()"
+            },
+            "keyword": "Entonces "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@registro"
+          }
+        ]
+      }
+    ],
+    "name": "Ver una cita",
+    "description": "",
+    "id": "ver-una-cita",
+    "keyword": "Característica",
+    "uri": "src/test/resources/features/QuotesCancel.feature",
+    "tags": []
+  }
+]

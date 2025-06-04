@@ -1,0 +1,5 @@
+"Story","Title","Result","Date","Stability","Duration (s)"
+"Iniciar sesion en la pagina de mysticalcut","Completar el formulario de iniciar sesion","SUCCESS","2025-05-28T16:19:17.2126244-05:00[America/Bogota]","0.0","5.71"
+"Agendar una cita, elegir el servicio, barbero, dia hora","Agendar una cita","ERROR","2025-06-03T22:45:55.6484524-05:00[America/Bogota]","0.0","10.03"
+"Ver una cita","Ver la cita qye se quiere cancelar","FAILURE","2025-06-03T22:48:17.643941-05:00[America/Bogota]","0.0","7.59"
+"Ver una cita","Ver un servicio","SUCCESS","2025-05-30T20:22:26.8681626-05:00[America/Bogota]","0.0","7.96"
