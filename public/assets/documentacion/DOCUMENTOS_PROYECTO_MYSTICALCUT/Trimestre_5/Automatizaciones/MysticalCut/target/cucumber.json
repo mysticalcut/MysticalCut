@@ -11,7 +11,7 @@
         "steps": [
           {
             "result": {
-              "duration": 4601891600,
+              "duration": 6049667400,
               "status": "passed"
             },
             "line": 8,
@@ -23,7 +23,7 @@
           },
           {
             "result": {
-              "duration": 1882362200,
+              "duration": 2869478900,
               "status": "passed"
             },
             "line": 9,
@@ -53,7 +53,7 @@
         "before": [
           {
             "result": {
-              "duration": 65063300,
+              "duration": 101469500,
               "status": "passed"
             },
             "match": {
@@ -70,20 +70,26 @@
         "steps": [
           {
             "result": {
-              "status": "undefined"
+              "duration": 2164787200,
+              "status": "passed"
             },
             "line": 16,
             "name": "complete el inicio de sesion, se dirigira al apartado usuarios y podra ver todos los usuarios y seleccionara al usuarios que quiere ver su informacion",
-            "match": {},
+            "match": {
+              "location": "VerInfoUsuarioStepDefinitions.completeElInicioDeSesionSeDirigiraAlApartadoUsuariosYPodraVerTodosLosUsuariosYSeleccionaraAlUsuariosQueQuiereVerSuInformacion()"
+            },
             "keyword": "Cuando "
           },
           {
             "result": {
-              "status": "undefined"
+              "duration": 312225200,
+              "status": "passed"
             },
             "line": 18,
             "name": "Verificar que salga toda la informacion del usuario que se encuentra registado en MysticalCut",
-            "match": {},
+            "match": {
+              "location": "VerInfoUsuarioStepDefinitions.verificarQueSalgaTodaLaInformacionDelUsuarioQueSeEncuentraRegistadoEnMysticalCut()"
+            },
             "keyword": "Entonces "
           }
         ],
