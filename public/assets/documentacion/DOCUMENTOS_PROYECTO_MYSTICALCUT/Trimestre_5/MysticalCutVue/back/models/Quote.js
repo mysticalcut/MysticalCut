@@ -151,7 +151,7 @@ class Quote {
 
   // 🔹 Actualizar estado de la cita
   static async updateStatus(quoteId, status) {
-    const [result] = await new Promise((resolve, reject) => {
+    const result = await new Promise((resolve, reject) => {
       db.query(
         'UPDATE quotes SET state_quotes = ? WHERE id_quotes = ?',
         [status, quoteId],
