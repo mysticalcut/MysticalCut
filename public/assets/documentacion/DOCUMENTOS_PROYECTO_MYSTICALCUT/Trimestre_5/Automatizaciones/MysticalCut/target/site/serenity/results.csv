@@ -1,2 +1,4 @@
 "Story","Title","Result","Date","Stability","Duration (s)"
+"Iniciar sesion en la pagina de mysticalcut","Completar el formulario de iniciar sesion","SUCCESS","2025-06-05T22:04:46.9633858-05:00[America/Bogota]","0.0","5.95"
 "Ver una cita","Ver la cita qye se quiere cancelar","SUCCESS","2025-06-05T20:43:46.4235353-05:00[America/Bogota]","0.0","10.51"
+"Autenticacion en la pagina de MysticalCut","Verificar la autenticacion exitosa en la pagina de Mystical","SUCCESS","2025-06-05T23:35:58.134469-05:00[America/Bogota]","0.0","8.53"

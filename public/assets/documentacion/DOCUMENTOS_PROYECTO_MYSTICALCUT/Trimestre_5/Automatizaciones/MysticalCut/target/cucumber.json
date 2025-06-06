@@ -3,57 +3,10 @@
     "line": 4,
     "elements": [
       {
-        "line": 7,
-        "name": "",
-        "description": "",
-        "type": "background",
-        "keyword": "Antecedentes",
-        "steps": [
-          {
-            "result": {
-              "duration": 5460515100,
-              "status": "passed"
-            },
-            "line": 8,
-            "name": "que el visitante está en la página de Mystical e ingresa a iniciarsesion",
-            "match": {
-              "location": "LoginStepsdefinitions.queElVisitanteEstáEnLaPáginaDeMysticalEIngresaAIniciarsesion()"
-            },
-            "keyword": "Dado "
-          },
-          {
-            "result": {
-              "duration": 2354743800,
-              "status": "passed"
-            },
-            "line": 9,
-            "name": "ingresa las credenciales básicas:",
-            "match": {
-              "location": "LoginStepsdefinitions.ingresaLasCredencialesBásicas(CredencialesLogin\u003e)"
-            },
-            "rows": [
-              {
-                "cells": [
-                  "correo",
-                  "contraseña"
-                ]
-              },
-              {
-                "cells": [
-                  "Bot-services@gmail.com",
-                  "12345678"
-                ]
-              }
-            ],
-            "keyword": "Cuando "
-          }
-        ]
-      },
-      {
         "before": [
           {
             "result": {
-              "duration": 75485900,
+              "duration": 47265700,
               "status": "passed"
             },
             "match": {
@@ -61,50 +14,76 @@
             }
           }
         ],
-        "line": 14,
-        "name": "Ver la cita qye se quiere cancelar",
+        "line": 11,
+        "name": "Verificar la autenticacion exitosa en la pagina de Mystical",
         "description": "",
-        "id": "ver-una-cita;ver-la-cita-qye-se-quiere-cancelar",
+        "id": "autenticacion-en-la-pagina-de-mysticalcut;verificar-la-autenticacion-exitosa-en-la-pagina-de-mystical",
         "type": "scenario",
         "keyword": "Escenario",
         "steps": [
           {
             "result": {
-              "duration": 2104595300,
+              "duration": 5558283600,
               "status": "passed"
             },
-            "line": 15,
-            "name": "Cancelar la cita que se quiere cancelar",
+            "line": 12,
+            "name": "que el usuario se encuentra en la pagina de inicio de sesion de Mystical",
             "match": {
-              "location": "QuotesCancelStepsdefinitions.cancelarLaCitaQueSeQuiereCancelar()"
+              "location": "AutenticacionMysticalStepDefinitions.queElUsuarioSeEncuentraEnLaPaginaDeInicioDeSesionDeMystical()"
             },
+            "keyword": "Dado "
+          },
+          {
+            "result": {
+              "duration": 1478998200,
+              "status": "passed"
+            },
+            "line": 13,
+            "name": "ingrese las credenciales correctas (usuario y contrasena)",
+            "match": {
+              "location": "AutenticacionMysticalStepDefinitions.ingreseLasCredencialesCorrectasUsuarioYContrasena(CredencialesInicioSesion\u003e)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "usuarios",
+                  "clave"
+                ]
+              },
+              {
+                "cells": [
+                  "kevinsabogal24@gmail.com",
+                  "12345678"
+                ]
+              }
+            ],
             "keyword": "Cuando "
           },
           {
             "result": {
-              "duration": 358867700,
+              "duration": 1360140600,
               "status": "passed"
             },
-            "line": 17,
-            "name": "Verificar que se cancele la cita",
+            "line": 16,
+            "name": "se debe verificar que el usuario haya sido autenticado correctamente y redirigido a su pagina de inicio de Mystical",
             "match": {
-              "location": "QuotesCancelStepsdefinitions.verificarQueSeCanceleLaCita()"
+              "location": "AutenticacionMysticalStepDefinitions.seDebeVerificarQueElUsuarioHayaSidoAutenticadoCorrectamenteYRedirigidoASuPaginaDeInicioDeMystical()"
             },
             "keyword": "Entonces "
           }
         ],
         "tags": [
           {
-            "name": "@registro"
+            "name": "@autenticacion"
           }
         ]
       }
     ],
-    "name": "Ver una cita",
-    "description": "",
-    "id": "ver-una-cita",
+    "name": "Autenticacion en la pagina de MysticalCut",
+    "description": "  Como usuario de MysticalCut\n  Quiero autenticarme en el portal\n  Para poder acceder al contenido y funcionalidades disponibles en mi cuenta.",
+    "id": "autenticacion-en-la-pagina-de-mysticalcut",
     "keyword": "Característica",
-    "uri": "src/test/resources/features/QuotesCancel.feature",
+    "uri": "src/test/resources/features/autenticacionlogin_admin.feature",
     "tags": []
   }
 ]
