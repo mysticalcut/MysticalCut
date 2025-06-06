@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Entrar al apartado de usuarios y ver un usuario en especifico" tests="1" skipped="0" failures="1" errors="0" timestamp="2025-06-06T05:39:50" hostname="DESKTOP-K93MH9I" time="5.871">
+  <properties/>
+  <testcase name="Visualizar un usuario que se encuentre registrado en la pagina MysticalCut" classname="Entrar al apartado de usuarios y ver un usuario en especifico" time="5.871">
+    <failure message="cucumber.runtime.CucumberException: Arity mismatch: Step Definition 'co.com.Mysticalcut.stepsdefinitions.BuscarUsuarioStepDefinitions.completeElInicioDeSesionSeDirigiraAlApartadoUsuariosYPodraVerElUsuarioEnEspecifico() in file:/C:/xampp/htdocs/MysticalCut/public/assets/documentacion/DOCUMENTOS_PROYECTO_MYSTICALCUT/Trimestre_5/Automatizaciones/MysticalCut/build/classes/java/test/' with pattern [^complete el inicio de sesion, se dirigira al apartado usuarios y podra ver el usuario en especifico$] is declared with 0 parameters. However, the gherkin step has 1 arguments [Table:[[cedula], [20987654]]]. &#10;Step text: complete el inicio de sesion, se dirigira al apartado usuarios y podra ver el usuario en especifico" type="cucumber.runtime.CucumberException">cucumber.runtime.CucumberException: Arity mismatch: Step Definition 'co.com.Mysticalcut.stepsdefinitions.BuscarUsuarioStepDefinitions.completeElInicioDeSesionSeDirigiraAlApartadoUsuariosYPodraVerElUsuarioEnEspecifico() in file:/C:/xampp/htdocs/MysticalCut/public/assets/documentacion/DOCUMENTOS_PROYECTO_MYSTICALCUT/Trimestre_5/Automatizaciones/MysticalCut/build/classes/java/test/' with pattern [^complete el inicio de sesion, se dirigira al apartado usuarios y podra ver el usuario en especifico$] is declared with 0 parameters. However, the gherkin step has 1 arguments [Table:[[cedula], [20987654]]]. 
+Step text: complete el inicio de sesion, se dirigira al apartado usuarios y podra ver el usuario en especifico
+	at app//cucumber.runtime.StepDefinitionMatch.arityMismatch(StepDefinitionMatch.java:111)
+	at app//cucumber.runtime.StepDefinitionMatch.transformedArgs(StepDefinitionMatch.java:66)
+	at app//cucumber.runtime.StepDefinitionMatch.runStep(StepDefinitionMatch.java:40)
+	at app//cucumber.api.TestStep.executeStep(TestStep.java:102)
+	at app//cucumber.api.TestStep.run(TestStep.java:83)
+	at app//cucumber.api.TestCase.run(TestCase.java:58)
+	at app//cucumber.runner.Runner.runPickle(Runner.java:80)
+	at app//cucumber.runtime.junit.PickleRunners$NoStepDescriptions.run(PickleRunners.java:140)
+	at app//cucumber.runtime.junit.FeatureRunner.runChild(FeatureRunner.java:68)
+	at app//cucumber.runtime.junit.FeatureRunner.runChild(FeatureRunner.java:23)
+	at app//org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at app//org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at app//org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at app//org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at app//org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at app//org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at app//cucumber.runtime.junit.FeatureRunner.run(FeatureRunner.java:73)
+	at app//cucumber.api.junit.Cucumber.runChild(Cucumber.java:118)
+	at app//cucumber.api.junit.Cucumber.runChild(Cucumber.java:56)
+	at app//org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at app//org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at app//org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at app//org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at app//org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at app//cucumber.api.junit.Cucumber$1.evaluate(Cucumber.java:127)
+	at app//org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.runTestClass(JUnitTestClassExecutor.java:110)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:58)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:38)
+	at org.gradle.api.internal.tasks.testing.junit.AbstractJUnitTestClassProcessor.processTestClass(AbstractJUnitTestClassProcessor.java:62)
+	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.processTestClass(SuiteTestClassProcessor.java:51)
+	at java.base@15.0.1/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base@15.0.1/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:64)
+	at java.base@15.0.1/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base@15.0.1/java.lang.reflect.Method.invoke(Method.java:564)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
+	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)
+	at com.sun.proxy.$Proxy2.processTestClass(Unknown Source)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker$2.run(TestWorker.java:176)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:129)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:100)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:60)
+	at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:133)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:71)
+	at app//worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
+	at app//worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
+</failure>
+  </testcase>
+  <system-out><![CDATA[    ?[32mDado ?[0m?[32mque el visitante está en la página de Mystical e ingresa a iniciarsesion?[0m ?[90m# LoginStepsdefinitions.queElVisitanteEstáEnLaPáginaDeMysticalEIngresaAIniciarsesion()?[0m
+    ?[32mCuando ?[0m?[32mingresa las credenciales básicas:?[0m                                      ?[90m# LoginStepsdefinitions.ingresaLasCredencialesBásicas(CredencialesLogin>)?[0m
+
+  @buscarusuario
+  Escenario: Visualizar un usuario que se encuentre registrado en la pagina MysticalCut                        ?[90m# src/test/resources/features/BuscarUsuario.feature:14?[0m
+    ?[31mCuando ?[0m?[31mcomplete el inicio de sesion, se dirigira al apartado usuarios y podra ver el usuario en especifico?[0m ?[90m# BuscarUsuarioStepDefinitions.completeElInicioDeSesionSeDirigiraAlApartadoUsuariosYPodraVerElUsuarioEnEspecifico()?[0m
+      ?[31mcucumber.runtime.CucumberException: Arity mismatch: Step Definition 'co.com.Mysticalcut.stepsdefinitions.BuscarUsuarioStepDefinitions.completeElInicioDeSesionSeDirigiraAlApartadoUsuariosYPodraVerElUsuarioEnEspecifico() in file:/C:/xampp/htdocs/MysticalCut/public/assets/documentacion/DOCUMENTOS_PROYECTO_MYSTICALCUT/Trimestre_5/Automatizaciones/MysticalCut/build/classes/java/test/' with pattern [^complete el inicio de sesion, se dirigira al apartado usuarios y podra ver el usuario en especifico$] is declared with 0 parameters. However, the gherkin step has 1 arguments [Table:[[cedula], [20987654]]]. 
+Step text: complete el inicio de sesion, se dirigira al apartado usuarios y podra ver el usuario en especifico
+	at cucumber.runtime.StepDefinitionMatch.arityMismatch(StepDefinitionMatch.java:111)
+	at cucumber.runtime.StepDefinitionMatch.transformedArgs(StepDefinitionMatch.java:66)
+	at cucumber.runtime.StepDefinitionMatch.runStep(StepDefinitionMatch.java:40)
+	at cucumber.api.TestStep.executeStep(TestStep.java:102)
+	at cucumber.api.TestStep.run(TestStep.java:83)
+	at cucumber.api.TestCase.run(TestCase.java:58)
+	at cucumber.runner.Runner.runPickle(Runner.java:80)
+	at cucumber.runtime.junit.PickleRunners$NoStepDescriptions.run(PickleRunners.java:140)
+	at cucumber.runtime.junit.FeatureRunner.runChild(FeatureRunner.java:68)
+	at cucumber.runtime.junit.FeatureRunner.runChild(FeatureRunner.java:23)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at cucumber.runtime.junit.FeatureRunner.run(FeatureRunner.java:73)
+	at cucumber.api.junit.Cucumber.runChild(Cucumber.java:118)
+	at cucumber.api.junit.Cucumber.runChild(Cucumber.java:56)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at cucumber.api.junit.Cucumber$1.evaluate(Cucumber.java:127)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.runTestClass(JUnitTestClassExecutor.java:110)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:58)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:38)
+	at org.gradle.api.internal.tasks.testing.junit.AbstractJUnitTestClassProcessor.processTestClass(AbstractJUnitTestClassProcessor.java:62)
+	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.processTestClass(SuiteTestClassProcessor.java:51)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:64)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:564)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
+	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)
+	at com.sun.proxy.$Proxy2.processTestClass(Unknown Source)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker$2.run(TestWorker.java:176)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:129)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:100)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:60)
+	at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:133)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:71)
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
+?[0m
+    ?[36mEntonces ?[0m?[36mVerificar que se filtre correctamente el usuario que esta registrado en MysticalCut?[0m               ?[90m# BuscarUsuarioStepDefinitions.verificarQueSeFiltreCorrectamenteElUsuarioQueEstaRegistradoEnMysticalCut()?[0m
+]]></system-out>
+  <system-err><![CDATA[jun. 06, 2025 12:39:51 A. M. org.openqa.selenium.remote.DesiredCapabilities chrome
+INFO: Using `new ChromeOptions()` is preferred to `DesiredCapabilities.chrome()`
+[Test worker] INFO net.serenitybdd.core.webdriver.driverproviders.ProvideNewDriver - Instantiating driver
+[Test worker] INFO net.serenitybdd.core.webdriver.driverproviders.ProvideNewDriver - Driver capabilities: Capabilities {acceptInsecureCerts: false, browserName: chrome, goog:chromeOptions: {args: [], extensions: [], prefs: {behavior: allow}}, loggingPrefs: org.openqa.selenium.logging..., name: proyecto, platform: ANY, unhandledPromptBehavior: ignore, version: }
+Starting ChromeDriver 136.0.7103.94 (fa0be0b33debeb378a8e6ad9c599be34e2dc3b37-refs/branch-heads/7103@{#1842}) on port 2101
+Only local connections are allowed.
+Please see https://chromedriver.chromium.org/security-considerations for suggestions on keeping ChromeDriver safe.
+ChromeDriver was started successfully on port 2101.
+[1749188392.879][WARNING]: This version of ChromeDriver has not been tested with Chrome version 137.
+jun. 06, 2025 12:39:52 A. M. org.openqa.selenium.remote.ProtocolHandshake createSession
+INFO: Detected dialect: W3C
+[Test worker] ERROR net.thucydides.core.steps.ConsoleLoggingListener - 
+           __  _____ _____ ____ _____   _____ _    ___ _     _____ ____  
+  _       / / |_   _| ____/ ___|_   _| |  ___/ \  |_ _| |   | ____|  _ \ 
+ (_)_____| |    | | |  _| \___ \ | |   | |_ / _ \  | || |   |  _| | | | |
+  _|_____| |    | | | |___ ___) || |   |  _/ ___ \ | || |___| |___| |_| |
+ (_)     | |    |_| |_____|____/ |_|   |_|/_/   \_\___|_____|_____|____/ 
+          \_\                                                            
+
+TEST FAILED WITH ERROR: Visualizar un usuario que se encuentre registrado en la pagina MysticalCut
+---------------------------------------------------------------------
+[Test worker] ERROR net.thucydides.core.steps.ConsoleLoggingListener - TEST FAILED AT STEP Cuando complete el inicio de sesion, se dirigira al apartado usuarios y podra ver el usuario en especifico | cedula | | 20987654 |
+[Test worker] ERROR net.thucydides.core.steps.ConsoleLoggingListener - Arity mismatch: Step Definition 'co.com.Mysticalcut.stepsdefinitions.BuscarUsuarioStepDefinitions.completeElInicioDeSesionSeDirigiraAlApartadoUsuariosYPodraVerElUsuarioEnEspecifico() in file:/C:/xampp/htdocs/MysticalCut/public/assets/documentacion/DOCUMENTOS_PROYECTO_MYSTICALCUT/Trimestre_5/Automatizaciones/MysticalCut/build/classes/java/test/' with pattern [^complete el inicio de sesion, se dirigira al apartado usuarios y podra ver el usuario en especifico$] is declared with 0 parameters. However, the gherkin step has 1 arguments [Table:[[cedula], [20987654]]]. 
+]]></system-err>
+</testsuite>

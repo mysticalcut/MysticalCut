@@ -148,7 +148,7 @@
             $("#requirements-tabs").tabs();
             $("#test-tabs").tabs();
 
-            var requirementsTree = [{"text":"Ver una cita","type":"feature","href":"6762a0a7717e63a738179eabaa5bd357a9c3be48c90999260d5e990e6fa3feb2.html","nodes":[],"selectable":false,"tags":["","\u003cspan class\u003d\u0027feature-count\u0027\u003e1 scenario\u003c/span\u003e"]}];
+            var requirementsTree = [{"text":"Ver una cita","type":"feature","href":"6762a0a7717e63a738179eabaa5bd357a9c3be48c90999260d5e990e6fa3feb2.html","nodes":[],"selectable":false,"tags":["","\u003cspan class\u003d\u0027feature-count\u0027\u003e2 scenarios\u003c/span\u003e"]}];
 
             $('#tree').treeview({
                 data: requirementsTree,
@@ -314,6 +314,35 @@
                                                                 </table>
                                                             </td>
                                                         </tr>
+                                                        <tr>
+                                                            <td style="width:95%;" class="toc-title">
+                                                                <a href="#78252610eb7f92cb24b47ee5794ecdcf76a73fdc558690daa936c336b318e85f" title="View scenario details" >Ver un servicio</a>
+
+
+                                                            </td>
+                                                            <td style="width:5%;">
+                                                                <table>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <a style="margin-left:0.5em;padding-right: 1.5em;"
+                                                                               href="61d3ab4ba0a999a6e2dead657fd61ec39ce59feda2760765dc4e6ecb176020a5.html"
+                                                                               title="View test results">
+                                                                            <a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                                                            </a>
+
+                                                                        
+                                                                        </td>
+                                                                        <td>
+                                                                            <a style="margin-left:0.5em;padding-right: 1.5em;"
+                                                                               href="61d3ab4ba0a999a6e2dead657fd61ec39ce59feda2760765dc4e6ecb176020a5.html"
+                                                                               title="View test results">
+                                                                                <i class="fas fa-search-plus"></i>
+                                                                            </a>
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
                                                 </table>
 
                                             </div>
@@ -351,6 +380,38 @@
                                                         </div>
                                                     </div>
                                                 </div>
+
+                                                <div class="scenario-docs card" id="78252610eb7f92cb24b47ee5794ecdcf76a73fdc558690daa936c336b318e85f">
+                                                    <div class="scenario-docs card-header success" style="min-height:1.5em;">
+                                                        <div>
+                                                            <span class="scenario-heading">
+                                                                <a href="61d3ab4ba0a999a6e2dead657fd61ec39ce59feda2760765dc4e6ecb176020a5.html" title="View test results">Ver un servicio</a>
+                                                            </span>
+                                                            <span class="scenario-result-icon">
+                                                                
+
+                                                                    <a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="scenario-docs card-body">
+                                                            <p>Dado que el visitante está en la página de Mystical e ingresa a iniciarsesion</p>
+                                                            <p><p>Cuando ingresa las credenciales básicas:</p>
+<table>
+<thead>
+<tr><th>correo</th><th>contraseña</th></tr>
+</thead>
+<tbody>
+<tr><td>Bot-services@gmail.com</td><td>12345678</td></tr>
+</tbody>
+</table>
+</p>
+                                                            <p>Cuando Seleccionar el servicio</p>
+                                                            <p>Entonces Verificarque sea el servicio seleccionado</p>
+                                                        <div class="examples">
+                                                        </div>
+                                                    </div>
+                                                </div>
                                         </div>
                                     </div>
                                 </div>
@@ -369,7 +430,7 @@
                                                 var labels = ['100%', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '];
                                                 // Our series array that contains series objects or in this case series data arrays
 
-                                                var series = [{meta: 'Passing tests (automated)', value: 1}, {meta: 'Passing tests (manual)', value: 0}, {meta: 'Pending tests (automated)', value: 0}, {meta: 'Pending tests (manual)', value: 0}, {meta: 'Ignored tests (automated)', value: 0}, {meta: 'Ignored tests (manual)', value: 0}, {meta: 'Skipped tests (automated)', value: 0}, {meta: 'Skipped tests (manual)', value: 0}, {meta: 'Failing tests (automated)', value: 0}, {meta: 'Failing tests (manual)', value: 0}, {meta: 'Broken tests (automated)', value: 0}, {meta: 'Broken tests (manual)', value: 0}, {meta: 'Compromised tests (automated)', value: 0}, {meta: 'Compromised tests (manual)', value: 0}];
+                                                var series = [{meta: 'Passing tests (automated)', value: 2}, {meta: 'Passing tests (manual)', value: 0}, {meta: 'Pending tests (automated)', value: 0}, {meta: 'Pending tests (manual)', value: 0}, {meta: 'Ignored tests (automated)', value: 0}, {meta: 'Ignored tests (manual)', value: 0}, {meta: 'Skipped tests (automated)', value: 0}, {meta: 'Skipped tests (manual)', value: 0}, {meta: 'Failing tests (automated)', value: 0}, {meta: 'Failing tests (manual)', value: 0}, {meta: 'Broken tests (automated)', value: 0}, {meta: 'Broken tests (manual)', value: 0}, {meta: 'Compromised tests (automated)', value: 0}, {meta: 'Compromised tests (manual)', value: 0}];
 
                                                 // As options we currently only set a static size of 300x200 px. We can also omit this and use aspect ratio containers
                                                 // as you saw in the previous example
@@ -410,7 +471,7 @@
                                                                         <a href="e41bc337051665b3defa5c49a41f55a857849ace1f8e5b509c323ef9cf983a6c.html"><i
                                                                                 class='fa fa-check-circle-o success-icon'></i>&nbsp;Passing</a>
                                                                     </td>
-                                                <td class="automated-stats">1</td>
+                                                <td class="automated-stats">2</td>
                                                 <td class="automated-stats">100%</td>
                                             </tr>
                                             <tr>
@@ -465,7 +526,7 @@
                                             </tr>
                                             <tr class="summary-stats">
                                                 <td class="aggregate-result-count">Total</td>
-                                                <td class="automated-stats">1</td>
+                                                <td class="automated-stats">2</td>
                                                 <td class="automated-stats"></td>
                                             </tr>
                                             </tbody>
@@ -487,11 +548,11 @@
                                                     </thead>
                                                     <tbody>
                                                     <tr>
+                                                        <td>17s</td>
+                                                        <td> 2h  57m 14s</td>
+                                                        <td>7s</td>
                                                         <td>10s</td>
-                                                        <td>10ms</td>
-                                                        <td>10s</td>
-                                                        <td>10s</td>
-                                                        <td>10s</td>
+                                                        <td>8s</td>
                                                     </tr>
                                                     </tbody>
                                                 </table>
@@ -521,6 +582,18 @@
                                                     <td>4</td>
                                                     <td>20:43:46</td>
                                                     <td>10s 509ms</td>
+                                                    <td>
+                                                            <a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a> <span
+                                                                style="display:none">SUCCESS</span>
+                                                    </td>
+                                                </tr>
+                                                <tr class="scenario-result SUCCESS">
+                                                    <td>
+                                                            <a href="61d3ab4ba0a999a6e2dead657fd61ec39ce59feda2760765dc4e6ecb176020a5.html">Ver un servicio</a>
+                                                    </td>
+                                                    <td>4</td>
+                                                    <td>23:41:00</td>
+                                                    <td>7s 107ms</td>
                                                     <td>
                                                             <a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a> <span
                                                                 style="display:none">SUCCESS</span>

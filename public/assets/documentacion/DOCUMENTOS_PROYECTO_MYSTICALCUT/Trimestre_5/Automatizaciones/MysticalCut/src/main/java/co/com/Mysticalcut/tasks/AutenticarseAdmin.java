@@ -16,8 +16,7 @@ public class AutenticarseAdmin implements Task {
     private List<CredencialesInicioSesion> credenciales;
 
 
-    public AutenticarseAdmin(List<CredencialesInicioSesion> credenciales){
-        this.credenciales = credenciales;
+    public AutenticarseAdmin(List<CredencialesInicioSesion> credenciales){ this.credenciales = credenciales;
     }
 
     public static AutenticarseAdmin aute(List<CredencialesInicioSesion> credenciales){
