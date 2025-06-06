@@ -3,10 +3,57 @@
     "line": 4,
     "elements": [
       {
+        "line": 7,
+        "name": "",
+        "description": "",
+        "type": "background",
+        "keyword": "Antecedentes",
+        "steps": [
+          {
+            "result": {
+              "duration": 5460515100,
+              "status": "passed"
+            },
+            "line": 8,
+            "name": "que el visitante está en la página de Mystical e ingresa a iniciarsesion",
+            "match": {
+              "location": "LoginStepsdefinitions.queElVisitanteEstáEnLaPáginaDeMysticalEIngresaAIniciarsesion()"
+            },
+            "keyword": "Dado "
+          },
+          {
+            "result": {
+              "duration": 2354743800,
+              "status": "passed"
+            },
+            "line": 9,
+            "name": "ingresa las credenciales básicas:",
+            "match": {
+              "location": "LoginStepsdefinitions.ingresaLasCredencialesBásicas(CredencialesLogin\u003e)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "correo",
+                  "contraseña"
+                ]
+              },
+              {
+                "cells": [
+                  "Bot-services@gmail.com",
+                  "12345678"
+                ]
+              }
+            ],
+            "keyword": "Cuando "
+          }
+        ]
+      },
+      {
         "before": [
           {
             "result": {
-              "duration": 99488700,
+              "duration": 75485900,
               "status": "passed"
             },
             "match": {
@@ -14,74 +61,50 @@
             }
           }
         ],
-        "line": 10,
-        "name": "Recuperar contraseña mediante correo electrónico",
+        "line": 14,
+        "name": "Ver la cita qye se quiere cancelar",
         "description": "",
-        "id": "recuperación-de-contraseña;recuperar-contraseña-mediante-correo-electrónico",
+        "id": "ver-una-cita;ver-la-cita-qye-se-quiere-cancelar",
         "type": "scenario",
         "keyword": "Escenario",
         "steps": [
           {
             "result": {
-              "duration": 6284597500,
+              "duration": 2104595300,
               "status": "passed"
             },
-            "line": 11,
-            "name": "que el usuario se encuentra en la página de recuperar Contraseña",
+            "line": 15,
+            "name": "Cancelar la cita que se quiere cancelar",
             "match": {
-              "location": "RecuperarContraseStepDefinitions.queElUsuarioSeEncuentraEnLaPáginaDeRecuperarContraseña()"
+              "location": "QuotesCancelStepsdefinitions.cancelarLaCitaQueSeQuiereCancelar()"
             },
-            "keyword": "Dado "
-          },
-          {
-            "result": {
-              "duration": 2806011700,
-              "status": "passed"
-            },
-            "line": 12,
-            "name": "ingresa su correo electrónico registrado y hace clic en el botón Enviar",
-            "match": {
-              "location": "RecuperarContraseStepDefinitions.ingresaSuCorreoElectrónicoRegistradoYHaceClicEnElBotónEnviar(CredencialesRecuperarContrase\u003e)"
-            },
-            "rows": [
-              {
-                "cells": [
-                  "leonoscarandres04@gmail.com"
-                ]
-              },
-              {
-                "cells": [
-                  "correo_electronico"
-                ]
-              }
-            ],
             "keyword": "Cuando "
           },
           {
             "result": {
-              "duration": 424544600,
+              "duration": 358867700,
               "status": "passed"
             },
-            "line": 15,
-            "name": "el sistema debe enviar un enlace de recuperación al correo ingresado y debe mostrarse un mensaje indicando que se ha enviado el correo exitosamente",
+            "line": 17,
+            "name": "Verificar que se cancele la cita",
             "match": {
-              "location": "RecuperarContraseStepDefinitions.elSistemaDebeEnviarUnEnlaceDeRecuperaciónAlCorreoIngresadoYDebeMostrarseUnMensajeIndicandoQueSeHaEnviadoElCorreoExitosamente()"
+              "location": "QuotesCancelStepsdefinitions.verificarQueSeCanceleLaCita()"
             },
             "keyword": "Entonces "
           }
         ],
         "tags": [
           {
-            "name": "@recuperarContrasena"
+            "name": "@registro"
           }
         ]
       }
     ],
-    "name": "Recuperación de contraseña",
-    "description": "  Como usuario de la plataforma\n  Quiero poder recuperar mi contraseña\n  Para poder restablecer el acceso a mi cuenta en caso de olvidarla",
-    "id": "recuperación-de-contraseña",
+    "name": "Ver una cita",
+    "description": "",
+    "id": "ver-una-cita",
     "keyword": "Característica",
-    "uri": "src/test/resources/features/RecuperarContrase.feature",
+    "uri": "src/test/resources/features/QuotesCancel.feature",
     "tags": []
   }
 ]
