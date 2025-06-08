@@ -19,6 +19,6 @@ public class QuotesStepsdefinitions {
 
     @Entonces("^Verificar la orden del servicio$")
     public void verificarLaOrdenDelServicio() {
-        theActorInTheSpotlight().should(seeThat(ValidacioneQuotes.ValidacioneQuotes()));
+        theActorInTheSpotlight().should(seeThat(ValidacioneQuotes.validar()));
     }
 }

@@ -154,7 +154,7 @@
             <a href="576946480b52ad056d6f5bddf874399c83582ecf90963cc074a14c70580e7d9f.html"><i class="fa fa-comments-o"></i> Features</a>
         </li>
     </ul>
-    <span class="date-and-time"><a href="build-info.html"><i class="fa fa-info-circle"></i></a> Report generated 05-06-2025 20:43</span>
+    <span class="date-and-time"><a href="build-info.html"><i class="fa fa-info-circle"></i></a> Report generated 08-06-2025 17:35</span>
     <br style="clear:left"/>
 </div>
 
@@ -195,9 +195,9 @@
                 <table class="outcome-header">
                     <tr>
                         <td colspan="2" class="test-title-bar">
-                            <span class="outcome-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon fa-2x' title='SUCCESS'></i></a></span>
+                            <span class="outcome-icon"><a href='##beforetable'><i class='fa fa-exclamation-triangle error-icon fa-2x' title='ERROR'></i></a></span>
                             <span class="test-case-title">
-                                <span class="success-color">Ver la cita qye se quiere cancelar
+                                <span class="error-color">Ver la cita qye se quiere cancelar
                                     <span class="related-issue-title"></span>
                                 </span>
                             </span>
@@ -214,36 +214,75 @@
 
     <div id="beforetable"></div>
     <div id="contenttilttle">
+            <div class="screenshotFailure panel panel-danger">
+
+    <div style="display:block">
+        <div class="table">
+            <div class="row">
+                <div class="col-sm-10" style="padding-left:1.5em; padding-top:0.5em; padding-bottom:0.5em;">
+                    <span class="error-message error-message-title">Web driver exception: The following error occurred: java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:23852</span>
+                </div>
+                <div class="col-sm-2">
+                    <a class="btn btn-warning details-button" data-toggle="collapse" href="#stacktraceModal-overall""
+                       role="button" aria-expanded="false" aria-controls="multiCollapseExample1"><i class="far fa-eye"></i> More details</a>
+                </div>
+             </div>
+        </div>
+    <div>
+
+    <!-- Details Section -->
+    <div class="row stacktrace-details">
+      <div class="col">
+        <div class="collapse multi-collapse" id="stacktraceModal-overall">
+            <div class="card">
+                <div class="card-header">
+                    <h4>org.openqa.selenium.WebDriverException </h4>
+                </div>
+                <div class="card-body">
+                    <div>
+                        <pre>co.com.Mysticalcut.tasks.QuotesCancel.performAs(QuotesCancel.java:21)<br />co.com.Mysticalcut.stepsdefinitions.QuotesCancelStepsdefinitions.cancelarLaCitaQueSeQuiereCancelar(QuotesCancelStepsdefinitions.java:17)<br />cucumber.runner.Runner.runPickle(Runner.java:80)<br />worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)<br />worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)<br /></pre>
+                    </div>
+
+                    <h4>
+                        Caused by: java.net.ConnectException
+                    </h4>
+                    <div>
+                            <pre>Failed to connect to localhost/[0:0:0:0:0:0:0:1]:23852</pre>
+                        <pre>okhttp3.internal.connection.RealConnection.connectSocket(RealConnection.java :247)<br />okhttp3.internal.connection.RealConnection.connect(RealConnection.java :165)<br />okhttp3.internal.connection.StreamAllocation.findConnection(StreamAllocation.java :257)<br />okhttp3.internal.connection.StreamAllocation.findHealthyConnection(StreamAllocation.java :135)<br />okhttp3.internal.connection.StreamAllocation.newStream(StreamAllocation.java :114)<br />okhttp3.internal.connection.ConnectInterceptor.intercept(ConnectInterceptor.java :42)<br />okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java :147)<br />okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java :121)<br />okhttp3.internal.cache.CacheInterceptor.intercept(CacheInterceptor.java :93)<br />okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java :147)<br />okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java :121)<br />okhttp3.internal.http.BridgeInterceptor.intercept(BridgeInterceptor.java :93)<br />okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java :147)<br />okhttp3.internal.http.RetryAndFollowUpInterceptor.intercept(RetryAndFollowUpInterceptor.java :126)<br />okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java :147)<br />okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java :121)<br />okhttp3.RealCall.getResponseWithInterceptorChain(RealCall.java :200)<br />okhttp3.RealCall.execute(RealCall.java :77)<br />co.com.Mysticalcut.tasks.QuotesCancel.performAs(QuotesCancel.java :21)<br />co.com.Mysticalcut.stepsdefinitions.QuotesCancelStepsdefinitions.cancelarLaCitaQueSeQuiereCancelar(QuotesCancelStepsdefinitions.java :17)<br />cucumber.runner.Runner.runPickle(Runner.java :80)<br />worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java :69)<br />worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java :74)<br /></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+                <div class="panel-body">
+                    <a href="#" target="_blank" class="btn btn-info">HTML Source</a>
+                </div>
+            </div>
         <div class="slider-wrapper theme-default">
             <div id="slider">
-                <img src="0df265c35e72194ca699ad073b98e904d9f0e8377cea73bf6429a00bbaa20765.png" title=" Dado que el visitante est&aacute; en la p&aacute;gina de Mystical e ingresa a iniciarsesion" width="1370"/>
-                <img src="0df265c35e72194ca699ad073b98e904d9f0e8377cea73bf6429a00bbaa20765.png" title=" Usuario abrir pagina" width="1370"/>
-                <img src="0df265c35e72194ca699ad073b98e904d9f0e8377cea73bf6429a00bbaa20765.png" title=" usuario opens the Login" width="1370"/>
-                <img src="0df265c35e72194ca699ad073b98e904d9f0e8377cea73bf6429a00bbaa20765.png" title=" Usuario abrir pagina (completed)" width="1370"/>
-                <img src="0df265c35e72194ca699ad073b98e904d9f0e8377cea73bf6429a00bbaa20765.png" title=" Dado que el visitante est&aacute; en la p&aacute;gina de Mystical e ingresa a iniciarsesion (completed)" width="1370"/>
-                <img src="ea910a542534bd060a924af7dea7b31e552b40415a51eb9249e2b7f6bbb7a5d1.png" title=" Cuando ingresa las credenciales b&aacute;sicas:
+                <img src="b72b2c3d2653927748e1f722e85eed67824a949f6ef6b1a9acc19d33cb83a172.png" title=" Dado que el visitante est&aacute; en la p&aacute;gina de Mystical e ingresa a iniciarsesion" width="1925"/>
+                <img src="b72b2c3d2653927748e1f722e85eed67824a949f6ef6b1a9acc19d33cb83a172.png" title=" Usuario abrir pagina" width="1925"/>
+                <img src="b72b2c3d2653927748e1f722e85eed67824a949f6ef6b1a9acc19d33cb83a172.png" title=" usuario opens the Login" width="1925"/>
+                <img src="b72b2c3d2653927748e1f722e85eed67824a949f6ef6b1a9acc19d33cb83a172.png" title=" Dado que el visitante est&aacute; en la p&aacute;gina de Mystical e ingresa a iniciarsesion (completed)" width="1925"/>
+                <img src="1a933d8460e3afbb2e2d5f7a2f983c39da4e5cc088cb3993f0ca81478cf23ae2.png" title=" Cuando ingresa las credenciales b&aacute;sicas:
 | correo | contrase&ntilde;a |
-| Bot-services@gmail.com | 12345678 |" width="1370"/>
-                <img src="ea910a542534bd060a924af7dea7b31e552b40415a51eb9249e2b7f6bbb7a5d1.png" title=" Usuario login" width="1370"/>
-                <img src="ea910a542534bd060a924af7dea7b31e552b40415a51eb9249e2b7f6bbb7a5d1.png" title=" usuario clicks on  Boton de ir a formulario iniciar sesion " width="1370"/>
-                <img src="23e0b139417ab09f6db2dff2316336ed1b88dfd4558b5ed0c815572e7bbde651.png" title=" usuario clicks on Campo de correo electr&oacute;nico en el formulario " width="1370"/>
-                <img src="70bf39902390c5ca1f58c00d25aa0afb48fc229fa28356edf45d3c163b00853a.png" title=" usuario enters 'Bot-services@gmail.com' into Campo de correo electr&oacute;nico en el formulario " width="1370"/>
-                <img src="3c60600340ec0d74f5982d155d17cafa9c00da614f0154e72cc4c47cdacae23b.png" title=" usuario clicks on Campo de contrase&ntilde;a en el formulario " width="1370"/>
-                <img src="47299304a08526b20a1f5039b5675e5ee020ef6562c7506e8fe3d7e2eefe92b3.png" title=" usuario enters '12345678' into Campo de contrase&ntilde;a en el formulario " width="1370"/>
-                <img src="d18e3b7c3b3f89f88db55159b46ec0a519ce9ae04666376c3a051a0e1e66ce04.png" title=" usuario clicks on Click Boton Iniciar Sesion" width="1370"/>
-                <img src="d18e3b7c3b3f89f88db55159b46ec0a519ce9ae04666376c3a051a0e1e66ce04.png" title=" Usuario login (completed)" width="1370"/>
-                <img src="d18e3b7c3b3f89f88db55159b46ec0a519ce9ae04666376c3a051a0e1e66ce04.png" title=" Cuando ingresa las credenciales b&aacute;sicas:
+| Bot-services@gmail.com | 12345678 |" width="1925"/>
+                <img src="1a933d8460e3afbb2e2d5f7a2f983c39da4e5cc088cb3993f0ca81478cf23ae2.png" title=" Usuario login" width="1925"/>
+                <img src="1a933d8460e3afbb2e2d5f7a2f983c39da4e5cc088cb3993f0ca81478cf23ae2.png" title=" usuario clicks on  Boton de ir a formulario iniciar sesion " width="1925"/>
+                <img src="9355df220a1b4857644eafc2c947309333860e68ae976aec0175d74f541deaa7.png" title=" usuario clicks on Campo de correo electr&oacute;nico en el formulario " width="1925"/>
+                <img src="e5864e5b9291c63a659821c261c3a09e2edadf3532c1e3deff98a500266e5eb3.png" title=" usuario enters 'Bot-services@gmail.com' into Campo de correo electr&oacute;nico en el formulario " width="1925"/>
+                <img src="cd883f64f703cfaf795cc8e26f0dff737957715f6069f69d92eba4b75aaad770.png" title=" usuario clicks on Campo de contrase&ntilde;a en el formulario " width="1925"/>
+                <img src="86a1686b6cd7c2c083a303e5b2e7164f985c05d2eabd735d93772c7057eed8a4.png" title=" usuario enters '12345678' into Campo de contrase&ntilde;a en el formulario " width="1925"/>
+                <img src="6d89db6e440b2ecbe61535f02e819fd645bd81ade918a42d6ee9dc4dc3a8362d.png" title=" usuario clicks on Click Boton Iniciar Sesion" width="1925"/>
+                <img src="6d89db6e440b2ecbe61535f02e819fd645bd81ade918a42d6ee9dc4dc3a8362d.png" title=" Usuario login (completed)" width="1925"/>
+                <img src="6d89db6e440b2ecbe61535f02e819fd645bd81ade918a42d6ee9dc4dc3a8362d.png" title=" Cuando ingresa las credenciales b&aacute;sicas:
 | correo | contrase&ntilde;a |
-| Bot-services@gmail.com | 12345678 | (completed)" width="1370"/>
-                <img src="38ef0a2faaf05ddf19e7d7d311345024a942dd504512ea7b69992aa5a2a54510.png" title=" Cuando Cancelar la cita que se quiere cancelar" width="1370"/>
-                <img src="38ef0a2faaf05ddf19e7d7d311345024a942dd504512ea7b69992aa5a2a54510.png" title=" Usuario quotes cancel" width="1370"/>
-                <img src="38ef0a2faaf05ddf19e7d7d311345024a942dd504512ea7b69992aa5a2a54510.png" title=" usuario clicks on Ir al modulo de Citas " width="1370"/>
-                <img src="31f6ed3c7c19bd5003ddf49ab37a257acd183b74cb4dc89281d4d6b796c0f06b.png" title=" Usuario alerts" width="1370"/>
-                <img src="31f6ed3c7c19bd5003ddf49ab37a257acd183b74cb4dc89281d4d6b796c0f06b.png" title=" Usuario quotes cancel (completed)" width="1370"/>
-                <img src="31f6ed3c7c19bd5003ddf49ab37a257acd183b74cb4dc89281d4d6b796c0f06b.png" title=" Cuando Cancelar la cita que se quiere cancelar (completed)" width="1370"/>
-                <img src="31f6ed3c7c19bd5003ddf49ab37a257acd183b74cb4dc89281d4d6b796c0f06b.png" title=" Entonces Verificar que se cancele la cita" width="1370"/>
-                <img src="31f6ed3c7c19bd5003ddf49ab37a257acd183b74cb4dc89281d4d6b796c0f06b.png" title=" Then validaciones quotes cancel" width="1370"/>
-                <img src="31f6ed3c7c19bd5003ddf49ab37a257acd183b74cb4dc89281d4d6b796c0f06b.png" title=" Entonces Verificar que se cancele la cita (completed): <span class='success-color'>SUCCESS</span>" width="1370"/>
+| Bot-services@gmail.com | 12345678 | (completed)" width="1925"/>
+                <img src="d6bf3fc52bc0984f62f06631d174c4da94284277f5ce3ed556c5f61cf56f370d.png" title=" Cuando Cancelar la cita que se quiere cancelar" width="1925"/>
+                <img src="d6bf3fc52bc0984f62f06631d174c4da94284277f5ce3ed556c5f61cf56f370d.png" title=" Usuario quotes cancel" width="1925"/>
+                <img src="d6bf3fc52bc0984f62f06631d174c4da94284277f5ce3ed556c5f61cf56f370d.png" title=" usuario clicks on Ir al modulo de Citas : <span class='error-color'>ERROR</span>" width="1925"/>
             </div>
         </div>
 

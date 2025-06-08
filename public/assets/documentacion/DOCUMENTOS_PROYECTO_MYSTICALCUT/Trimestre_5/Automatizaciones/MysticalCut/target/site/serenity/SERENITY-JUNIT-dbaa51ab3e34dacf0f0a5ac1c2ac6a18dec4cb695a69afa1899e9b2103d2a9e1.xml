@@ -1,1 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?><testsuite errors="0" failures="0" name="Ver una cita" skipped="0" tests="1" time="10.51" timestamp="2025-06-05 08:43:46"><testcase name="Ver la cita qye se quiere cancelar"/></testsuite>
+<?xml version="1.0" encoding="UTF-8"?><testsuite errors="1" failures="0" name="Ver una cita" skipped="0" tests="1" time="29.92" timestamp="2025-06-08 05:35:12"><testcase name="Ver la cita qye se quiere cancelar"><error message="The following error occurred: java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:23852&#10;Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'&#10;System info: host: 'ANGIE', ip: '192.168.1.13', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '15.0.1'&#10;Driver info: driver.version: RemoteWebDriver" type="org.openqa.selenium.WebDriverException">The following error occurred: java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:23852
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
+System info: host: 'ANGIE', ip: '192.168.1.13', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '15.0.1'
+Driver info: driver.version: RemoteWebDriver</error><system-err>The following error occurred: java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:23852
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
+System info: host: 'ANGIE', ip: '192.168.1.13', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '15.0.1'
+Driver info: driver.version: RemoteWebDriver&#13;
+co.com.Mysticalcut.tasks.QuotesCancel.performAs(QuotesCancel.java:21)&#13;
+co.com.Mysticalcut.stepsdefinitions.QuotesCancelStepsdefinitions.cancelarLaCitaQueSeQuiereCancelar(QuotesCancelStepsdefinitions.java:17)&#13;
+cucumber.runner.Runner.runPickle(Runner.java:80)&#13;
+worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)&#13;
+worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)&#13;
+</system-err></testcase></testsuite>

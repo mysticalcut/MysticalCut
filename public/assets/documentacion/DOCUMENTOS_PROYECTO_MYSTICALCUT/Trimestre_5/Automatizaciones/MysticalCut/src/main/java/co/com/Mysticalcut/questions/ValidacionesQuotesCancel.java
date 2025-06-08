@@ -3,22 +3,33 @@ package co.com.Mysticalcut.questions;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Question;
 import net.serenitybdd.screenplay.questions.Text;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import static co.com.Mysticalcut.userinterface.QuotesCancel.MENSAJEQUOTESCANCEL;
-import static jxl.biff.FormatRecord.logger;
+import static co.com.Mysticalcut.userinterface.QuotesCancel.*;
 
 public class ValidacionesQuotesCancel implements Question<Boolean> {
 
-    public static ValidacionesQuotesCancel ValidacioneQuotesCancel() {return new ValidacionesQuotesCancel(); }
+    private static final Logger logger = LoggerFactory.getLogger(ValidacionesQuotesCancel.class);
 
+    public static ValidacionesQuotesCancel validar() {
+        return new ValidacionesQuotesCancel();
+    }
 
     @Override
     public Boolean answeredBy(Actor actor) {
         try {
-            String texto = Text.of(MENSAJEQUOTESCANCEL).viewedBy(actor).asString();
-            return "cancelada".equals(texto);
+            String estado = Text.of(MENSAJEQUOTESCANCEL).viewedBy(actor).asString();
+            String email = Text.of(MENSAJEQUOTESCANCEL_EMAIL).viewedBy(actor).asString();
+            String barber = Text.of(MENSAJEQUOTESCANCEL_BARBER).viewedBy(actor).asString();
+            String servicio = Text.of(MENSAJEQUOTESCANCEL_SERVICES).viewedBy(actor).asString();
+
+            return "cancelada".equals(estado)
+                    && "Bot-services@gmail.com".equals(email)
+                    && "Alberto Díaz".equals(barber)
+                    && "Corte Clásico".equals(servicio);
         } catch (Exception e) {
-            logger.info(" No encontró el texto o hubo otro error");
+            logger.error("Error validando los textos de la cotización cancelada: ", e);
             return false;
         }
     }

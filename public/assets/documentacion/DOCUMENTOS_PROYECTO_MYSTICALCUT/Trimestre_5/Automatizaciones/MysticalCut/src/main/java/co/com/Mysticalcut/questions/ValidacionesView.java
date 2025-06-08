@@ -11,17 +11,17 @@ import static jxl.biff.FormatRecord.logger;
 public class ValidacionesView implements Question<Boolean> {
 
 
-        public static ValidacionesView ValidacioneView() {return new ValidacionesView(); }
+    public static ValidacionesView ValidacioneView() {return new ValidacionesView(); }
 
 
-        @Override
-        public Boolean answeredBy(Actor actor) {
-            try {
-                String texto = Text.of(MENSAJE_VIEW).viewedBy(actor).asString();
-                return "Corte Clásico".equals(texto);
-            } catch (Exception e) {
-                logger.info(" No encontró el texto o hubo otro error");
-                return false;
-            }
+    @Override
+    public Boolean answeredBy(Actor actor) {
+        try {
+            String texto = Text.of(MENSAJE_VIEW).viewedBy(actor).asString();
+            return "Corte Clásico".equals(texto);
+        } catch (Exception e) {
+            logger.info(" No encontró el texto o hubo otro error");
+            return false;
         }
+    }
 }

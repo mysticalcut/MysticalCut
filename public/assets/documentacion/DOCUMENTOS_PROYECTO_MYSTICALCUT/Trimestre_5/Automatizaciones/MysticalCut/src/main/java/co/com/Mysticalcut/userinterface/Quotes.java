@@ -30,6 +30,10 @@ public class Quotes extends PageObject {
     public static Target BTN_CONFIRM_CALENDAR = Target.the("Confirmar Cita  ").located(By.xpath("//*[@id=\"app\"]/div/div/div[2]/div[2]/div[2]/button[1]"));
 
 
-    public static Target MENSAJE_QUOTES = Target.the("Correo Cliente").located(By.xpath("//*[@id=\"app\"]/div/div/div/div/div[5]/span[2]"));
+    public static Target MENSAJE_QUOTES_EMAIL = Target.the("Correo Cliente").located(By.xpath("//*[@id=\"app\"]/div/div/div/div/div[5]/span[2]"));
+
+    public static Target MENSAJE_QUOTES_SERVICES = Target.the("servicio seleccionado").located(By.xpath("/html/body/div/div/div/div/div/div/div[1]/span[2]"));
+
+    public static Target MENSAJE_QUOTES_BARBER = Target.the("Cbarbero seleccionado").located(By.xpath("/html/body/div/div/div/div/div/div/div[2]/span[2]"));
 
 }

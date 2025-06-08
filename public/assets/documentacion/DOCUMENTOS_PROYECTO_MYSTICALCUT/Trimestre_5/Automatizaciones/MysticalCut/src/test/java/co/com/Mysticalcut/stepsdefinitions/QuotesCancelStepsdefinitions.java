@@ -21,6 +21,6 @@ public class QuotesCancelStepsdefinitions {
 
     @Entonces("^Verificar que se cancele la cita$")
     public void verificarQueSeCanceleLaCita() {
-        theActorInTheSpotlight().should(seeThat(ValidacionesQuotesCancel.ValidacioneQuotesCancel()));
+        theActorInTheSpotlight().should(seeThat(ValidacionesQuotesCancel.validar()));
     }
 }
