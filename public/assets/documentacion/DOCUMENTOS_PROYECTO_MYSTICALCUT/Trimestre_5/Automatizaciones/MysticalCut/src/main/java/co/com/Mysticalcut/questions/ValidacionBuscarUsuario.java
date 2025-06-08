@@ -15,9 +15,10 @@ public class ValidacionBuscarUsuario implements Question<Boolean> {
 
     @Override
     public Boolean answeredBy(Actor actor) {
+
         try {
             String texto = Text.of(MENSAJE_USUARIOS).viewedBy(actor).asString();
-            return "Diana Perez".equals(texto);
+            return "Diana Pérez".equals(texto);
         } catch (Exception e) {
             logger.info(" No encontró el texto o hubo otro error");
             return false;

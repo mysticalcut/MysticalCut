@@ -17,11 +17,12 @@ public class BuscarUsuario implements Task {
 
     private List<CredencialesBuscarUsuario> credencialesBuscar;
 
-    public BuscarUsuario(List<CredencialesBuscarUsuario> credenciales){
-        this.credencialesBuscar = credenciales;
+    public BuscarUsuario(List<CredencialesBuscarUsuario> credencialesBuscar){
+        this.credencialesBuscar = credencialesBuscar;
     }
 
-    public static BuscarUsuario completarCampos(){ return Instrumented.instanceOf(BuscarUsuario.class).withProperties();
+    public static BuscarUsuario completarCampos(List <CredencialesBuscarUsuario> credencialesBuscar){
+        return Instrumented.instanceOf(BuscarUsuario.class).withProperties(credencialesBuscar);
     }
 
     @Override
@@ -30,8 +31,7 @@ public class BuscarUsuario implements Task {
                 Click.on(BTN_USUARIOS),
                 Click.on(INPUT_USUARIOS),
                 Enter.theValue(credencialesBuscar.get(0).getCedula()).into(INPUT_USUARIOS)
-
-
         );
+
     }
 }

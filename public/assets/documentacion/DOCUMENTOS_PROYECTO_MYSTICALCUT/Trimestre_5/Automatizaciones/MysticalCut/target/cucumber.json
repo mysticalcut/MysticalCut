@@ -11,7 +11,7 @@
         "steps": [
           {
             "result": {
-              "duration": 3514863800,
+              "duration": 3591441500,
               "status": "passed"
             },
             "line": 8,
@@ -23,7 +23,7 @@
           },
           {
             "result": {
-              "duration": 1504920800,
+              "duration": 1583922900,
               "status": "passed"
             },
             "line": 9,
@@ -53,7 +53,7 @@
         "before": [
           {
             "result": {
-              "duration": 46740600,
+              "duration": 48483200,
               "status": "passed"
             },
             "match": {
@@ -70,21 +70,15 @@
         "steps": [
           {
             "result": {
-              "error_message": "cucumber.runtime.CucumberException: Arity mismatch: Step Definition \u0027co.com.Mysticalcut.stepsdefinitions.BuscarUsuarioStepDefinitions.completeElInicioDeSesionSeDirigiraAlApartadoUsuariosYPodraVerElUsuarioEnEspecifico() in file:/C:/xampp/htdocs/MysticalCut/public/assets/documentacion/DOCUMENTOS_PROYECTO_MYSTICALCUT/Trimestre_5/Automatizaciones/MysticalCut/build/classes/java/test/\u0027 with pattern [^complete el inicio de sesion, se dirigira al apartado usuarios y podra ver el usuario en especifico$] is declared with 0 parameters. However, the gherkin step has 1 arguments [Table:[[cedula], [20987654]]]. \nStep text: complete el inicio de sesion, se dirigira al apartado usuarios y podra ver el usuario en especifico\r\n\tat cucumber.runtime.StepDefinitionMatch.arityMismatch(StepDefinitionMatch.java:111)\r\n\tat cucumber.runtime.StepDefinitionMatch.transformedArgs(StepDefinitionMatch.java:66)\r\n\tat cucumber.runtime.StepDefinitionMatch.runStep(StepDefinitionMatch.java:40)\r\n\tat cucumber.api.TestStep.executeStep(TestStep.java:102)\r\n\tat cucumber.api.TestStep.run(TestStep.java:83)\r\n\tat cucumber.api.TestCase.run(TestCase.java:58)\r\n\tat cucumber.runner.Runner.runPickle(Runner.java:80)\r\n\tat cucumber.runtime.junit.PickleRunners$NoStepDescriptions.run(PickleRunners.java:140)\r\n\tat cucumber.runtime.junit.FeatureRunner.runChild(FeatureRunner.java:68)\r\n\tat cucumber.runtime.junit.FeatureRunner.runChild(FeatureRunner.java:23)\r\n\tat org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)\r\n\tat org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)\r\n\tat org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)\r\n\tat org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)\r\n\tat org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)\r\n\tat org.junit.runners.ParentRunner.run(ParentRunner.java:363)\r\n\tat cucumber.runtime.junit.FeatureRunner.run(FeatureRunner.java:73)\r\n\tat cucumber.api.junit.Cucumber.runChild(Cucumber.java:118)\r\n\tat cucumber.api.junit.Cucumber.runChild(Cucumber.java:56)\r\n\tat org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)\r\n\tat org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)\r\n\tat org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)\r\n\tat org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)\r\n\tat org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)\r\n\tat cucumber.api.junit.Cucumber$1.evaluate(Cucumber.java:127)\r\n\tat org.junit.runners.ParentRunner.run(ParentRunner.java:363)\r\n\tat org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.runTestClass(JUnitTestClassExecutor.java:110)\r\n\tat org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:58)\r\n\tat org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:38)\r\n\tat org.gradle.api.internal.tasks.testing.junit.AbstractJUnitTestClassProcessor.processTestClass(AbstractJUnitTestClassProcessor.java:62)\r\n\tat org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.processTestClass(SuiteTestClassProcessor.java:51)\r\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\r\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:64)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:564)\r\n\tat org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)\r\n\tat org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)\r\n\tat org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)\r\n\tat org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)\r\n\tat com.sun.proxy.$Proxy2.processTestClass(Unknown Source)\r\n\tat org.gradle.api.internal.tasks.testing.worker.TestWorker$2.run(TestWorker.java:176)\r\n\tat org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:129)\r\n\tat org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:100)\r\n\tat org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:60)\r\n\tat org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)\r\n\tat org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:133)\r\n\tat org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:71)\r\n\tat worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)\r\n\tat worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)\r\n",
-              "duration": 1916500,
-              "status": "failed"
+              "duration": 1760560600,
+              "status": "passed"
             },
             "line": 16,
             "name": "complete el inicio de sesion, se dirigira al apartado usuarios y podra ver el usuario en especifico",
             "match": {
-              "location": "BuscarUsuarioStepDefinitions.completeElInicioDeSesionSeDirigiraAlApartadoUsuariosYPodraVerElUsuarioEnEspecifico()"
+              "location": "BuscarUsuarioStepDefinitions.completeElInicioDeSesionSeDirigiraAlApartadoUsuariosYPodraVerElUsuarioEnEspecifico(CredencialesBuscarUsuario\u003e)"
             },
             "rows": [
-              {
-                "cells": [
-                  "cedula"
-                ]
-              },
               {
                 "cells": [
                   "20987654"
@@ -95,9 +89,10 @@
           },
           {
             "result": {
-              "status": "skipped"
+              "duration": 179336900,
+              "status": "passed"
             },
-            "line": 20,
+            "line": 18,
             "name": "Verificar que se filtre correctamente el usuario que esta registrado en MysticalCut",
             "match": {
               "location": "BuscarUsuarioStepDefinitions.verificarQueSeFiltreCorrectamenteElUsuarioQueEstaRegistradoEnMysticalCut()"

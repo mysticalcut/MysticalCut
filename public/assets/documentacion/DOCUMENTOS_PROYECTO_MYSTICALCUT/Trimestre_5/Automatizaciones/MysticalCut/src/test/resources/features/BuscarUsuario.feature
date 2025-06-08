@@ -14,7 +14,5 @@
     Escenario: Visualizar un usuario que se encuentre registrado en la pagina MysticalCut
 
       Cuando complete el inicio de sesion, se dirigira al apartado usuarios y podra ver el usuario en especifico
-      |  cedula  |
       | 20987654 |
-
       Entonces  Verificar que se filtre correctamente el usuario que esta registrado en MysticalCut
