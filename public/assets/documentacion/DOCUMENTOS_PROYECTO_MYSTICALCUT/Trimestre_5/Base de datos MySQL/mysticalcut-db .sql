@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-05-2025 a las 17:36:14
+-- Tiempo de generación: 10-06-2025 a las 19:15:54
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -22,71 +22,6 @@ SET time_zone = "+00:00";
 --
 CREATE DATABASE IF NOT EXISTS `mysticalcut-db` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `mysticalcut-db`;
-
-DELIMITER $$
---
--- Procedimientos
---
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_role_module` (IN `idRole` INT)   BEGIN
-SELECT ROL.role_name AS `role_fk`,MD.module_name AS `role_module`,MD.module_icon,MD.module_description, MD.module_route FROM role_module AS RM 
-INNER JOIN role AS ROL ON RM.role_fk=ROL.role_id
-INNER JOIN module AS MD ON RM.module_fk=MD.module_id
-WHERE ROL.role_id=idRole;
-END$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_user_all` ()   BEGIN
-SELECT `user_email`, `user_id`,`full_name`,`user_password`, UST.userStatus_name AS `userStatus_fk`, ROL.role_name AS `role_fk` FROM `user` AS US  
-INNER JOIN role AS ROL ON US.role_fk=ROL.role_id
-INNER JOIN userstatus AS UST  ON US.userStatus_fk=UST.userStatus_id
-WHERE US.userStatus_fk=1
-;
-END$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_user_all_paginated` (IN `offset` INT, IN `limit_rows` INT)   BEGIN
-    SET @query = CONCAT('SELECT * FROM user LIMIT ', offset, ', ', limit_rows);
-    PREPARE stmt FROM @query;
-    EXECUTE stmt;
-    DEALLOCATE PREPARE stmt;
-END$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_user_count` ()   BEGIN
-    SELECT COUNT(*) AS total_users 
-    FROM user;
-END$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_user_create` (IN `p_user_email` VARCHAR(100), IN `p_user_password` VARCHAR(255), IN `p_full_name` VARCHAR(100), IN `p_userStatus_fk` VARCHAR(20), IN `p_role_fk` INT)   BEGIN
--- Si no se pasa el estado, se asigna el valor predeterminado 'activo'
-    IF p_userStatus_fk IS NULL THEN
-        SET p_userStatus_fk = 1;
-    END IF;
-    -- Si no se pasa el rol, se asigna el valor predeterminado 1
-    IF p_role_fk IS NULL THEN
-        SET p_role_fk = 3;
-    END IF;
-
-    -- Inserta el nuevo usuario con los valores proporcionados o los predeterminados
-    INSERT INTO user (
-         user_email, user_password, full_name, userStatus_fk, role_fk 
-    ) 
-    VALUES (
-        
-        p_user_email, 
-        p_user_password, 
-        p_full_name, 
-        p_userStatus_fk,    -- Estado (si es NULL, se asigna 'activo')
-        p_role_fk  -- Rol (si es NULL, se asigna 1)
-        
-    );
-END$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_user_search` (IN `dataSearch` VARCHAR(60))   BEGIN
-SELECT `user_id`,`user_email`,`user_password`, UST.userStatus_name AS `userStatus_fk`, ROL.role_name AS `role_fk` FROM `user` AS US  
-INNER JOIN role AS ROL ON US.role_fk=ROL.role_id
-INNER JOIN userstatus AS UST  ON US.userStatus_fk=UST.userStatus_id 
-WHERE ROL.role_name=dataSearch OR UST.userStatus_name=dataSearch OR US.user_email=dataSearch;
-END$$
-
-DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -235,6 +170,49 @@ INSERT INTO `module` (`module_id`, `module_name`, `module_route`, `module_icon`,
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `orders`
+--
+
+CREATE TABLE IF NOT EXISTS `orders` (
+  `id_order` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `total_amount` decimal(10,2) NOT NULL,
+  `order_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `status` enum('pending','completed','cancelled') DEFAULT 'pending',
+  PRIMARY KEY (`id_order`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Truncar tablas antes de insertar `orders`
+--
+
+TRUNCATE TABLE `orders`;
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `order_items`
+--
+
+CREATE TABLE IF NOT EXISTS `order_items` (
+  `id_order_item` int(11) NOT NULL AUTO_INCREMENT,
+  `id_order` int(11) NOT NULL,
+  `id_product` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `unit_price` decimal(10,2) NOT NULL,
+  PRIMARY KEY (`id_order_item`),
+  KEY `id_order` (`id_order`),
+  KEY `id_product` (`id_product`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Truncar tablas antes de insertar `order_items`
+--
+
+TRUNCATE TABLE `order_items`;
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `product`
 --
 
@@ -353,7 +331,7 @@ CREATE TABLE IF NOT EXISTS `quotes` (
   KEY `fk_appointment_user` (`user_id`),
   KEY `fk_quotes_services` (`id_services`),
   KEY `fk_barber_user` (`barber_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Truncar tablas antes de insertar `quotes`
@@ -390,7 +368,8 @@ INSERT INTO `quotes` (`id_quotes`, `date_time`, `end_time`, `state_quotes`, `use
 (23, '2025-04-21 03:27:05', '2025-04-30 13:30:00', 'cancelada', 10, 13, 18),
 (24, '2025-04-21 03:27:25', '2025-04-26 14:00:00', 'finalizada', 10, 14, 22),
 (25, '2025-04-21 03:27:42', '2025-04-30 13:45:00', 'cancelada', 10, 15, 27),
-(26, '2025-04-22 13:00:00', '2025-04-22 13:35:00', 'pendiente', 6, 11, 7);
+(26, '2025-04-22 13:00:00', '2025-04-22 13:35:00', 'pendiente', 6, 11, 7),
+(27, '2025-07-26 13:00:00', '2025-07-26 13:30:00', 'pendiente', 8, 12, 6);
 
 -- --------------------------------------------------------
 
@@ -575,6 +554,39 @@ INSERT INTO `service_status` (`id_status`, `name_status`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `shopping_cart`
+--
+
+CREATE TABLE IF NOT EXISTS `shopping_cart` (
+  `id_cart` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `id_product` int(11) NOT NULL,
+  `amount` int(11) NOT NULL DEFAULT 1,
+  `date_added` timestamp NOT NULL DEFAULT current_timestamp(),
+  `date_updated` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `status` enum('active','purchased','removed') DEFAULT 'active',
+  PRIMARY KEY (`id_cart`),
+  UNIQUE KEY `unique_user_product` (`user_id`,`id_product`,`status`),
+  KEY `id_product` (`id_product`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Truncar tablas antes de insertar `shopping_cart`
+--
+
+TRUNCATE TABLE `shopping_cart`;
+--
+-- Volcado de datos para la tabla `shopping_cart`
+--
+
+INSERT INTO `shopping_cart` (`id_cart`, `user_id`, `id_product`, `amount`, `date_added`, `date_updated`, `status`) VALUES
+(1, 2, 2, 1, '2025-06-10 02:24:56', '2025-06-10 02:32:03', 'removed'),
+(2, 2, 5, 4, '2025-06-10 02:25:03', '2025-06-10 02:32:00', 'removed'),
+(8, 2, 2, 1, '2025-06-10 02:38:58', '2025-06-10 02:50:01', 'active');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `type_of_quotes`
 --
 
@@ -689,6 +701,19 @@ ALTER TABLE `facture`
   ADD CONSTRAINT `fk_factura_usuario` FOREIGN KEY (`user_fk`) REFERENCES `user` (`user_id`);
 
 --
+-- Filtros para la tabla `orders`
+--
+ALTER TABLE `orders`
+  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`);
+
+--
+-- Filtros para la tabla `order_items`
+--
+ALTER TABLE `order_items`
+  ADD CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`id_order`) REFERENCES `orders` (`id_order`) ON DELETE CASCADE,
+  ADD CONSTRAINT `order_items_ibfk_2` FOREIGN KEY (`id_product`) REFERENCES `product` (`id_product`);
+
+--
 -- Filtros para la tabla `product`
 --
 ALTER TABLE `product`
@@ -730,6 +755,13 @@ ALTER TABLE `services`
 ALTER TABLE `service_invoice_detail`
   ADD CONSTRAINT `fk_detail_invoice_service_service` FOREIGN KEY (`id_services`) REFERENCES `services` (`id_services`),
   ADD CONSTRAINT `fk_service_invoice_detail` FOREIGN KEY (`id_facture`) REFERENCES `facture` (`id_facture`);
+
+--
+-- Filtros para la tabla `shopping_cart`
+--
+ALTER TABLE `shopping_cart`
+  ADD CONSTRAINT `shopping_cart_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `shopping_cart_ibfk_2` FOREIGN KEY (`id_product`) REFERENCES `product` (`id_product`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `type_of_quotes`

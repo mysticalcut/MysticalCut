@@ -30,6 +30,10 @@ import CitasPendientes from '@/components/CitasPendientes.vue';
 
 import Products from '../components/ProductsView.vue';
 import ProductsInactives from '../components/ProductsInactives.vue';
+import CrearProducto from '@/components/CrearProducto.vue';
+import EditarProducto from '@/components/EditarProducto.vue';
+import CartView from '@/components/CartView.vue';
+
 
 
 
@@ -67,7 +71,13 @@ const routes = [
   { path: '/Citas', component: CitasPendientes , meta: { title: 'Citas | MysticalCut', requiresAuth: true } },
 
   { path: '/Products', component: Products, meta: { title: 'Productos | MysticalCut', requiresAuth: true} },
-  { path: '/ProductsInactives', component: ProductsInactives, meta: { title: 'Productos | MysticalCut', requiresAuth: true} },
+  { path: '/ProductsInactives', component: ProductsInactives, meta: { title: 'Productos inactivos | MysticalCut', requiresAuth: true} },
+  { path: '/Create-Products', component: CrearProducto, meta: { title: 'Crear Productos | MysticalCut', requiresAuth: true} },
+  { path: '/Edit-Products/:id', component: EditarProducto, meta: { title: 'Editar Productos | MysticalCut', requiresAuth: true} },
+  { path: '/Cart', component: CartView, meta: { title: 'Editar Productos | MysticalCut', requiresAuth: true} },
+
+
+
 
 
 ];

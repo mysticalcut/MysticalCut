@@ -146,7 +146,7 @@ class Quote {
       });
     });
 
-    return results;
+    return results;cd
   }
 
   // 🔹 Actualizar estado de la cita

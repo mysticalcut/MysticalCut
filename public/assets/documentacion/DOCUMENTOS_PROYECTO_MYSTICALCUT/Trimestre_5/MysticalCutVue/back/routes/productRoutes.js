@@ -185,5 +185,4 @@ router.delete('/:id', authenticate, productController.deleteProduct);
 
 
 
-
 module.exports = router;

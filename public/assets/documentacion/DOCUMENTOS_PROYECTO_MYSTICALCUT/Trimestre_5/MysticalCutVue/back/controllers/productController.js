@@ -41,12 +41,16 @@ exports.getProductById = async (req, res) => {
 exports.updateProduct = async (req, res) => {
   try {
     const { id } = req.params;
-    const image = req.file ? req.file.filename : null;
+    const productData = { ...req.body };
 
-    const productData = {
-      ...req.body,
-      image,
-    };
+    // Solo si hay archivo nuevo, actualizar la imagen
+if (req.file) {
+  productData.image = req.file.filename;
+} else {
+  // Mantener la imagen actual en DB: deberías obtener la imagen actual antes y asignarla aquí
+  const currentProduct = await productModel.getProductById(id);
+  productData.image = currentProduct.image;
+}
 
     const updatedProduct = await productModel.updateProduct(id, productData);
     res.status(200).json(updatedProduct);
@@ -92,3 +96,6 @@ exports.getInactiveProducts = async (req, res) => {
     res.status(500).json({ error: 'Error al obtener productos inactivos' });
   }
 };
+
+
+
