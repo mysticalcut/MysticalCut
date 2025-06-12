@@ -11,7 +11,7 @@ public class autenticacionRecuperarContrase extends PageObject{
     public static Target INPUT_CORREO = Target.the(" Ingreso del Usuario").located(By.xpath("//*[@id=\"app\"]/div/form/input"));
     public static Target BTN_ENVIAR = Target.the("Click Boton inicio sesion").located(By.xpath("//*[@id=\"app\"]/div/form/button"));
 
-    public static Target MENSAJE_LOGIN = Target.the("mensaje de login").locatedBy("//button[text()='Enviar']");
+    public static Target MENSAJE_LOGIN = Target.the("mensaje de login").located(By.xpath("//*[@id=\"app\"]/div/p[2]"));
 
 
 }

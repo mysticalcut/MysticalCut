@@ -1,2 +1,3 @@
 "Story","Title","Result","Date","Stability","Duration (s)"
-"Entrar al apartado de usuarios y visualizar todos los usuarios registrados","Visualizar todos los usuarios que se encuentren registrados en la pagina MysticalCut","SUCCESS","2025-06-08T13:28:12.9316533-05:00[America/Bogota]","0.0","8.08"
+"Entrar al apartado de usuarios y visualizar todos los usuarios registrados","Visualizar toda la infomacion del usuario que se encuentra registrado en la pagina MysticalCut","FAILURE","2025-06-11T20:35:34.0632559-05:00[America/Bogota]","0.0","12.38"
+"Entrar al apartado de usuarios y visualizar todos los usuarios registrados","Visualizar todos los usuarios que se encuentren registrados en la pagina MysticalCut","SUCCESS","2025-06-11T20:54:06.4580278-05:00[America/Bogota]","0.0","11.33"

@@ -15,7 +15,7 @@ public class ValidacionRecuperarContrase implements Question<Boolean> {
     public Boolean answeredBy(Actor actor) {
         try {
             String texto = Text.of(MENSAJE_LOGIN).viewedBy(actor).asString();
-            return "Enviar".equals(texto);
+            return "Si el correo está registrado, recibirás un enlace de recuperación.".equals(texto);
         } catch (Exception e) {
             logger.info(" No encontró el texto o hubo otro error");
             return false;

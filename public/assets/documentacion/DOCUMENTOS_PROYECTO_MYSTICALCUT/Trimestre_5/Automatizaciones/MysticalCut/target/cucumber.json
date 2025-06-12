@@ -3,57 +3,10 @@
     "line": 4,
     "elements": [
       {
-        "line": 7,
-        "name": "",
-        "description": "",
-        "type": "background",
-        "keyword": "Antecedentes",
-        "steps": [
-          {
-            "result": {
-              "duration": 4386052100,
-              "status": "passed"
-            },
-            "line": 8,
-            "name": "que el visitante está en la página de Mystical e ingresa a iniciarsesion",
-            "match": {
-              "location": "LoginStepsdefinitions.queElVisitanteEstáEnLaPáginaDeMysticalEIngresaAIniciarsesion()"
-            },
-            "keyword": "Dado "
-          },
-          {
-            "result": {
-              "duration": 1536075900,
-              "status": "passed"
-            },
-            "line": 9,
-            "name": "ingresa las credenciales básicas:",
-            "match": {
-              "location": "LoginStepsdefinitions.ingresaLasCredencialesBásicas(CredencialesLogin\u003e)"
-            },
-            "rows": [
-              {
-                "cells": [
-                  "correo",
-                  "contraseña"
-                ]
-              },
-              {
-                "cells": [
-                  "Bot-services@gmail.com",
-                  "12345678"
-                ]
-              }
-            ],
-            "keyword": "Cuando "
-          }
-        ]
-      },
-      {
         "before": [
           {
             "result": {
-              "duration": 38086000,
+              "duration": 95325800,
               "status": "passed"
             },
             "match": {
@@ -61,50 +14,74 @@
             }
           }
         ],
-        "line": 14,
-        "name": "Ver un servicio",
+        "line": 10,
+        "name": "Recuperar contraseña mediante correo electrónico",
         "description": "",
-        "id": "ver-una-cita;ver-un-servicio",
+        "id": "recuperación-de-contraseña;recuperar-contraseña-mediante-correo-electrónico",
         "type": "scenario",
         "keyword": "Escenario",
         "steps": [
           {
             "result": {
-              "duration": 1792187800,
+              "duration": 5455079300,
               "status": "passed"
             },
-            "line": 15,
-            "name": "Seleccionar el servicio",
+            "line": 11,
+            "name": "que el usuario se encuentra en la página de recuperar Contraseña",
             "match": {
-              "location": "ViewStepsdefinitions.seleccionarElServicio()"
+              "location": "RecuperarContraseStepDefinitions.queElUsuarioSeEncuentraEnLaPáginaDeRecuperarContraseña()"
             },
+            "keyword": "Dado "
+          },
+          {
+            "result": {
+              "duration": 2066635700,
+              "status": "passed"
+            },
+            "line": 12,
+            "name": "ingresa su correo electrónico registrado y hace clic en el botón Enviar",
+            "match": {
+              "location": "RecuperarContraseStepDefinitions.ingresaSuCorreoElectrónicoRegistradoYHaceClicEnElBotónEnviar(CredencialesRecuperarContrase\u003e)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "leonoscarandres04@gmail.com"
+                ]
+              },
+              {
+                "cells": [
+                  "correo_electronico"
+                ]
+              }
+            ],
             "keyword": "Cuando "
           },
           {
             "result": {
-              "duration": 203885000,
+              "duration": 1675614700,
               "status": "passed"
             },
-            "line": 17,
-            "name": "Verificarque sea el servicio seleccionado",
+            "line": 15,
+            "name": "el sistema debe enviar un enlace de recuperación al correo ingresado y debe mostrarse un mensaje indicando que se ha enviado el correo exitosamente",
             "match": {
-              "location": "ViewStepsdefinitions.verificarqueSeaElServicioSeleccionado()"
+              "location": "RecuperarContraseStepDefinitions.elSistemaDebeEnviarUnEnlaceDeRecuperaciónAlCorreoIngresadoYDebeMostrarseUnMensajeIndicandoQueSeHaEnviadoElCorreoExitosamente()"
             },
             "keyword": "Entonces "
           }
         ],
         "tags": [
           {
-            "name": "@registro"
+            "name": "@recuperarContrasena"
           }
         ]
       }
     ],
-    "name": "Ver una cita",
-    "description": "",
-    "id": "ver-una-cita",
+    "name": "Recuperación de contraseña",
+    "description": "  Como usuario de la plataforma\n  Quiero poder recuperar mi contraseña\n  Para poder restablecer el acceso a mi cuenta en caso de olvidarla",
+    "id": "recuperación-de-contraseña",
     "keyword": "Característica",
-    "uri": "src/test/resources/features/View.feature",
+    "uri": "src/test/resources/features/RecuperarContrase.feature",
     "tags": []
   }
 ]

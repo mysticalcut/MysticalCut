@@ -5,7 +5,7 @@ apply plugin: 'idea'
 apply plugin: 'net.serenity-bdd.aggregator'
 group 'co.com.Mysticalcut'
 version '1.0-SNAPSHOT'
-sourceCompatibility = 1.8
+sourceCompatibility = 1.9
 repositories { mavenLocal()
     jcenter() }
 buildscript {
@@ -45,3 +45,4 @@ test {
     systemProperty "cucumber.options", "--plugin pretty --plugin json:target/cucumber.json"
     finalizedBy 'aggregate'
 }
+targetCompatibility = JavaVersion.VERSION_1_9
