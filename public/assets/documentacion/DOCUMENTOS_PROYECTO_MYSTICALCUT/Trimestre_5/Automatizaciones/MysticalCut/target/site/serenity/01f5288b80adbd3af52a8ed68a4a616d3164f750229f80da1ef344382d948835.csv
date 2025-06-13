@@ -1,8 +1,0 @@
-"Story","Title","Result","Date","Stability","Duration (s)"
-"Entrar al apartado de usuarios y ver un usuario en especifico","Visualizar un usuario que se encuentre registrado en la pagina MysticalCut","SUCCESS","2025-06-08T13:48:26.2017271-05:00[America/Bogota]","0.0","7.26"
-"Iniciar sesion en la pagina de mysticalcut","Completar el formulario de iniciar sesion","SUCCESS","2025-06-05T22:04:46.9633858-05:00[America/Bogota]","0.0","5.95"
-"Agendar una cita, elegir el servicio, barbero, dia hora","Agendar una cita","SUCCESS","2025-06-08T16:13:37.7620267-05:00[America/Bogota]","0.0","13.26"
-"Recuperación de contraseña","Recuperar contraseña mediante correo electrónico","SUCCESS","2025-06-11T20:58:18.0210571-05:00[America/Bogota]","0.0","9.5"
-"Ver una cita","Ver un servicio","SUCCESS","2025-06-08T17:36:11.3006586-05:00[America/Bogota]","0.0","8.05"
-"Entrar al apartado de usuarios y visualizar todos los usuarios registrados","Visualizar todos los usuarios que se encuentren registrados en la pagina MysticalCut","SUCCESS","2025-06-11T20:54:06.4580278-05:00[America/Bogota]","0.0","11.33"
-"Autenticacion en la pagina de MysticalCut","Verificar la autenticacion exitosa en la pagina de Mystical","SUCCESS","2025-06-05T23:35:58.134469-05:00[America/Bogota]","0.0","8.53"

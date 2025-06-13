@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><testsuite errors="0" failures="1" name="Entrar al apartado de usuarios y visualizar todos los usuarios registrados" skipped="0" tests="1" time="12.38" timestamp="2025-06-11 08:35:34"><testcase name="Visualizar toda la infomacion del usuario que se encuentra registrado en la pagina MysticalCut"><failure message="Expected validaciones ver info usuario&#13;&#10;Expected: is &lt;true&gt;&#13;&#10;     but: was &lt;false&gt;" type="java.lang.AssertionError">Expected validaciones ver info usuario&#13;
-Expected: is &lt;true&gt;&#13;
-     but: was &lt;false&gt;</failure><system-err>Expected validaciones ver info usuario&#13;
-Expected: is &lt;true&gt;&#13;
-     but: was &lt;false&gt;&#13;
-co.com.Mysticalcut.stepsdefinitions.VerInfoUsuarioStepDefinitions.verificarQueSalgaTodaLaInformacionDelUsuarioQueSeEncuentraRegistadoEnMysticalCut(VerInfoUsuarioStepDefinitions.java:25)&#13;
-✽.Verificar que salga toda la informacion del usuario que se encuentra registado en MysticalCut(src/test/resources/features/VerInfoUsuario.feature:18)&#13;
-</system-err></testcase></testsuite>

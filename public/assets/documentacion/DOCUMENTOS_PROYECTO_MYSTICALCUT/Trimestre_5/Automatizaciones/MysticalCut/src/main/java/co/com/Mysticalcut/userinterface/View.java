@@ -12,6 +12,7 @@ public class View extends PageObject {
 
     public static Target BTN_SERVICES_SELECT = Target.the("Ver servicio ").located(By.xpath("//*[@id=\"app\"]/div/div/div[2]/div/div[1]/div/div[1]/div/div/div[2]/div/a"));
 
-    public static Target MENSAJE_VIEW = Target.the("NOMBRE DEL SERVICIO").located(By.xpath("//*[@id=\"app\"]/div/div/div[1]/div[2]/h3"));
+    public static Target MENSAJE_VIEW_DESCRIP = Target.the("Descripcion del servicio").located(By.xpath("/html/body/div/div/div/div/div[1]/div[2]/p[1]"));
 
+    public static Target MENSAJE_VIEW_SERVICE = Target.the("NOMBRE DEL SERVICIO").located(By.xpath("/html/body/div/div/div/div/div[1]/div[2]/h3"));
 }

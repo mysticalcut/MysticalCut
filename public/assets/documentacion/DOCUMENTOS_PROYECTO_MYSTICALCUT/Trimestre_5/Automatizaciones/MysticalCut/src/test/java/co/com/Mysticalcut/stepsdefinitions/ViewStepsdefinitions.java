@@ -19,6 +19,6 @@ public class ViewStepsdefinitions {
 
     @Entonces("^Verificarque sea el servicio seleccionado$")
     public void verificarqueSeaElServicioSeleccionado() {
-        theActorInTheSpotlight().should(seeThat(ValidacionesView.ValidacioneView()));
+        theActorInTheSpotlight().should(seeThat(ValidacionesView.validar()));
     }
 }
