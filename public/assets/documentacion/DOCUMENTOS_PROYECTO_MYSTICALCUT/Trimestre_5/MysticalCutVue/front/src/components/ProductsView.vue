@@ -65,6 +65,7 @@
               <span class="slider round" :class="{ blocked: product.id_status === 2, active: product.id_status === 1 }"></span>
             </label>
 
+            <button class="btn-buy" @click="() => viewProductDetails(product)">Ver</button>
             <button class="btn-edit" @click="() => editProduct(product.id_product)" v-if="userRole === 'Admin'">Editar</button>
             <button class="btn-delete" @click="() => confirmInactivate(product.id_product)" v-if="userRole === 'Admin'">Eliminar</button>
             
@@ -132,6 +133,17 @@
       </div>
     </div>
   </div>
+
+  <div v-if="showProductModal" class="modal-overlay" @click.self="showProductModal = false">
+    <div class="modal-content">
+      <button class="close-modal-btn" @click="showProductModal = false">X</button>
+      <h2 class="modal-title">{{ selectedProduct.name }}</h2>
+      <img :src="getImageUrl(selectedProduct.image)" alt="Imagen del producto" class="modal-product-img" />
+      <p class="modal-description"><strong>Descripción:</strong> {{ selectedProduct.description }}</p>
+      <p class="modal-price"><strong>Precio:</strong> ${{ selectedProduct.price.toLocaleString() }}</p>
+      <p class="modal-amount"><strong>Disponibles:</strong> {{ selectedProduct.amount }}</p>
+      </div>
+  </div>
 </template>
 
 <script setup>
@@ -157,7 +169,9 @@ const logout = () => {
 const goToProfile = () => router.push("/perfil");
 const goBack = () => router.push("/Home");
 
-const getImageUrl = (imageName) => `http://localhost:5000/uploads/products/${imageName}`;
+const getImageUrl = (imageName) => `http://localhost:5000/uploads/${imageName}`;
+
+
 
 const loadProducts = async () => {
   products.value = await getProducts();
@@ -178,7 +192,8 @@ const fetchUserRole = async () => {
       full_name: data.full_name || 'Usuario',
       user_id: data.user_id,
       user_email: data.user_email || '',
-      modules: data.modules || []
+      modules: data.modules || [],
+      role: data.role
     };
     localStorage.setItem("user", JSON.stringify(user.value));
     roleModules.value = data.modules || [];
@@ -321,6 +336,15 @@ const buyNow = (product) => {
   alert(`Has iniciado el proceso de compra para "${product.name}".`);
 };
 
+// Modal functionality
+const showProductModal = ref(false);
+const selectedProduct = ref(null);
+
+const viewProductDetails = (product) => {
+  selectedProduct.value = product;
+  showProductModal.value = true;
+};
+
 onMounted(() => {
   fetchUserRole();
   loadProducts();
@@ -342,15 +366,14 @@ function getUserIdFromToken() {
 </script>
 
 <style scoped>
-/* Contenedor principal que se escalará */
+/* Existing styles (unchanged) */
 .container-scaled-wrapper {
-  transform: scale(0.9); /* Ajusta este valor (0.8, 0.75, etc.) para controlar el tamaño general */
-  transform-origin: top center; /* Escala desde la parte superior y el centro */
-  width: 100%; /* Ocupa el ancho completo */
-  overflow-x: hidden; /* Oculta el scroll horizontal si el contenido escalado sobresale */
+  transform: scale(0.9);
+  transform-origin: top center;
+  width: 100%;
+  overflow-x: hidden;
 }
 
-/* Tus estilos CSS existentes para el contenedor principal */
 .container {
   background-color: #000;
   color: #fff;
@@ -358,7 +381,6 @@ function getUserIdFromToken() {
   padding: 1rem;
 }
 
-/* Estilos de botones de navegación */
 .d-flex {
   display: flex;
   width: 100%;
@@ -414,7 +436,6 @@ function getUserIdFromToken() {
   background-color: #b28f2f;
 }
 
-/* Estilos de la grilla de productos */
 .product-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -477,7 +498,6 @@ function getUserIdFromToken() {
   border-top: 1px solid #333;
 }
 
-/* Estilos del switch */
 .switch {
   position: relative;
   display: inline-block;
@@ -532,7 +552,22 @@ input:checked+.slider:before {
   border-radius: 20px;
 }
 
-/* Estilos de botones de acción del producto */
+
+.btn-view {
+  background-color: #3498db; 
+  color: white;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.btn-view:hover {
+  background-color: #2980b9;
+}
+
 .btn-edit,
 .btn-delete {
   background-color: #d4af37;
@@ -576,7 +611,6 @@ input:checked+.slider:before {
   color: black;
 }
 
-/* Estilo del botón "Regresar" */
 .btn-regresar {
   margin-top: 1rem;
   text-align: center;
@@ -597,7 +631,7 @@ input:checked+.slider:before {
   background-color: #b28f2f;
 }
 
-/* ESTILOS PARA LA FRANJA "AGREGAR AL CARRITO" (STICKY FOOTER BAR) */
+
 .cart-add-box {
   position: sticky;
   bottom: 0;
@@ -644,8 +678,8 @@ input:checked+.slider:before {
   align-items: center;
   width: 100%;
   gap: 1rem;
-  max-height: 250px; /* Adjust this value if needed */
-  overflow-y: auto; /* This ensures scrollbar appears */
+  max-height: 250px;
+  overflow-y: auto;
   padding-bottom: 1rem;
 }
 
@@ -673,7 +707,7 @@ input:checked+.slider:before {
   width: 100%;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   position: relative;
-  flex-wrap: wrap; /* Allows elements to wrap on smaller screens */
+  flex-wrap: wrap;
   justify-content: space-between;
 }
 
@@ -741,7 +775,6 @@ input:checked+.slider:before {
   background-color: #c9302c;
 }
 
-/* Adjusted btn-success for placement in header */
 .btn-success {
   background-color: #4caf50;
   border: none;
@@ -773,7 +806,6 @@ input:checked+.slider:before {
   width: 100%;
 }
 
-/* Media Queries para adaptar la franja en pantallas más grandes */
 @media (min-width: 768px) {
   .cart-add-box {
     padding: 0.8rem 2rem;
@@ -783,7 +815,7 @@ input:checked+.slider:before {
     flex-direction: column;
     align-items: flex-start;
     gap: 1rem;
-    max-height: 180px; /* Reduced max-height for larger screens to make it more compact */
+    max-height: 180px;
   }
 
   .pending-items-wrapper {
@@ -826,7 +858,6 @@ input:checked+.slider:before {
   }
 }
 
-/* Media Query para pantallas pequeñas, para que la franja no sea demasiado alta */
 @media (max-width: 576px) {
   .cart-add-box {
     padding: 0.8rem 1rem;
@@ -873,5 +904,82 @@ input:checked+.slider:before {
     max-width: 250px;
     margin-top: 0.5rem;
   }
+}
+
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000; 
+}
+
+.modal-content {
+  background-color: #1a1a1a;
+  color: white;
+  padding: 2rem;
+  border-radius: 10px;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  position: relative;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.close-modal-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  color: #d4af37;
+  font-size: 1.8rem;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.close-modal-btn:hover {
+  color: #fff;
+}
+
+.modal-title {
+  font-size: 1.8rem;
+  color: #d4af37;
+  margin-bottom: 1rem;
+}
+
+.modal-product-img {
+  max-width: 80%;
+  height: auto;
+  max-height: 250px;
+  object-fit: contain;
+  margin-bottom: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #333;
+}
+
+.modal-description,
+.modal-price,
+.modal-amount {
+  font-size: 1.1rem;
+  margin-bottom: 0.8rem;
+  color: #ccc;
+  width: 100%; 
+  text-align: left; 
+}
+
+.modal-price strong,
+.modal-amount strong,
+.modal-description strong {
+  color: #d4af37; 
 }
 </style>

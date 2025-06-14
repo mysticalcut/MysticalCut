@@ -125,7 +125,7 @@ const logout = () => {
 const goToProfile = () => router.push("/perfil");
 const goBack = () => router.push("/Products"); 
 
-const getImageUrl = (imageName) => `http://localhost:5000/uploads/products/${imageName}`;
+const getImageUrl = (imageName) => `http://localhost:5000/uploads/${imageName}`;
 
 const loadProducts = async () => {
   try {
@@ -411,10 +411,9 @@ function getUserIdFromToken() {
   background-color: #b28f2f;
 }
 
-/* ----------------------------------------------- */
-/* ESTILOS PARA LA FRANJA DE AJUSTAR CANTIDAD (EN LA PARTE INFERIOR - FIJA AL VIEWPORT) */
+
 .cart-adjust-box-bottom { 
-  position: fixed; /* CAMBIO CLAVE: De 'sticky' a 'fixed' */
+  position: fixed; 
   bottom: 0; 
   left: 0; 
   width: 100%; 
@@ -430,7 +429,6 @@ function getUserIdFromToken() {
   overflow-y: auto; 
 }
 
-/* El resto de estilos de .cart-add-box que ya teníamos para la consistencia visual */
 .cart-header-strip {
   display: flex;
   justify-content: space-between;

@@ -76,7 +76,7 @@ const activateProductHandler = async (product) => {
 };
 
 const getImageUrl = (imageName) => {
-  return `http://localhost:5000/uploads/products/${imageName}`;
+  return `http://localhost:5000/uploads/${imageName}`;
 };
 
 const goBack = () => {
@@ -89,7 +89,7 @@ onMounted(loadInactiveProducts);
 <style scoped>
 .activate-btn {
   position: absolute;
-  bottom: 1rem; /* distancia desde el borde inferior */
+  bottom: 1rem; 
   left: 50%;
   transform: translateX(-50%);
   /* estilos del botón */
@@ -148,7 +148,7 @@ onMounted(loadInactiveProducts);
 .info-title {
   font-weight: 700;
   color: #ccaf54;
-  min-height: 1.4rem; /* altura fija para todos los títulos */
+  min-height: 1.4rem; 
   margin-bottom: 0.3rem;
   text-align: center;
 }
