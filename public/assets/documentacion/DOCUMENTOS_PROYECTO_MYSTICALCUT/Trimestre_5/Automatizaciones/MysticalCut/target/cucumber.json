@@ -11,7 +11,7 @@
         "steps": [
           {
             "result": {
-              "duration": 6321242101,
+              "duration": 6282286201,
               "status": "passed"
             },
             "line": 8,
@@ -23,7 +23,7 @@
           },
           {
             "result": {
-              "duration": 2354498100,
+              "duration": 2828988900,
               "status": "passed"
             },
             "line": 9,
@@ -53,7 +53,7 @@
         "before": [
           {
             "result": {
-              "duration": 114235400,
+              "duration": 113177801,
               "status": "passed"
             },
             "match": {
@@ -62,33 +62,33 @@
           }
         ],
         "line": 14,
-        "name": "Visualizar toda la infomacion del usuario que se encuentra registrado en la pagina MysticalCut",
+        "name": "Eliminar un producto que se encuentren agregados en la pagina MysticalCut",
         "description": "",
-        "id": "entrar-al-apartado-de-usuarios-y-visualizar-todos-los-usuarios-registrados;visualizar-toda-la-infomacion-del-usuario-que-se-encuentra-registrado-en-la-pagina-mysticalcut",
+        "id": "entrar-al-apartado-de-usuarios-y-visualizar-todos-los-usuarios-registrados;eliminar-un-producto-que-se-encuentren-agregados-en-la-pagina-mysticalcut",
         "type": "scenario",
         "keyword": "Escenario",
         "steps": [
           {
             "result": {
-              "duration": 2252020100,
+              "duration": 2590488300,
               "status": "passed"
             },
             "line": 16,
-            "name": "complete el inicio de sesion, se dirigira al apartado usuarios y podra ver todos los usuarios y seleccionara al usuarios que quiere ver su informacion",
+            "name": "complete el inicio de sesion, se dirigira al apartado productos y podra ver todos los productos con su boton eliminar",
             "match": {
-              "location": "VerInfoUsuarioStepDefinitions.completeElInicioDeSesionSeDirigiraAlApartadoUsuariosYPodraVerTodosLosUsuariosYSeleccionaraAlUsuariosQueQuiereVerSuInformacion()"
+              "location": "EliminarProductoStepDefinitions.completeElInicioDeSesionSeDirigiraAlApartadoProductosYPodraVerTodosLosProductosConSuBotonEliminar()"
             },
             "keyword": "Cuando "
           },
           {
             "result": {
-              "duration": 507963100,
+              "duration": 4529500,
               "status": "passed"
             },
             "line": 18,
-            "name": "Verificar que salga toda la informacion del usuario que se encuentra registado en MysticalCut",
+            "name": "Verificar que el producto se encuentre inactivo en MysticalCut",
             "match": {
-              "location": "VerInfoUsuarioStepDefinitions.verificarQueSalgaTodaLaInformacionDelUsuarioQueSeEncuentraRegistadoEnMysticalCut()"
+              "location": "EliminarProductoStepDefinitions.verificarQueElProductoSeEncuentreInactivoEnMysticalCut()"
             },
             "keyword": "Entonces "
           }
@@ -104,7 +104,7 @@
     "description": "",
     "id": "entrar-al-apartado-de-usuarios-y-visualizar-todos-los-usuarios-registrados",
     "keyword": "Característica",
-    "uri": "src/test/resources/features/VerInfoUsuario.feature",
+    "uri": "src/test/resources/features/EliminarProducto.feature",
     "tags": []
   }
 ]
