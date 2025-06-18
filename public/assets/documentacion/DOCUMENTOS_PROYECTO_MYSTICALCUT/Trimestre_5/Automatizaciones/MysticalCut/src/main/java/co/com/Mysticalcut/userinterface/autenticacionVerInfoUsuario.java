@@ -17,11 +17,11 @@ public class autenticacionVerInfoUsuario extends PageObject {
 
     // ✅ Corrección aquí: Agregar `Target` antes del nombre
     public static final Target MENSAJE_VER_USUARIO = Target.the("Correo Cliente")
-            .located(By.xpath("//input[@id='email']"));
+            .located(By.xpath("//*[@id=\"app\"]/div[2]/form/div/div[1]/label[3]"));
 
     public static final Target MENSAJE_NOMBRE_INPUT = Target.the("Nombre Cliente")
-            .located(By.xpath("//input[@id='full-name']"));
+            .located(By.xpath("//*[@id=\"app\"]/div[2]/form/div/div[1]/label[2]"));
 
     public static final Target MENSAJE_TELEFONO_INPUT = Target.the("Telefono Cliente")
-            .located(By.xpath("//input[@id='phone']"));
+            .located(By.xpath("//*[@id=\"app\"]/div[2]/form/div/div[1]/label[4]"));
 }

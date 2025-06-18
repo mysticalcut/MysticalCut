@@ -28,9 +28,9 @@ public class ValidacionesVerInfoUsuario implements Question<Boolean>{
             String TelefonoText = Text.of(MENSAJE_TELEFONO_INPUT).viewedBy(actor).asString();
 
 
-            return "leonoscarandres04@gmail.com".equals(emailText)
-            && "Oscar Andres Leon".equals(nameText)
-                    && "3209241730".equals(TelefonoText);
+            return "Correo Electrónico".equals(emailText)
+            && "Nombres y Apellidos".equals(nameText)
+                    && "Teléfono".equals(TelefonoText);
 
         } catch (Exception e) {
             logger.error("Error validación los campos de información del usuario: ", e);
