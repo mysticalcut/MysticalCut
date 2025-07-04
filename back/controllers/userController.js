@@ -4,7 +4,6 @@ const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 const {
     registerUser,
-    loginUser,
     getProfile,
     getUsers,
     getUserById,
@@ -14,24 +13,82 @@ const {
     getInactiveUsers,
     forgotPassword,
     resetPassword,
-    showResetPasswordForm,
     getBarbers,
     getUserByEmail,
     filterUsersByRole,
     deleteAccount,
-    activateUser
+    activateUser,
+    getUserByDocument
 } = require('../models/userModel');
 
 class UserController {
 
     async registerUser(req, res) {
-        try {
-            await registerUser(req.body);
-            res.status(201).json({ message: '✅ Usuario creado correctamente' });
-        } catch (error) {
-            res.status(500).json({ message: 'Error al registrar el usuario', error });
+    try {
+        const {
+            full_name,
+            user_email,
+            user_password,
+            document_number,
+            type_document_id,
+            address,
+            phone,
+            role_fk
+        } = req.body;
+
+        // Validaciones obligatorias
+        if (!type_document_id) return res.status(400).json({ message: 'Por favor selecciona el tipo de documento.' });
+        if (!full_name || full_name.trim() === '') return res.status(400).json({ message: 'El nombre completo es obligatorio.' });
+        if (!user_email || user_email.trim() === '') return res.status(400).json({ message: 'El correo electrónico es obligatorio.' });
+        if (!user_password || user_password.trim() === '') return res.status(400).json({ message: 'La contraseña es obligatoria.' });
+        if (!document_number || document_number.trim() === '') return res.status(400).json({ message: 'El número de documento es obligatorio.' });
+        if (!address || address.trim() === '') return res.status(400).json({ message: 'La dirección es obligatoria.' });
+        if (!phone || phone.trim() === '') return res.status(400).json({ message: 'El teléfono es obligatorio.' });
+        if (!/^\d+$/.test(phone.trim())) return res.status(400).json({ message: 'El teléfono solo debe contener números.' });
+
+
+        // Validar formato de correo
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(user_email)) {
+            return res.status(400).json({ message: 'El correo electrónico no tiene un formato válido.' });
         }
+
+        // Validar que el documento solo tenga números
+        if (!/^\d+$/.test(document_number.trim())) {
+            return res.status(400).json({ message: 'El número de documento solo debe contener números.' });
+        }
+
+        // Validar seguridad de la contraseña
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+        if (!passwordRegex.test(user_password)) {
+            return res.status(400).json({
+                message: 'La contraseña debe tener mínimo 8 caracteres, incluyendo una mayúscula, una minúscula, un número y un símbolo.'
+            });
+        }
+
+        // Validar si ya existe un usuario con esa cédula
+        const existingUser = await getUserByDocument(document_number);
+        if (existingUser) {
+            return res.status(400).json({ message: 'Ya existe un usuario registrado con esta cédula.' });
+        }
+
+        // Validar si ya existe un usuario con ese correo
+        const existingEmail = await getUserByEmail(user_email);
+        if (existingEmail) {
+            return res.status(400).json({ message: 'Ya existe un usuario registrado con este correo.' });
+        }
+
+        // Registrar usuario si todo está correcto
+        await registerUser(req.body);
+        res.status(201).json({ message: '✅ Usuario creado correctamente' });
+
+    } catch (error) {
+        res.status(500).json({ message: 'Error al registrar el usuario', error: error.message });
     }
+}
+
+
+
 
     async loginUser(req, res) {
         const { email, password } = req.body;
