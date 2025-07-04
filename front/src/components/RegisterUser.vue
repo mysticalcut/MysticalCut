@@ -87,7 +87,7 @@ export default {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
 
-  // Validaciones del frontend
+  // Validaciones 
   if (!form.docType) {
     errorMessage.value = 'Por favor selecciona el tipo de documento.';
     return;

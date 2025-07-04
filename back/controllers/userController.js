@@ -32,8 +32,7 @@ class UserController {
             document_number,
             type_document_id,
             address,
-            phone,
-            role_fk
+            phone
         } = req.body;
 
         // Validaciones obligatorias
@@ -86,9 +85,6 @@ class UserController {
         res.status(500).json({ message: 'Error al registrar el usuario', error: error.message });
     }
 }
-
-
-
 
     async loginUser(req, res) {
         const { email, password } = req.body;

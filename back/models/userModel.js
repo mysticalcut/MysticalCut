@@ -240,6 +240,7 @@ exports.deleteAccount = (userId) => {
         });
     });
 };
+
 // 🔹 Verificar si ya existe una cédula registrada
 exports.getUserByDocument = (document_number) => {
     const query = 'SELECT * FROM user WHERE document_number = ?';
