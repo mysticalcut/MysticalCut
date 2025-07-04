@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-06-2025 a las 19:15:54
+-- Tiempo de generación: 04-07-2025 a las 08:06:34
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -22,6 +22,71 @@ SET time_zone = "+00:00";
 --
 CREATE DATABASE IF NOT EXISTS `mysticalcut-db` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `mysticalcut-db`;
+
+DELIMITER $$
+--
+-- Procedimientos
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_role_module` (IN `idRole` INT)   BEGIN
+SELECT ROL.role_name AS `role_fk`,MD.module_name AS `role_module`,MD.module_icon,MD.module_description, MD.module_route FROM role_module AS RM 
+INNER JOIN role AS ROL ON RM.role_fk=ROL.role_id
+INNER JOIN module AS MD ON RM.module_fk=MD.module_id
+WHERE ROL.role_id=idRole;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_user_all` ()   BEGIN
+SELECT `user_email`, `user_id`,`full_name`,`user_password`, UST.userStatus_name AS `userStatus_fk`, ROL.role_name AS `role_fk` FROM `user` AS US  
+INNER JOIN role AS ROL ON US.role_fk=ROL.role_id
+INNER JOIN userstatus AS UST  ON US.userStatus_fk=UST.userStatus_id
+WHERE US.userStatus_fk=1
+;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_user_all_paginated` (IN `offset` INT, IN `limit_rows` INT)   BEGIN
+    SET @query = CONCAT('SELECT * FROM user LIMIT ', offset, ', ', limit_rows);
+    PREPARE stmt FROM @query;
+    EXECUTE stmt;
+    DEALLOCATE PREPARE stmt;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_user_count` ()   BEGIN
+    SELECT COUNT(*) AS total_users 
+    FROM user;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_user_create` (IN `p_user_email` VARCHAR(100), IN `p_user_password` VARCHAR(255), IN `p_full_name` VARCHAR(100), IN `p_userStatus_fk` VARCHAR(20), IN `p_role_fk` INT)   BEGIN
+-- Si no se pasa el estado, se asigna el valor predeterminado 'activo'
+    IF p_userStatus_fk IS NULL THEN
+        SET p_userStatus_fk = 1;
+    END IF;
+    -- Si no se pasa el rol, se asigna el valor predeterminado 1
+    IF p_role_fk IS NULL THEN
+        SET p_role_fk = 3;
+    END IF;
+
+    -- Inserta el nuevo usuario con los valores proporcionados o los predeterminados
+    INSERT INTO user (
+         user_email, user_password, full_name, userStatus_fk, role_fk 
+    ) 
+    VALUES (
+        
+        p_user_email, 
+        p_user_password, 
+        p_full_name, 
+        p_userStatus_fk,    -- Estado (si es NULL, se asigna 'activo')
+        p_role_fk  -- Rol (si es NULL, se asigna 1)
+        
+    );
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_user_search` (IN `dataSearch` VARCHAR(60))   BEGIN
+SELECT `user_id`,`user_email`,`user_password`, UST.userStatus_name AS `userStatus_fk`, ROL.role_name AS `role_fk` FROM `user` AS US  
+INNER JOIN role AS ROL ON US.role_fk=ROL.role_id
+INNER JOIN userstatus AS UST  ON US.userStatus_fk=UST.userStatus_id 
+WHERE ROL.role_name=dataSearch OR UST.userStatus_name=dataSearch OR US.user_email=dataSearch;
+END$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -170,49 +235,6 @@ INSERT INTO `module` (`module_id`, `module_name`, `module_route`, `module_icon`,
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `orders`
---
-
-CREATE TABLE IF NOT EXISTS `orders` (
-  `id_order` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
-  `total_amount` decimal(10,2) NOT NULL,
-  `order_date` timestamp NOT NULL DEFAULT current_timestamp(),
-  `status` enum('pending','completed','cancelled') DEFAULT 'pending',
-  PRIMARY KEY (`id_order`),
-  KEY `user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Truncar tablas antes de insertar `orders`
---
-
-TRUNCATE TABLE `orders`;
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `order_items`
---
-
-CREATE TABLE IF NOT EXISTS `order_items` (
-  `id_order_item` int(11) NOT NULL AUTO_INCREMENT,
-  `id_order` int(11) NOT NULL,
-  `id_product` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL,
-  `unit_price` decimal(10,2) NOT NULL,
-  PRIMARY KEY (`id_order_item`),
-  KEY `id_order` (`id_order`),
-  KEY `id_product` (`id_product`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Truncar tablas antes de insertar `order_items`
---
-
-TRUNCATE TABLE `order_items`;
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `product`
 --
 
@@ -331,7 +353,7 @@ CREATE TABLE IF NOT EXISTS `quotes` (
   KEY `fk_appointment_user` (`user_id`),
   KEY `fk_quotes_services` (`id_services`),
   KEY `fk_barber_user` (`barber_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Truncar tablas antes de insertar `quotes`
@@ -368,8 +390,7 @@ INSERT INTO `quotes` (`id_quotes`, `date_time`, `end_time`, `state_quotes`, `use
 (23, '2025-04-21 03:27:05', '2025-04-30 13:30:00', 'cancelada', 10, 13, 18),
 (24, '2025-04-21 03:27:25', '2025-04-26 14:00:00', 'finalizada', 10, 14, 22),
 (25, '2025-04-21 03:27:42', '2025-04-30 13:45:00', 'cancelada', 10, 15, 27),
-(26, '2025-04-22 13:00:00', '2025-04-22 13:35:00', 'pendiente', 6, 11, 7),
-(27, '2025-07-26 13:00:00', '2025-07-26 13:30:00', 'pendiente', 8, 12, 6);
+(26, '2025-04-22 13:00:00', '2025-04-22 13:35:00', 'pendiente', 6, 11, 7);
 
 -- --------------------------------------------------------
 
@@ -554,39 +575,6 @@ INSERT INTO `service_status` (`id_status`, `name_status`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `shopping_cart`
---
-
-CREATE TABLE IF NOT EXISTS `shopping_cart` (
-  `id_cart` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
-  `id_product` int(11) NOT NULL,
-  `amount` int(11) NOT NULL DEFAULT 1,
-  `date_added` timestamp NOT NULL DEFAULT current_timestamp(),
-  `date_updated` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `status` enum('active','purchased','removed') DEFAULT 'active',
-  PRIMARY KEY (`id_cart`),
-  UNIQUE KEY `unique_user_product` (`user_id`,`id_product`,`status`),
-  KEY `id_product` (`id_product`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Truncar tablas antes de insertar `shopping_cart`
---
-
-TRUNCATE TABLE `shopping_cart`;
---
--- Volcado de datos para la tabla `shopping_cart`
---
-
-INSERT INTO `shopping_cart` (`id_cart`, `user_id`, `id_product`, `amount`, `date_added`, `date_updated`, `status`) VALUES
-(1, 2, 2, 1, '2025-06-10 02:24:56', '2025-06-10 02:32:03', 'removed'),
-(2, 2, 5, 4, '2025-06-10 02:25:03', '2025-06-10 02:32:00', 'removed'),
-(8, 2, 2, 1, '2025-06-10 02:38:58', '2025-06-10 02:50:01', 'active');
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `type_of_quotes`
 --
 
@@ -625,10 +613,11 @@ CREATE TABLE IF NOT EXISTS `user` (
   `profile_image` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_email` (`user_email`),
+  UNIQUE KEY `unique_document` (`document_number`),
   KEY `user_role` (`role_fk`),
   KEY `user_status` (`userStatus_fk`),
   KEY `fk_id_tipo_docuemnto_User` (`type_document_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Truncar tablas antes de insertar `user`
@@ -640,27 +629,28 @@ TRUNCATE TABLE `user`;
 --
 
 INSERT INTO `user` (`user_id`, `user_email`, `user_password`, `full_name`, `document_number`, `userStatus_fk`, `role_fk`, `type_document_id`, `address`, `phone`, `reset_token`, `reset_token_expires`, `profile_image`) VALUES
-(1, 'kevinsabogal24@gmail.com', '$2b$10$4zzz43P8ZzJWGJU5nfLLpum9IJEYWUZQ9.MYeYAR3/TTa0OIIbXWq', 'Kevin David Sabogal', '1000619691', 1, 1, 1, 'Carrera 14 #22-45', '3003113203', NULL, NULL, NULL),
-(2, 'andresecasvar05@gmail.com', '$2b$10$8fjyRjQ7yRyGWWuqUR4Kje/9JQsgCDF4ne6Vaz3mkKHD/wUxLFPI2', 'Andres Esteban Castañeda', '1000621126', 1, 1, 2, 'Carrera 14 #22-46', '3175248114', 'dc28b1c23bc20cd6b7caa4bfe50597b528cfd658f9ad980afc35011ebbf6b8bb', 1744439824665, NULL),
-(3, 'leonoscarandres04@gmail.com', '$2b$10$zAt29/KSBa9msB95jO5lTeU4nv3Tp4fsRg/Lv2wE.WC4OIvZ5Dige', 'Oscar Andres Leon', '1000313313', 1, 1, 3, 'Carrera 14 #22-47', '3209241730', NULL, NULL, NULL),
-(4, 'hharold855@gmail.com', '$2b$10$69ey/9t5R1YwcxtOSS2sa.RjRq.0AaerI3rhCColETWMIx/OmaD5m', 'Harold David Hernandez', '1000919919', 1, 1, 1, 'Carrera 14 #22-48', '3212709274', NULL, NULL, NULL),
-(5, 'administrador5@gmail.com', '$2y$10$OCw6UzozG1/WR9K6RxFp6O9TfuBT5Luiub/tj2.T3rcPHpgJ1gvA2', 'Administrador', '7142565', 1, 1, 1, 'Carrera 14 #22-49', '12345678', NULL, NULL, NULL),
-(6, 'juan.perez@email.com', '$2b$10$fpqCIDQBnDRs2LEExifeIOnO5YGtcrcOkPPlvLmnq7XLusBontzoe', 'Juan Pérez', '12345678', 1, 3, 1, 'Calle Falsa 123, Ciudad', '612345678', NULL, NULL, NULL),
-(7, 'maria.gomez@email.com', '$2b$10$DEopUjIRHwokIoH186keMuunuedwnbSyIg3Le3FGY3akfF0o.uwl.', 'María Gómez', '23456789', 2, 3, 2, 'Avenida Siempre Viva 456, Ciudad', '623056789', NULL, NULL, NULL),
-(8, 'carlos.rodriguez@email.com', '$2b$10$8DxHC7FTDQflFLfYVHjwTO42nsuWtvjYZ35tmyezl93ndonbUtwI.', 'Carlos Rodríguez', '34567890', 1, 3, 3, 'Plaza Mayor 789, Ciudad', '634567890', NULL, NULL, NULL),
-(9, 'ana.martinez@email.com', '$2b$10$vjXnt9Pt29WM8XZ4IhzmsOWrr/yJfA.7Z39iGbbv/8cYmPHFD6JZm', 'Ana Martínez', '45678901', 2, 3, 2, 'Calle de la Luna 101, Ciudad', '645678901', NULL, NULL, NULL),
-(10, 'pedro.sanchez@email.com', '$2b$10$vtCX1phRQtmpXTJcevDa3Oc90bWm47AKyLnWK8DRLR6cLzNjQWBma', 'Pedro Sánchez', '56789012', 1, 3, 2, 'Calle Sol 202, Ciudad', '656789012', NULL, NULL, NULL),
-(11, 'alberto.diaz@email.com', '$2b$10$v0F65sja7gZQ0/uEzsoGuOSeUb5RLIlYZ4N3V5aBGmRvycDHU7Lue', 'Alberto Díaz', '87654321', 1, 2, 1, 'Calle del Río 10, Ciudad', '654321987', NULL, NULL, NULL),
-(12, 'beatriz.lopez@email.com', '$2b$10$riLX0O3c50pkTDXZZWa.AuY2X5mcECxpJJjitLxV.DrYM2R2RxtRO', 'Beatriz López', '98765432', 1, 2, 1, 'Avenida de la Paz 22, Ciudad', '665432198', NULL, NULL, NULL),
-(13, 'carlos.torres@email.com', '$2b$10$folkY30roUS8R6tQgmS.2.SSb7kV9eVwsb86OXDL49HcGdrsHNMDi', 'Carlos Torres', '19876543', 1, 2, 1, 'Calle del Mar 33, Ciudad', '676543209', NULL, NULL, NULL),
-(14, 'diana.perez@email.com', '$2b$10$Eu/Zq2VKe1iOgnw.FtcO0.trx5d1LvYJ3fbgG2wheu6S/yDSSPmse', 'Diana Pérez', '20987654', 1, 2, 1, 'Calle del Sol 44, Ciudad', '687654320', NULL, NULL, NULL),
-(15, 'enrique.garcia@email.com', '$2b$10$pYIMIrPuoJQUE9P3AKQGPuuwdYcfYHusgxMRv/2pTgWUS0.IdnVyW', 'Enrique García', '32098765', 1, 2, 1, 'Plaza del Mercado 55, Ciudad', '698765431', NULL, NULL, NULL),
+(1, 'kevinsabogal24@gmail.com', '$2b$10$KrXsJ0DbEIjUreWNU/zP5.4CGVPLs/9ONHNBL8vYxrg/T3lIvsWPG', 'Kevin David Sabogal', '1000619691', 1, 1, 1, 'Carrera 14 #22-45', '3003113203', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzQ4NjU', 1748659336571, NULL),
+(2, 'andresecasvar05@gmail.com', '$2b$10$G4LI.65vWDQtQt/xHCqjoeRGr6.DA.BzN9gBwnWZLlre8jrdlmZaG', 'Andres Esteban Castañeda', '1000621126', 1, 1, 2, 'Carrera 14 #22-46', '3175248114', 'dc28b1c23bc20cd6b7caa4bfe50597b528cfd658f9ad980afc35011ebbf6b8bb', 1744439824665, NULL),
+(3, 'leonoscarandres04@gmail.com', '$2b$10$dFflL6U2p5bvKgUy7IzaFemCXq4qncY/l4HUOhLMQ48dDiG2Xd556', 'Oscar Andres Leon', '1000313313', 1, 1, 3, 'Carrera 14 #22-47', '3209241730', NULL, NULL, NULL),
+(4, 'hharold855@gmail.com', '$2b$10$fRboAzBQ0DA/lSPpBvb9F.U3AuESKjE9GVfk5a4CfdjIR1mw4vJnm', 'Harold David Hernandez', '1000919919', 1, 1, 1, 'Carrera 14 #22-48', '3212709274', NULL, NULL, NULL),
+(5, 'administrador5@gmail.com', '$2b$10$KfluppChqXKJ/LywSYglc.xM.B5ZlhWRvQF1T2OrofFMJoqUqCnaC', 'Administrador', '7142565', 1, 1, 1, 'Carrera 14 #22-49', '12345678', NULL, NULL, NULL),
+(6, 'juan.perez@email.com', '$2b$10$eukDCrAnH5VEzSrtiPd09utHjQxtDjwcyg.0Tp9c0WcApU6PcKSAu', 'Juan Pérez', '12345678', 1, 3, 1, 'Calle Falsa 123, Ciudad', '612345678', NULL, NULL, NULL),
+(7, 'maria.gomez@email.com', '$2b$10$yr26ZIDnfAZrmKEGRPF7jOjiZCQVuFaKtAJ2UfA5gshQMyYSpwHpq', 'María Gómez', '23456789', 2, 3, 2, 'Avenida Siempre Viva 456, Ciudad', '623056789', NULL, NULL, NULL),
+(8, 'carlos.rodriguez@email.com', '$2b$10$.WyXUBn0TcdPV.Gipg.zGuYOJXzmWhUtcEVBDIwUDc3UPU5uZMD1G', 'Carlos Rodríguez', '34567890', 1, 3, 3, 'Plaza Mayor 789, Ciudad', '634567890', NULL, NULL, NULL),
+(9, 'ana.martinez@email.com', '$2b$10$o.MzU40UWg0bciyb/KiZ8uJdf9A3uUkQOib8rezB1JrkNW4eHjXDq', 'Ana Martínez', '45678901', 2, 3, 2, 'Calle de la Luna 101, Ciudad', '645678901', NULL, NULL, NULL),
+(10, 'pedro.sanchez@email.com', '$2b$10$rKj6PdoyMn2NWXuiHu89OeKTiFvu0Gtu5Awt57WRpKKgw1LovzcRa', 'Pedro Sánchez', '56789012', 1, 3, 2, 'Calle Sol 202, Ciudad', '656789012', NULL, NULL, NULL),
+(11, 'alberto.diaz@email.com', '$2b$10$lLTvn2EkHYfaSUEes4bmFOOxLaUyFqje9yUegIfLJ2d9d5/vQxjjK', 'Alberto Díaz', '87654321', 1, 2, 1, 'Calle del Río 10, Ciudad', '654321987', NULL, NULL, NULL),
+(12, 'beatriz.lopez@email.com', '$2b$10$oMkSObP9WG.iNOHMGGItIeFoSsqlBj2oNEbHPBf0UB5uMRUTuERXm', 'Beatriz López', '98765432', 1, 2, 1, 'Avenida de la Paz 22, Ciudad', '665432198', NULL, NULL, NULL),
+(13, 'carlos.torres@email.com', '$2b$10$ZGRDW/HHXY1LnP0yW2Z6KODhGgZex8RNvKx0itTHGcPGThgxZjeMq', 'Carlos Torres', '19876543', 1, 2, 1, 'Calle del Mar 33, Ciudad', '676543209', NULL, NULL, NULL),
+(14, 'diana.perez@email.com', '$2b$10$t4UdON04AcTKY4sCqpi53usYtl2HDxF2ZxIi5Ia2E6NIuLHb3sDeO', 'Diana Pérez', '20987654', 1, 2, 1, 'Calle del Sol 44, Ciudad', '687654320', NULL, NULL, NULL),
+(15, 'enrique.garcia@email.com', '$2b$10$VTQ5TnBD6NICQYpbv.Z4feZdWx5yIm1R.0wwY4ZJ6zqZ7pOt8avIS', 'Enrique García', '32098765', 1, 2, 1, 'Plaza del Mercado 55, Ciudad', '698765431', NULL, NULL, NULL),
 (16, 'laura.ramirez@email.com', '$2b$10$ijDdJ9OHJDcVKR59GB1zvuyaOpuUducPKMyF7HyTdQ6z0oV2/43NO', 'Laura Ramírez', '67890123', 3, 2, 1, 'Calle del Bosque 77, Ciudad', '667890123', NULL, NULL, NULL),
 (17, 'jorge.herrera@email.com', '$2b$10$o4RCNURGkNWXiuBnJpy2n.f01WJEV7I.daoJb9SPoVgNzHQZP0dwC', ' Jorge Herrera', '78901234', 3, 1, 2, 'Avenida Central 88, Ciudad', '678901234', NULL, NULL, NULL),
 (18, 'valentina.castro@email.com', '$2b$10$Gdit8uwRC04sI6TGoUUsBeyHs5w360aCpfG0CGUkNEzuuSKat9IFK', 'Valentina Castro', '89012345', 3, 3, 3, 'Calle del Lago 99, Ciudad', '689012345', NULL, NULL, NULL),
 (19, 'andres.molina@email.com', '$2b$10$usQTEFETGKcMXBskewLRiOf2PJ2R4zG9DHWAyHNSp0b1p3oygzJAW', 'Andrés Molina', '90123456', 3, 3, 1, 'Calle Primavera 100, Ciudad', '690123456', NULL, NULL, NULL),
 (20, 'camila.navarro@email.com', '$2b$10$4o9ylGQZpIp.piAWI8N/h.Sbql32aIYU9uUzQbGwuenY4NsZAvzse', 'Camila Navarro', '11223344', 3, 3, 2, 'Calle del Olivo 111, Ciudad', '611223344', NULL, NULL, NULL),
-(21, 'prueba1@gmail.com', '$2b$10$jFd..Dek0NW0oMYCiCjdq.hu4Je1U/Nm/Fgcoqblk1cu9woQ94NJu', 'Prueba Prueba', '1000222333', 4, 3, 2, 'Calle 50 #34-45', '3201122323', NULL, NULL, NULL);
+(21, 'prueba1@gmail.com', '$2b$10$Zh4yfNiGtm3j2/UTmm5hPub4lH5oGozNuOnvF1GUPSALWNv6tk4/O', 'Prueba Prueba', '1000222333', 4, 3, 2, 'Calle 50 #34-45', '3201122323', NULL, NULL, NULL),
+(22, 'Bot-services@gmail.com', '$2b$10$JfXLLLE/tbvjjLiElJnyHOswupMPtiuLVVPDZEAnuLIq8hy0jtdcm', 'Bot Automati', '1655852236', 1, 3, 1, 'Carrera 11 J b #98 - 70', '3003113255', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -699,19 +689,6 @@ INSERT INTO `userstatus` (`userStatus_id`, `userStatus_name`) VALUES
 --
 ALTER TABLE `facture`
   ADD CONSTRAINT `fk_factura_usuario` FOREIGN KEY (`user_fk`) REFERENCES `user` (`user_id`);
-
---
--- Filtros para la tabla `orders`
---
-ALTER TABLE `orders`
-  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`);
-
---
--- Filtros para la tabla `order_items`
---
-ALTER TABLE `order_items`
-  ADD CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`id_order`) REFERENCES `orders` (`id_order`) ON DELETE CASCADE,
-  ADD CONSTRAINT `order_items_ibfk_2` FOREIGN KEY (`id_product`) REFERENCES `product` (`id_product`);
 
 --
 -- Filtros para la tabla `product`
@@ -755,13 +732,6 @@ ALTER TABLE `services`
 ALTER TABLE `service_invoice_detail`
   ADD CONSTRAINT `fk_detail_invoice_service_service` FOREIGN KEY (`id_services`) REFERENCES `services` (`id_services`),
   ADD CONSTRAINT `fk_service_invoice_detail` FOREIGN KEY (`id_facture`) REFERENCES `facture` (`id_facture`);
-
---
--- Filtros para la tabla `shopping_cart`
---
-ALTER TABLE `shopping_cart`
-  ADD CONSTRAINT `shopping_cart_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `shopping_cart_ibfk_2` FOREIGN KEY (`id_product`) REFERENCES `product` (`id_product`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `type_of_quotes`
