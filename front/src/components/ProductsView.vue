@@ -41,11 +41,7 @@
         </router-link>
       </div>
 
-      <div class="d-flex justify-content-center my-3" v-if="userRole === 'Client'">
-        <router-link to="/Cart" class="btn btn-vercarrito">
-          Ver carrito
-        </router-link>
-      </div>
+      
 
       <div class="product-grid">
         <div class="product-card" v-for="product in products" :key="product.id_product">
@@ -68,9 +64,6 @@
             <button class="btn-buy" @click="() => viewProductDetails(product)">Ver</button>
             <button class="btn-edit" @click="() => editProduct(product.id_product)" v-if="userRole === 'Admin'">Editar</button>
             <button class="btn-delete" @click="() => confirmInactivate(product.id_product)" v-if="userRole === 'Admin'">Eliminar</button>
-            
-            <button class="btn-cart" @click="() => addToCart(product)" v-if="userRole === 'Client'">Agregar al carrito</button>
-            <button class="btn-buy" @click="() => buyNow(product)" v-if="userRole === 'Client'">Comprar</button>
           </div>
         </div>
       </div>
@@ -238,29 +231,6 @@ const isConfirmButtonEnabled = computed(() => {
   return pendingCartItems.value.every(item => item.quantity > 0 && item.quantity <= item.amount);
 });
 
-const addToCart = (product) => {
-  const existingPendingItem = pendingCartItems.value.find(item => item.id_product === product.id_product);
-
-  if (existingPendingItem) {
-    if (existingPendingItem.quantity < product.amount) {
-      existingPendingItem.quantity++;
-    } else {
-      alert(`No puedes agregar más de "${product.name}". Ya alcanzaste el stock disponible.`);
-    }
-  } else {
-    pendingCartItems.value.push({
-      id_product: product.id_product,
-      name: product.name,
-      image: product.image,
-      description: product.description,
-      price: product.price,
-      amount: product.amount,
-      quantity: 1,
-    });
-  }
-  showSidebar.value = true;
-};
-
 const removePendingItem = (index) => {
   pendingCartItems.value.splice(index, 1);
   if (pendingCartItems.value.length === 0) {
@@ -332,9 +302,6 @@ const confirmAddToCart = async () => {
   }
 };
 
-const buyNow = (product) => {
-  alert(`Has iniciado el proceso de compra para "${product.name}".`);
-};
 
 // Modal functionality
 const showProductModal = ref(false);
@@ -453,7 +420,7 @@ function getUserIdFromToken() {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 560px;
+  min-height: 10px;
   position: relative;
 }
 
