@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    <!-- Encabezado -->
     <header class="d-flex flex-wrap align-items-center justify-content-between py-3 mb-4 border-bottom">
       <div class="col-md-3 mb-2 mb-md-0">
         <router-link to="/Home">
@@ -57,7 +56,7 @@
       <div class="right-column">
         <div class="service-summary">
           <h3>MysticalCut</h3>
-           <h4>Resumen de Datos</h4>
+            <h4>Resumen de Datos</h4>
           <p v-if="selectedDate">Fecha: {{ selectedDate }}</p>
           <p v-if="selectedTime">Hora: {{ selectedTime }}</p>
           <section class="barber-info">
@@ -65,13 +64,13 @@
             <p><strong>Nombre:</strong> {{ barberName }}</p>
           </section>          
         </div>
-       
+        
         <div v-if="userId && barberId" class="summary-box">
           <div v-if="userName && userEmail && userId">
           </div>
           <div v-else class="text-muted">No se encontró información del usuario.</div>
           <hr />
-         <div v-for="service in selectedServices" :key="service.id">
+          <div v-for="service in selectedServices" :key="service.id">
             <p>{{ service.name }}</p>
             <p>Precio: ${{ service.price }}</p>
             <p>Duración: {{ service.duration }}</p>
@@ -246,8 +245,9 @@ export default {
         alert(`Error al crear cita: ${error.response?.data?.message || error.message}`);
       }
     },
+    // MODIFICACIÓN: Ahora usa this.$router.go(-1) para ir a la vista anterior
     regresar() {
-      this.$router.push({ path: '/Select-Service' });
+      this.$router.go(-1); 
     }
   },
   mounted() {
@@ -287,17 +287,6 @@ export default {
   }
 };
 </script>
-
-
-
-
-
-
-
-
-
-
-
 
 <style scoped>
 @font-face {
