@@ -27,6 +27,8 @@ import SeleccionarBarbero from '@/components/SeleccionarBarbero.vue';
 import CalendarioCitas from '@/components/CalendarioCitas.vue';
 import FacturaServicios from '@/components/FacturaServicios.vue';
 import CitasPendientes from '@/components/CitasPendientes.vue';
+import Reportes from '@/components/Reportes.vue';
+
 
 import Products from '../components/ProductsView.vue';
 import ProductsInactives from '../components/ProductsInactives.vue';
@@ -69,6 +71,7 @@ const routes = [
   { path: '/Calendario', component: CalendarioCitas , meta: { title: 'Calendario | MysticalCut' } },
   { path: '/FacturaServicios', component: FacturaServicios , meta: { title: 'factura | MysticalCut' } },
   { path: '/Citas', component: CitasPendientes , meta: { title: 'Citas | MysticalCut', requiresAuth: true } },
+  { path: '/Reportes', component: Reportes , meta: { title: 'Reportes | MysticalCut', requiresAuth: true, role: 'Admin'  } },
 
   { path: '/Products', component: Products, meta: { title: 'Productos | MysticalCut', requiresAuth: true} },
   { path: '/ProductsInactives', component: ProductsInactives, meta: { title: 'Productos inactivos | MysticalCut', requiresAuth: true} },
