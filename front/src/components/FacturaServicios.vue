@@ -167,6 +167,10 @@ export default {
   font-style: normal;
 }
 
+body {
+  margin: 0;
+}
+
 .factura-container {
   background-color: #000;
   color: #fff;
@@ -175,6 +179,9 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center; /* Centrar verticalmente el contenido */
+  padding: 20px; /* Añadir padding general para evitar que el contenido toque los bordes */
+  box-sizing: border-box; /* Incluir padding en el ancho y alto total */
 }
 
 .factura-content {
@@ -182,7 +189,6 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 30px;
   width: 100%;
 }
 
@@ -192,8 +198,9 @@ export default {
   border-radius: 20px;
   border: 1px solid #555;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
-  width: 95%;
+  width: 95%; /* Asegura que no sea más grande que el 95% del contenedor */
   max-width: 650px;
+  box-sizing: border-box; /* Incluir padding en el ancho y alto total */
 }
 
 .mini-title {
@@ -220,6 +227,10 @@ export default {
   border-radius: 16px;
   border: 1px solid #ccc;
   min-height: 600px;
+  display: flex; /* Usar flexbox para organizar los elementos */
+  flex-direction: column; /* Apilarlos verticalmente */
+  justify-content: space-between; /* Distribuir el espacio entre los elementos */
+  box-sizing: border-box; /* Incluir padding en el ancho y alto total */
 }
 
 .orden-title {
@@ -232,30 +243,37 @@ export default {
 .fila-dato {
   display: flex;
   justify-content: space-between;
-  margin: 20px 0;
+  align-items: baseline; /* Alinea el texto en la línea base */
+  margin: 15px 0; /* Ajusta el margen vertical */
   font-size: 20px;
-  line-height: 1.8;
+  line-height: 1.5; /* Reduce el interlineado */
+  flex-wrap: wrap; /* Permite que los elementos se envuelvan en pantallas pequeñas */
 }
 
 .etiqueta {
   color: #bbb;
   font-weight: 600;
+  flex-shrink: 0; /* Evita que la etiqueta se encoja */
+  margin-right: 10px; /* Espacio entre etiqueta y valor */
 }
 
 .valor {
   color: #fff;
   font-weight: normal;
+  text-align: right; /* Alinea el valor a la derecha */
+  flex-grow: 1; /* Permite que el valor ocupe el espacio restante */
 }
 
 .total {
-  margin-top: 50px;
+  margin-top: auto; /* Empuja el total hacia abajo si el contenido es menor */
+  margin-bottom: 20px; /* Espacio antes del botón */
   font-size: 22px;
   font-weight: bold;
   color: #D4AF37;
 }
 
 .volver-btn {
-  margin-top: 40px;
+  margin-top: 20px; /* Ajusta el margen superior */
   background-color: #D4AF37;
   color: #000;
   border: none;
@@ -264,22 +282,124 @@ export default {
   border-radius: 8px;
   font-weight: bold;
   width: 100%;
+  font-size: 18px; /* Ajusta el tamaño de fuente del botón */
 }
 
-.correo-btn {
-  margin-top: 30px;
-  background-color: #444;
-  color: #fff;
-  border: none;
-  padding: 12px 22px;
-  cursor: pointer;
-  border-radius: 8px;
-  font-weight: bold;
-  width: 100%;
-  transition: background-color 0.2s;
+/* Media Queries para responsividad */
+
+/* Pantallas muy pequeñas (móviles en orientación retrato, hasta 575.98px) */
+@media (max-width: 575.98px) {
+  .factura-container {
+    padding: 10px;
+  }
+
+  .factura-wrapper {
+    padding: 25px; /* Reduce el padding del contenedor principal */
+    width: 100%; /* Ocupa todo el ancho disponible */
+  }
+
+  .mini-title {
+    font-size: 14px;
+  }
+
+  .resumen-title {
+    font-size: 28px;
+    margin-bottom: 25px;
+  }
+
+  .factura-box {
+    padding: 25px; /* Reduce el padding del recuadro de la orden */
+    min-height: auto; /* Permite que la altura se ajuste al contenido */
+  }
+
+  .orden-title {
+    font-size: 22px;
+    margin-bottom: 25px;
+  }
+
+  .fila-dato {
+    font-size: 16px; /* Reduce el tamaño de fuente de los datos */
+    margin: 10px 0; /* Reduce el margen vertical */
+    flex-direction: column; /* Apila etiqueta y valor en una nueva línea */
+    align-items: flex-start; /* Alinea el texto a la izquierda */
+  }
+
+  .etiqueta {
+    margin-bottom: 2px; /* Espacio entre etiqueta y valor apilados */
+  }
+
+  .valor {
+    text-align: left; /* Alinea el valor a la izquierda cuando se apila */
+  }
+
+  .total {
+    font-size: 18px;
+    margin-top: 30px;
+    margin-bottom: 15px;
+  }
+
+  .volver-btn {
+    padding: 12px 20px;
+    font-size: 16px;
+  }
 }
 
-.correo-btn:hover {
-  background-color: #666;
+/* Pantallas pequeñas (móviles en orientación horizontal, tablets pequeñas, 576px - 767.98px) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .factura-wrapper {
+    padding: 35px;
+  }
+
+  .resumen-title {
+    font-size: 32px;
+  }
+
+  .factura-box {
+    padding: 30px;
+  }
+
+  .orden-title {
+    font-size: 24px;
+  }
+
+  .fila-dato {
+    font-size: 18px;
+  }
+
+  .total {
+    font-size: 20px;
+  }
+
+  .volver-btn {
+    padding: 14px 22px;
+    font-size: 17px;
+  }
+}
+
+/* Pantallas medianas (tablets y laptops pequeñas, 768px - 991.98px) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .factura-wrapper {
+    padding: 40px;
+  }
+
+  .resumen-title {
+    font-size: 34px;
+  }
+
+  .factura-box {
+    padding: 35px;
+  }
+
+  .orden-title {
+    font-size: 25px;
+  }
+
+  .fila-dato {
+    font-size: 19px;
+  }
+
+  .total {
+    font-size: 21px;
+  }
 }
 </style>
