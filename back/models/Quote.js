@@ -194,6 +194,38 @@ class Quote {
 
     await transporter.sendMail(mailOptions);
   }
+
+// 🔹 Nuevo método: Obtener citas con detalles filtradas por rango de fechas
+  static async getQuotesForReports(startDate, endDate) {
+    const query = `
+      SELECT
+        q.id_quotes,
+        q.date_time,
+        q.end_time,
+        q.state_quotes,
+        s.name_service,
+        s.price,
+        s.estimated_time,
+        barberos.full_name AS barber_name,
+        clientes.full_name AS client_name
+      FROM quotes q
+      JOIN services s ON q.id_services = s.id_services
+      LEFT JOIN user barberos ON q.barber_id = barberos.user_id
+      LEFT JOIN user clientes ON q.user_id = clientes.user_id
+      WHERE q.date_time BETWEEN ? AND ?
+      ORDER BY q.date_time ASC;
+    `;
+
+    const results = await new Promise((resolve, reject) => {
+      db.query(query, [startDate, endDate], (err, results) => {
+        if (err) reject(err);
+        resolve(results);
+      });
+    });
+    return results;
+  }
+
+
 }
 
 module.exports = Quote;
