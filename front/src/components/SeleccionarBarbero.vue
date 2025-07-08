@@ -1,48 +1,38 @@
 <template>
   <div class="container">
-    <!-- Encabezado con el logo y el título -->
     <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
       <div class="col-md-3 mb-2 mb-md-0">
-        <!-- Logo que redirige al home -->
         <router-link to="/Home">
           <img src="/img/background/LOGO.png" alt="Logo" width="125" height="125" class="d-inline-block align-text-top" />
         </router-link>
       </div>
-      <!-- Título centrado -->
-      <ul class="nav col-12 justify-content-center mx-auto">
+      <ul class="nav col-12 justify-content-center mx-auto text-center mt-3 mt-md-0">
         <h1>Elegir Barbero</h1>
       </ul>
     </header>
 
-    <!-- Contenido principal -->
     <div class="row">
-      <!-- Columna principal que muestra la lista de barberos -->
-      <div class="col-md-8">
+      <div class="col-md-8 col-12 order-2 order-md-1">
         <h2>Barbero</h2>
         <div class="row">
-          <!-- Itera sobre la lista de barberos y muestra una tarjeta por cada uno -->
-          <div class="col-md-4 mb-3" v-for="barber in barbers" :key="barber.id">
+          <div class="col-6 col-sm-4 col-md-4 mb-3" v-for="barber in barbers" :key="barber.id">
             <div class="barber-card" :class="{ selected: selectedBarber && selectedBarber.id === barber.id }" @click="selectBarber(barber)">
-              <!-- Imagen del barbero -->
               <img
-                :src="getImageUrl(barber.image)"           
-                :alt="barber.full_name"                    
+                :src="getImageUrl(barber.image)"
+                :alt="barber.full_name"
                 class="barber-img"
-                @error="onImageError($event)"               
+                @error="onImageError($event)"
               />
-              <h4>{{ barber.full_name }}</h4>               
-              <!-- Botón para seleccionar barbero -->
+              <h4>{{ barber.full_name }}</h4>
               <button class="select-barber" title="Seleccionar barbero">+</button>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Columna lateral de resumen de selección -->
-      <div class="col-md-4">
-        <div class="custom-card p-4 bg-dark text-white rounded">
+      <div class="col-md-4 col-12 order-1 order-md-2 mb-4 mb-md-0">
+        <div class="custom-card p-4 bg-dark text-white rounded summary-fixed-bottom">
           <h3>Resumen de selección</h3>
-          <!-- Información del barbero seleccionado -->
           <div v-if="selectedBarber">
             <p><strong>Barbero Seleccionado:</strong></p>
             <p>{{ selectedBarber.full_name }}</p>
@@ -51,7 +41,6 @@
 
           <hr />
 
-          <!-- Información de los servicios seleccionados -->
           <div v-if="selectedServices.length">
             <p><strong>Servicios Seleccionados:</strong></p>
             <div
@@ -66,13 +55,9 @@
           </div>
           <div v-else class="text-muted">No hay servicios seleccionados.</div>
 
-          <!-- Botones de acción -->
           <div class="mt-3 d-grid gap-2">
-            <!-- Botón para eliminar selección actual -->
             <button class="btn btn-danger" @click="clearSelection">Eliminar selección</button>
-            <!-- Botón para continuar al calendario, deshabilitado si no hay barbero -->
             <button class="btn btn-success" @click="goToCalendar" :disabled="!selectedBarber">Continuar</button>
-            <!-- Botón para regresar a la vista anterior -->
             <button class="btn btn-secondary mt-2" @click="goBack">Regresar</button>
           </div>
         </div>
@@ -80,7 +65,6 @@
     </div>
   </div>
 </template>
-
 
 <script>
 import { getBarbers } from '@/services/api'; // Importa la función que obtiene la lista de barberos desde la API
@@ -91,19 +75,19 @@ export default {
   data() {
     // Datos reactivos del componente
     return {
-      barbers: [],            // Lista de barberos obtenida de la API
+      barbers: [],          // Lista de barberos obtenida de la API
       selectedBarber: null,   // Barbero actualmente seleccionado
       selectedServices: [],   // Servicios seleccionados previamente
-      userName: '',           // Nombre del usuario (obtenido del localStorage)
-      userEmail: '',          // Email del usuario
-      userId: ''              // ID del usuario
+      userName: '',         // Nombre del usuario (obtenido del localStorage)
+      userEmail: '',        // Email del usuario
+      userId: ''            // ID del usuario
     };
   },
 
   mounted() {
     // Se ejecuta cuando el componente es montado en el DOM
-    this.fetchBarbers();     // Llama a la función para obtener barberos desde la API
-    this.loadLocalData();    // Carga los datos del usuario y servicios desde localStorage
+    this.fetchBarbers();      // Llama a la función para obtener barberos desde la API
+    this.loadLocalData();     // Carga los datos del usuario y servicios desde localStorage
   },
 
   methods: {
@@ -113,7 +97,7 @@ export default {
         this.barbers = await getBarbers(); // Asigna la respuesta a la lista local
       } catch (error) {
         console.error('❌ Error al obtener barberos:', error); // Muestra error en consola
-        alert('No se pudieron cargar los barberos.');           // Alerta para el usuario
+        alert('No se pudieron cargar los barberos.');          // Alerta para el usuario
       }
     },
 
@@ -147,46 +131,43 @@ export default {
       this.userId = storedId || '';
     },
 
-    // Limpia la selección de servicios y barbero
+    // Limpia SOLO la selección del barbero
     clearSelection() {
-      localStorage.removeItem('selectedService'); // Elimina servicios del localStorage
-      this.selectedServices = [];                 // Limpia servicios en memoria
-      this.selectedBarber = null;                 // Deselecciona barbero
+      this.selectedBarber = null; // Deselecciona el barbero
     },
 
     // Navega a la vista del calendario si hay un barbero seleccionado
-   goToCalendar() {
-  if (!this.selectedBarber) {
-    return alert('Por favor selecciona un barbero antes de continuar.');
-  }
+    goToCalendar() {
+      if (!this.selectedBarber) {
+        return alert('Por favor selecciona un barbero antes de continuar.');
+      }
 
-  // Guarda los datos del barbero
-  localStorage.setItem('barberId', this.selectedBarber.user_id);
-  localStorage.setItem('barberName', this.selectedBarber.full_name);
+      // Guarda los datos del barbero
+      localStorage.setItem('barberId', this.selectedBarber.user_id);
+      localStorage.setItem('barberName', this.selectedBarber.full_name);
 
-  // Guarda los datos del usuario autenticado
-  localStorage.setItem('userName', this.userName);
-  localStorage.setItem('userEmail', this.userEmail);
-  localStorage.setItem('userId', this.userId);
+      // Guarda los datos del usuario autenticado
+      localStorage.setItem('userName', this.userName);
+      localStorage.setItem('userEmail', this.userEmail);
+      localStorage.setItem('userId', this.userId);
 
-  // Guarda los servicios seleccionados con el formato solicitado
-  const simplifiedServices = this.selectedServices.map(service => ({
-    id: service.id_services,
-    name: service.name_service,
-    description: service.description,
-    price: service.price,
-    duration: service.estimated_time
-  }));
-  localStorage.setItem('selectedServices', JSON.stringify(simplifiedServices));
+      // Guarda los servicios seleccionados con el formato solicitado
+      const simplifiedServices = this.selectedServices.map(service => ({
+        id: service.id_services,
+        name: service.name_service,
+        description: service.description,
+        price: service.price,
+        duration: service.estimated_time
+      }));
+      localStorage.setItem('selectedServices', JSON.stringify(simplifiedServices));
 
-  // Navega al calendario
-  this.$router.push('/Calendario');
-},
+      // Navega al calendario
+      this.$router.push('/Calendario');
+    },
 
-
-    // Regresa a la vista de selección de servicios
+    // Regresa a la vista anterior en el historial de navegación
     goBack() {
-      this.$router.push('/Servicios');
+      this.$router.go(-1); // Esto te devuelve a la vista anterior en el historial
     },
 
     // Da formato a la duración en minutos (por ejemplo: 1 hora 30 minutos)
@@ -208,7 +189,6 @@ export default {
   }
 };
 </script>
-
 
 <style scoped>
 @font-face {
@@ -249,7 +229,7 @@ body {
   border-radius: 5px;
   margin: 10px 0;
   transition: 0.3s ease-in-out;
-  height: 320px;
+  height: 320px; /* Altura fija para uniformidad, se puede ajustar con media queries si es necesario */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -326,12 +306,104 @@ body {
   color: black;
 }
 
-.btn-primary {
-  background-color: #333;
+.btn-secondary { /* Estilo para el botón regresar */
+  background-color: #555;
   border: none;
+  color: white;
 }
 
-.btn-primary:hover {
-  background-color: #444;
+.btn-secondary:hover {
+  background-color: #666;
+}
+
+/* Media queries para responsividad */
+@media (max-width: 767.98px) {
+  /* Organización de 3 en 3 y recuadros más pequeños para barberos */
+  .col-6.col-sm-4.col-md-4 { /* Apunta específicamente a la columna de los barberos */
+    flex: 0 0 auto;
+    width: 33.333333%; /* Tres columnas por fila */
+    padding-right: 5px; /* Ajusta el padding para que quepan bien */
+    padding-left: 5px;  /* Ajusta el padding para que quepan bien */
+  }
+
+  .barber-card {
+    height: 200px; /* Reducido para hacer las tarjetas más pequeñas */
+    padding: 8px; /* Ajusta el padding interno */
+    margin: 5px 0; /* Reduce el margen entre tarjetas */
+  }
+
+  .barber-card img.barber-img {
+    width: 70px; /* Imágenes más pequeñas */
+    height: 70px;
+  }
+
+  .barber-card h4 {
+    font-size: 0.8rem; /* Texto del nombre más pequeño */
+    margin-top: 5px;
+  }
+
+  .barber-card .select-barber {
+    width: 30px; /* Botón más pequeño */
+    height: 30px;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+
+  /*
+    Reglas para el recuadro de resumen fijo en la parte inferior
+  */
+  .custom-card.summary-fixed-bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 1030;
+    border-radius: 0;
+    padding: 10px 15px;
+    margin-bottom: 0;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  /*
+    ***AJUSTE CLAVE: Incremento del padding-bottom para más scroll***
+  */
+  body {
+    padding-bottom: 300px; /* Aumentado para más espacio de scroll */
+  }
+
+  .container {
+    padding-bottom: 300px; /* Asegúrate de que el contenedor principal también lo tenga */
+  }
+
+  /* Ajustes específicos para el contenido dentro del resumen en móviles para que quepa */
+  .custom-card h3 {
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+  }
+
+  .custom-card p {
+    font-size: 0.75rem;
+    margin-bottom: 2px;
+  }
+
+  .custom-card hr {
+    margin: 5px 0;
+  }
+
+  .custom-card .btn {
+    padding: 5px 10px;
+    font-size: 0.7rem;
+  }
+
+  .custom-card .d-grid.gap-2 {
+    gap: 5px !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .custom-card {
+    padding: 30px; /* Ajusta el padding para tablets */
+  }
 }
 </style>
