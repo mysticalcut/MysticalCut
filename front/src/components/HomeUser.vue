@@ -238,6 +238,8 @@ const allModules = [
   { module_route: 'Services', role_module: 'Servicios', roles: ['Admin', 'Client'] },
   { module_route: 'Products', role_module: 'Productos', roles: ['Admin', 'Client'] },
   { module_route: 'Citas', role_module: 'Citas', roles: ['Employee', 'Client'] },
+  { module_route: 'Reportes', role_module: 'Reportes', roles: ['Admin'] },
+
 ];
 
 // Filtrar los módulos según el rol del usuario
