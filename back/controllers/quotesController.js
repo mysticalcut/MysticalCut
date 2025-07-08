@@ -132,3 +132,23 @@ exports.getQuotesByBarberAndDate = async (req, res) => {
     res.status(500).json({ message: 'Error al obtener citas del día' });
   }
 };
+
+// 🔹 Método modificado: Obtener citas para reportes por rango de fechas
+exports.getReportQuotes = async (req, res) => {
+  const { startDate, endDate } = req.query; // Recibimos las fechas como parámetros de consulta
+  
+
+  if (!startDate || !endDate) {
+    return res.status(400).json({ message: 'Faltan parámetros: startDate o endDate' });
+  }
+
+  try {
+    const citas = await Quote.getQuotesForReports(startDate, endDate);
+    res.status(200).json(citas);
+  } catch (error) {
+    console.error('🔴 Error al obtener citas para reportes:', error);
+    res.status(500).json({ message: 'Error al obtener citas para reportes' });
+  }
+};
+
+
